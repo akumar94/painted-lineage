@@ -23,7 +23,7 @@ export interface WorldAsset {
 export const WORLDS: Record<string, WorldAsset> = {
   // ── 8 primary walk worlds ──────────────────────────────────
   "le-cannet-studio": { spz: "/worlds/le-cannet-studio.spz", ready: true },
-  "carnegie-1924": { spz: "/worlds/carnegie-1924.spz", ready: false },
+  "carnegie-1924": { spz: "/worlds/carnegie-1924.spz", ready: true },
   "stockholm-1939": { spz: "/worlds/stockholm-1939.spz", ready: false },
   "met-impressionist-epoch-1974": {
     spz: "/worlds/met-impressionist-epoch-1974.spz",

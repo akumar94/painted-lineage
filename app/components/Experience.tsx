@@ -11,6 +11,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Context } from "../lib/contexts";
+import { CONTEXTS } from "../lib/contexts";
 import { worldSrc } from "../lib/worlds";
 import Splash from "./Splash";
 import AtlasGlobe from "./AtlasGlobe";
@@ -41,6 +42,19 @@ export default function Experience() {
     setPhase("atlas");
     // Let the fade run before tearing the splat down.
     window.setTimeout(() => setActiveWorld(null), 700);
+  }, []);
+
+  // Dev deep-link: #world=<context-id> jumps straight into a world, skipping
+  // the splash + globe-pin click. No hash = normal flow (production untouched).
+  // Used for per-world painting/audio calibration.
+  useEffect(() => {
+    const m = window.location.hash.match(/^#world=(.+)$/);
+    if (!m) return;
+    const ctx = CONTEXTS.find((c) => c.id === decodeURIComponent(m[1]));
+    if (!ctx) return;
+    setEntered(true);
+    setActiveWorld(ctx);
+    setPhase("world");
   }, []);
 
   // ESC leaves a world.
