@@ -19,11 +19,20 @@ is fully built (splat + 3 spatial sounds).** 10 worlds + the void remain.
 
 ## Strategy (settled)
 
-**Prompt all 10 ourselves** (don't feed the real photos raw — they drag in other
-art/visitors). Real photos are *styling reference only*. Feed the prompt straight
-to Marble (text→world) or alongside a reference image. **Marble does NOT take a
-negative prompt via our API client** — exclusions are folded into each positive
-("no people, no modern objects").
+**Pipeline (settled): Gemini image → Marble splat**, not text→Marble. Pure
+text→Marble gave Carnegie a cramped "cottage-cheese" vault; world #1 (the good one)
+used a reference image. So **Gemini paints the still image first** — you control
+scale, light, and deep perspective, and approve the cheap artifact before spending a
+splat — then upload *that image* to Marble (image→world). Feed Gemini the gallery
+description **plus `public/the-green-blouse.jpg`** as a reference so the real painting
+hangs on the wall (Gemini's reference-preserving edit, NOT a text description — that's
+how you avoid another photoreal fake).
+
+**Don't feed real install photos raw** (they drag in other art/visitors). **Marble
+takes no negative prompt** via our API client — exclusions fold into each positive
+("no people, no modern objects"). The prompts below now read as **Gemini image
+prompts**; for image→Marble the deep one-point recession is what keeps the splat
+walkable.
 
 **Shared spine (in every prompt):** eye-level · a clear floor receding to a
 door/window at the far end (this is what makes it walkable) · one coherent space ·
@@ -49,9 +58,13 @@ painting wall, facing *down the room* (the recession / the enfilade), so you arr
 looking into the space — not point-blank at the picture. Hand-set per world during
 calibration (alongside the painting plane).
 
-**Grey → color arc:** B&W for the institutional past (`carnegie-1924`,
-`wildenstein-1934`, `stockholm-1939`); the void its own grey; **color returns at
-`met-1974`** (the resurrection pivot) and stays color through the present.
+**Color arc — the void is the ONLY desaturated space.** Every world is full color;
+the institutional past is *not* grey (it never was — only the film was). The sole
+chromatic event is the silence: **color drains as you enter `the-silence` and floods
+back the instant you leave it** (void → `met-1974`). The "return of color" *is* the
+resurrection, landing at the void's exit — the one place that was a genuine absence.
+No room is ever colorless where color simply looks better. The painting, too, is
+color everywhere except inside the void (composited darkened/desaturated there).
 
 **Placards (load-bearing, 3 worlds):** image models garble text — render the
 placard prominent/high-contrast, and **composite the text in cleanly afterward**:
@@ -68,19 +81,19 @@ interior photo (modern intrusions edited out). The green blouse is *on the easel
 unfinished* — every later world hangs it finished.
 > Interior of Pierre Bonnard's home around 1920 — a small, intimate, sunlit room with a tiled floor of worn patterned cement tiles. Eye-level. Foreground: a round pedestal table draped in an embroidered white cutwork cloth, and a smaller white-draped side table. Thick old walls with deep window reveals. At left, a French door and a tall many-paned window stand open behind long sheer cream linen curtains, onto a luminous green garden — lawn, a fruit tree, a rose arbor and a path beyond the threshold, a clipped hedge, a faint hint of distant hills. Strong warm backlight floods in; the room interior sits in soft shade. At left, an unframed canvas on a wooden easel — wet and unfinished, the beginnings of a woman in a green blouse seated at a coffee table, loosely blocked in — with a palette and brushes on a stool beside it. On the right wall, a different framed Bonnard interior (a nude or a garden still life), warm-toned. Warm patterned wallpaper in faded ochre, rose and gold. Intimate, lived-in, Intimist. No people, no modern objects. One deep, coherent, walkable space — the eye drawn outward through the open door to the garden.
 
-### 2. `carnegie-1924` — B&W; first public show — ✅ splat generated & wired (`ready:true`)
-**Status:** kept (interior reads fine when you move around). Two caveats baked into
-*this* splat, both from before the empty-frame rule: (1) Marble painted a photoreal
-green-blouse fake on the wall — the composite plane will **cover** it (slot is clean,
-flat, head-on); (2) spawn lands nose-to-canvas — fix with a per-world spawn vantage.
-No regen needed. The prompt below is the empty-frame version for any future re-roll.
-> Black-and-white 1920s period photograph of a grand American museum painting gallery, skylit Beaux-Arts hall. Salon-style walls densely hung with gilt-framed paintings; polished floor; an enfilade of tall arched doorways receding into further rooms (eye-level, deep recession). On the main wall, a single empty framed canvas — a blank primed canvas in a plain gilt frame, with a small placard. Cavernous, formal, empty. Soft silver-gelatin grain. No people, no modern objects. One coherent walkable space.
+### 2. `carnegie-1924` — color; first public show — 🔄 regenerating (Gemini→Marble)
+**Status:** the first text→Marble splat was scrapped — cramped "cottage-cheese" vault,
+and the rich painting descriptor made Marble zoom into the canvas. Regenerating via
+**Gemini→Marble** in **full color** (the void is now the only desaturated world — see
+the arc above). Gemini image prompt below; **attach `public/the-green-blouse.jpg`** as
+the reference so the real painting hangs on the wall.
+> A grand American museum painting gallery, photographed in full color — the main exhibition hall of an early-20th-century Beaux-Arts art institute. A cavernous, formal interior: a high coffered ceiling with a large glass skylight overhead flooding the hall with soft, even daylight. Tall pale plaster walls hung salon-style with many gilt-framed paintings in neat rows. A wide, polished stone floor. The view looks straight down the room at eye level, with a long enfilade of tall arched doorways receding through several further galleries into the distance — strong, deep one-point perspective. The hall is empty and silent, monumental and dignified. On the main wall ahead, centered at eye level, hang the painting from the provided reference image: a tall portrait-format canvas in a simple gilt frame, with a small engraved placard beneath it — reproduce the reference painting faithfully. Warm natural color, soft daylight, sharp deep focus, fine photographic detail. No people, no modern objects, no electric fixtures, no signage. Wide landscape format.
 
-### 3. `wildenstein-1934` — B&W; transition; placard "THE CUP OF COFFEE"
-> Black-and-white 1930s photograph of a refined Manhattan private-gallery room in a limestone townhouse. Paneled walls, parquet floor, a doorway at the far end opening to the next room (eye-level, clear recession through the passage). On the end wall, spotlit, a single empty framed canvas — a blank primed canvas in a plain gilt frame, beneath a large, prominent engraved wall placard. Hushed, elegant. No people, no modern objects. One coherent walkable space.
+### 3. `wildenstein-1934` — color; transition; placard "THE CUP OF COFFEE"
+> Color photograph of a refined 1930s Manhattan private-gallery room in a limestone townhouse. Paneled walls, parquet floor, a doorway at the far end opening to the next room (eye-level, clear recession through the passage). On the end wall, spotlit, a single empty framed canvas — a blank primed canvas in a plain gilt frame, beneath a large, prominent engraved wall placard. Hushed, elegant. No people, no modern objects. One coherent walkable space.
 
-### 4. `stockholm-1939` — B&W; last show before the silence
-> Black-and-white 1939 photograph of a spare Stockholm modern-art gallery, restrained Nordic-functionalist interior. Plain pale walls, only a few framed French paintings, a wood floor, soft northern daylight from tall windows. The room empties toward a single far doorway/threshold at the end, which the view faces and recedes toward (eye-level, strong depth). On a side wall, a single empty framed canvas — a blank primed canvas in a plain gilt frame. Quiet, sparse, emptying. No people, no modern objects. One coherent walkable space.
+### 4. `stockholm-1939` — color; last show before the silence
+> Color photograph of a spare 1939 Stockholm modern-art gallery, restrained Nordic-functionalist interior. Plain pale walls, only a few framed French paintings, a wood floor, soft northern daylight from tall windows. The room empties toward a single far doorway/threshold at the end, which the view faces and recedes toward (eye-level, strong depth). On a side wall, a single empty framed canvas — a blank primed canvas in a plain gilt frame. Quiet, sparse, emptying. No people, no modern objects. One coherent walkable space.
 
 ### 5. `the-silence` — THE VOID; no ref image; Marble 1.1 **Plus** (5 cubes); never war
 The painting is **present but unshown** here — the reframe: in 1939–1974 it wasn't gone,
@@ -88,8 +101,8 @@ it hung on a private apartment wall, lived with, never publicly exhibited. Every
 world shows it lit + labeled; the void shows the same painting dim + unlabeled.
 > A vast, dissolving, fog-filled grey void; within it the faint, receding suggestion of a shuttered private Paris apartment — closed shutters, a single clock, dust suspended in still air. On one dim interior wall, barely lit and half-lost in the grey, a small empty framed canvas — a blank canvas in a plain frame — no placard, no label, hung as if simply lived with, not shown (the real scan, darkened, is composited in). The apartment dissolves into boundless formless emptiness. Silent, elegiac, domestic, withdrawn; no people, no windows to the outside world.
 
-### 6. `met-impressionist-epoch-1974` — COLOR pivot; the resurrection; missing label
-> Color photograph of a 1970s Metropolitan Museum painting gallery — warm walls, period track lighting, gilt-framed Impressionist paintings, parquet floor, the gallery receding into the next room (eye-level, deep recession). On the main wall, a single empty framed canvas — a blank primed canvas in a plain gilt frame — with a conspicuously BLANK, empty stretch of wall beside it where a label would be (no placard, no text). The first warm color after a grey passage. No people, no modern objects. One coherent walkable space.
+### 6. `met-impressionist-epoch-1974` — the resurrection (color floods back out of the void); missing label
+> Color photograph of a 1970s Metropolitan Museum painting gallery — warm walls, period track lighting, gilt-framed Impressionist paintings, parquet floor, the gallery receding into the next room (eye-level, deep recession). On the main wall, a single empty framed canvas — a blank primed canvas in a plain gilt frame — with a conspicuously BLANK, empty stretch of wall beside it where a label would be (no placard, no text). Color floods back here — the room you step into straight out of the void's grey; the resurrection. No people, no modern objects. One coherent walkable space.
 
 ### 7. `bordeaux-1981` — color; transition; placard "LE CORSAGE VERT"
 > Color photograph of a 1980s French municipal exhibition hall (Bordeaux): a long barrel-vaulted nave, tall plain walls hung with paintings, an 18th-century stone staircase with a wrought-iron rail to one side, stone floor, daylight, the view running down the long room (eye-level, strong recession). On the main wall, a single empty framed canvas — a blank primed canvas in a plain gilt frame, beneath a clear wall placard. Light, airy, passing-through. No people, no modern objects beyond the room itself. One coherent walkable space.
