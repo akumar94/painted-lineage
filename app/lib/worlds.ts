@@ -50,3 +50,26 @@ export function worldSrc(id: string): string | null {
   const w = WORLDS[id];
   return w && w.ready ? w.spz : null;
 }
+
+/**
+ * Per-world spawn: where the camera starts (and optional yaw, radians, 0 = look
+ * down −Z). Set per world so we arrive at a good vantage — not stuck at the room
+ * origin. Independent of the painting placement (that's absolute world space).
+ * A world with no entry spawns at the default below.
+ */
+export interface WorldSpawn {
+  position: [number, number, number];
+  yaw?: number;
+}
+
+export const DEFAULT_SPAWN: WorldSpawn = { position: [0, 1.6, 0] };
+
+export const WORLD_SPAWN: Record<string, WorldSpawn> = {
+  // Start halfway down the hall toward the painting (pier at z≈-17.5), looking
+  // down the enfilade at the Green Blouse.
+  "carnegie-1924": { position: [0, 1.6, -8.5] },
+};
+
+export function worldSpawn(id: string | undefined): WorldSpawn {
+  return (id && WORLD_SPAWN[id]) || DEFAULT_SPAWN;
+}

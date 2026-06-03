@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { initWorldAudio } from "../lib/worldaudio";
 import { initWorldPainting } from "../lib/worldpainting";
+import { worldSpawn } from "../lib/worlds";
 
 export default function WorldViewer({
   spzUrl,
@@ -37,14 +38,19 @@ export default function WorldViewer({
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-      // Start at eye level so we're not stuck in the floor
-      camera.position.set(0, 1.6, 0);
+      // Per-world spawn (eye level, a good vantage) — set BEFORE controls so
+      // SparkControls inherits it as the starting pose.
+      const spawn = worldSpawn(worldId);
+      camera.position.set(...spawn.position);
+      if (spawn.yaw) camera.rotation.y = spawn.yaw;
       const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(width, height);
       renderer.setPixelRatio(window.devicePixelRatio);
       container!.appendChild(renderer.domElement);
 
       const controls = new SparkControls({ canvas: renderer.domElement });
+      // Default moveSpeed (1) crawls at this world scale — quicken the walk.
+      controls.fpsMovement.moveSpeed = 3.2;
 
       try {
         const splat = new SplatMesh({ url: spzUrl });

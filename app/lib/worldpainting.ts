@@ -50,9 +50,9 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
   // central pier sits at z≈-17.75; the plane rides ~0.55m in front so the
   // splat's white-canvas gaussians don't occlude it. Opening ≈1.6m tall.
   "carnegie-1924": {
-    position: [0, 1.51, -17.2],
+    position: [0, 1.47, -17.2],
     rotation: [0, 0, 0], // faces +Z, down the hall toward the spawn
-    height: 1.55,
+    height: 1.82, // fills the gold opening with an even thin gold reveal around
   },
 };
 

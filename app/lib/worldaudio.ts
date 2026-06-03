@@ -78,41 +78,42 @@ export const WORLD_AUDIO: Record<string, AudioSource[]> = {
 
   // Carnegie 1924 — the first PUBLIC show. "No people" is visual; the public is
   // sound, and it lives NEXT DOOR: the murmur comes from the galleries beyond the
-  // far arches, never from this room. Positions are provisional — tune by ear once
-  // the new (Gemini→Marble) splat is loaded. Spawn looks down the room (−Z = the
-  // enfilade), painting on the far wall ahead.
+  // far arches, never from this room. Positioned at the real splat scale — the
+  // hall runs ~18m down −Z, the painting/pier at z≈-17, the far arches beyond it.
+  // Spawn is mid-hall (z≈-8.5) looking down the enfilade.
   "carnegie-1924": [
-    // The dead air of this large stone hall — a low reverberant wash, everywhere.
+    // The hall's air — a wide, high bed that fills the whole room.
     {
       id: "room",
       url: "/worlds/audio/carnegie/bed.mp3",
-      position: [0, 3, -4],
-      volume: 0.42,
-      refDistance: 7,
-      rolloff: 0.5,
+      position: [0, 4, -11],
+      volume: 0.6,
+      refDistance: 12,
+      rolloff: 0.35,
       mode: "loop",
     },
-    // Distant gallery murmur — the populated rooms beyond the far arches. Low,
-    // muffled, localized down the enfilade so it reads as "next door," not in-room.
+    // Distant gallery murmur — the populated galleries BEYOND the pier, heard
+    // down the enfilade through the far arches. Localized deep ahead so it reads
+    // as "next door," and gets louder as you walk toward the far end.
     {
       id: "murmur",
       url: "/worlds/audio/carnegie/murmur.mp3",
-      position: [2.5, 1.6, -9],
-      volume: 0.34,
-      refDistance: 5,
-      rolloff: 1.0,
+      position: [0, 1.6, -21],
+      volume: 0.5,
+      refDistance: 8,
+      rolloff: 0.7,
       mode: "loop",
     },
-    // One visitor crossing a far doorway — echoing footfalls on the hard floor.
+    // One visitor crossing the hard floor near the pier — echoing footfalls.
     {
       id: "footsteps",
       url: "/worlds/audio/carnegie/footsteps.mp3",
-      position: [-4, 0.2, -6],
-      volume: 0.5,
-      refDistance: 2.5,
-      rolloff: 1.8,
+      position: [3.5, 0.1, -14],
+      volume: 0.55,
+      refDistance: 4,
+      rolloff: 1.4,
       mode: "intermittent",
-      every: [8, 18],
+      every: [7, 16],
       window: [1.5, 3.5],
       gain: [0.6, 1.0],
     },
