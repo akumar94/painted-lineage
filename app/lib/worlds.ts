@@ -65,9 +65,9 @@ export interface WorldSpawn {
 export const DEFAULT_SPAWN: WorldSpawn = { position: [0, 1.6, 0] };
 
 export const WORLD_SPAWN: Record<string, WorldSpawn> = {
-  // Start halfway down the hall toward the painting (pier at z≈-17.5), looking
-  // down the enfilade at the Green Blouse.
-  "carnegie-1924": { position: [0, 1.6, -8.5] },
+  // v2 grand hall: spawn back at the entrance end so the whole skylit room reads,
+  // the painting (far wall, z≈-16.4) the focal point down the room.
+  "carnegie-1924": { position: [0, 1.6, -5] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {
