@@ -45,7 +45,16 @@ export interface PaintingPlacement {
  * The void carries it too — dim and unlabeled — but as a domestic object, not a
  * hung exhibit (see docs/WORLD_GEN.md §5).
  */
-export const WORLD_PAINTING: Record<string, PaintingPlacement> = {};
+export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
+  // Calibrated against the Gemini→Marble splat: the empty gold frame on the
+  // central pier sits at z≈-17.75; the plane rides ~0.55m in front so the
+  // splat's white-canvas gaussians don't occlude it. Opening ≈1.6m tall.
+  "carnegie-1924": {
+    position: [0, 1.51, -17.2],
+    rotation: [0, 0, 0], // faces +Z, down the hall toward the spawn
+    height: 1.55,
+  },
+};
 
 /**
  * Composite a world's real painting into an existing Three scene.

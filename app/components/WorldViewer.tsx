@@ -62,6 +62,17 @@ export default function WorldViewer({
       // The real painting, composited onto the wall (no-op until calibrated).
       const cleanupPainting = initWorldPainting(scene, worldId);
 
+      // Dev calibration handle — only when entered via the #world= deep-link.
+      // Exposes camera/scene/THREE so painting/spawn placement can be measured
+      // and previewed live from the console. Never set in the normal flow.
+      if (window.location.hash.startsWith("#world=")) {
+        (window as unknown as { __pl?: unknown }).__pl = {
+          camera,
+          scene,
+          THREE,
+        };
+      }
+
       renderer.setAnimationLoop(() => {
         if (disposed) return;
         controls.update(camera);
