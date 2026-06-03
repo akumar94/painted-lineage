@@ -2,7 +2,7 @@
 
 Painted Lineage is the third work in the Painted trilogy. It takes a single
 painting, Pierre Bonnard's *The Green Blouse* (*La Blouse verte / La Tasse de
-café*, 1919–20, the Metropolitan Museum of Art), and renders its provenance as
+café*, 1919, the Metropolitan Museum of Art), and renders its provenance as
 traversable space.
 
 The work begins from a disagreement with how provenance is recorded. A

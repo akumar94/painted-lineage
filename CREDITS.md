@@ -8,7 +8,7 @@ Asset attributions for Painted Lineage.
   time; the public-domain `land_shallow_topo_2048` is lower-res with polar ice).
 - **Country borders:** Natural Earth, public domain (no attribution required).
 - **Splash painting:** Wikimedia Commons open-access scan of Bonnard's *The Green
-  Blouse* (*La Blouse verte / La Tasse de café*, 1919–20), public domain.
+  Blouse* (*La Blouse verte / La Tasse de café*, 1919), public domain.
 
 ## World audio
 

@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "The Green Blouse — Painted Lineage",
   description:
-    "A spatial provenance of Pierre Bonnard's The Green Blouse (1919–20): 31 venues, 12 countries, one 35-year silence.",
+    "A spatial provenance of Pierre Bonnard's The Green Blouse (1919): 31 venues, 12 countries, one 35-year silence.",
 };
 
 export default function RootLayout({

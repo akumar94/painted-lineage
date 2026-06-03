@@ -12,7 +12,7 @@ import { useState } from "react";
 
 // Locked copy (see brief).
 const TITLE = "The Green Blouse";
-const META = "PIERRE BONNARD · 1919–20";
+const META = "PIERRE BONNARD · 1919";
 const SPLASH_CTA = "Follow the painting";
 // Drop the Met open-access image here; a framed placeholder shows until then.
 const PAINTING_SRC = "/the-green-blouse.jpg";
@@ -28,7 +28,7 @@ export default function Splash({ onEnter }: { onEnter: () => void }) {
           <img
             className="splash-painting"
             src={PAINTING_SRC}
-            alt="Pierre Bonnard, The Green Blouse (1919–20)"
+            alt="Pierre Bonnard, The Green Blouse (1919)"
             onError={() => setImgOk(false)}
           />
         ) : (

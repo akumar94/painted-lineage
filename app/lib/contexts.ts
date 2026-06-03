@@ -7,7 +7,7 @@
  * only `enterable` contexts stream a splat world.
  *
  * The Green Blouse (La Blouse verte / La Tasse de café)
- * Pierre Bonnard, 1919-20. The Metropolitan Museum of Art.
+ * Pierre Bonnard, 1919. The Metropolitan Museum of Art.
  */
 
 export type Tier = "primary" | "transition" | "atlas";
@@ -45,7 +45,7 @@ export const CONTEXTS: Context[] = [
   {
     id: "le-cannet-studio",
     year: 1919,
-    dateLabel: "1919–20",
+    dateLabel: "1919",
     venue: "Le Bosquet (the artist's studio)",
     city: "Le Cannet",
     country: "France",
