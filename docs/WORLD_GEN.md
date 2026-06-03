@@ -1,8 +1,65 @@
 # Painted Lineage — World & Sound build sheet
 
 The single source for generating the 11 enterable worlds and scoring them.
-Front end is **done**; this is the asset phase. **World #1 (`le-cannet-studio`)
-is fully built (splat + 3 spatial sounds).** 10 worlds + the void remain.
+Front end is **done**; this is the asset phase. **Worlds #1 (`le-cannet-studio`)
+and #2 (`carnegie-1924`) are fully built.** 9 worlds + the void remain.
+
+## Hard-won learnings (build these into every world)
+
+**Pipeline: Gemini image → Marble splat.** Text→Marble gives cottage-cheese; the
+Gemini still is your control + cheap approval gate. Generate **wide/landscape with
+deep one-point perspective** (receding doorways/floor) — that recession is what makes
+the splat *walkable*; if it looks flat, re-roll the image BEFORE splatting. Strip
+Gemini's ✦ watermark (bottom-right) first — patch it with floor texture (PIL, sample
+from the left at the same rows, feather).
+
+**THE FRAME IS THE TRAP. Marble reshapes the frame to fit whatever painting it
+hallucinates inside it** — it squared a portrait frame to fit a landscape abstract,
+and a portrait painting can't fill a square frame without an ugly compromise (mat
+whitespace / a crop that kills the signature / a flat wall-patch). So:
+- Prompt Gemini for a **tall PORTRAIT empty frame** matching the Green Blouse aspect
+  **0.685 (428×625)**. Empty frame, no baked painting (Marble mangles baked paintings
+  AND a baked landscape pulls the frame wide).
+- **The instant a splat lands, sanity-check the frame's aspect BEFORE any calibration.**
+  A wrong-aspect frame cannot be fixed in post — re-roll the image. This one check
+  would have saved the entire Carnegie-v2 detour.
+
+**The painting overlay (works great):** overlay the real `/the-green-blouse.jpg` as a
+flat plane (`WORLD_PAINTING`, keyed by id) covering Marble's junk canvas. Plane rides
+~0.5m IN FRONT of the frame surface — closer and the splat's canvas gaussians wash it
+out; the 0.5m float is invisible head-on (accept it). Calibrate the frame DEPTH by
+**translate-only two-point triangulation** (move camera straight on −Z at two z's,
+measure frame px-height, solve) — do NOT trust oblique views: SparkControls clobbers
+`camera.rotation`, so after any `lookAt` the "straight-on" is secretly yawed. Reload
+for a clean −Z camera; only translate during calibration. **Load-gate** the plane on
+`splat.initialized` so it doesn't float in blur before the room streams in.
+
+**The placard (works great, same trick):** small composited plaque overlaid below the
+painting — render the venue's title in code (PIL) so it's crisp (image models garble
+text). This is the renaming motif (per-world title) and the load-bearing labels
+(Wildenstein "THE CUP OF COFFEE", Bordeaux "LE CORSAGE VERT", Met-74 = missing).
+
+**Carve+overlay a frame ourselves: DON'T** (tried, abandoned). SplatEdit BOX
+`opacity:0` does delete splats, but carving the frame reveals behind-wall garbage, a
+flat wall-color patch can't match the wall's lit gradient, and PIL-drawn frames look
+amateur next to real ones. Rely on the splat's own (correctly-shaped) frame.
+
+**Spawn + controls:** per-world `WORLD_SPAWN` (set BEFORE SparkControls, which inherits
+the pose). Don't spawn nose-to-canvas — start back so the hall reads, painting as the
+focal point. **Walk speed 3.2** (`fpsMovement.moveSpeed`), global default. Dev tools:
+`#world=<id>` deep-link + `window.__pl` {camera,scene,THREE} handle, both gated to the
+hash.
+
+**Audio:** 2–3 mono HRTF point sources, ffmpeg-cleaned. **Don't over-muffle** (low
+lowpass = mud) — keep highs, let HRTF + distance spatialize. Position at the REAL splat
+scale (halls are ~16–18m deep). "Crowds are sound": the murmur lives NEXT DOOR (deep at
+the far arches), never in-room. CC0 preferred (Freesound preview mp3s are scrapable from
+the page CDN, no API key); CC-BY needs a CREDITS.md line. Can't audition headless — tune
+by ear in a real browser.
+
+**Process:** image gen is cheap, splatting costs credits — iterate the 2D image first.
+Back up the current splat before swapping. And don't tunnel on "can we technically do
+it" — keep asking if the RESULT actually looks good (the carve "worked" and looked bad).
 
 ## Wiring a finished world (drop-in, no code)
 
