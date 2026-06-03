@@ -54,6 +54,18 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     rotation: [0, 0, 0], // faces +Z, down the hall toward the spawn
     height: 1.82, // fills the gold opening with an even thin gold reveal around
   },
+  // Wildenstein's gold portrait frame: triangulated (two straight-on −Z views)
+  // to a ~1.0×1.55m opening (aspect 0.649) centered at world (−0.045, ~1.09,
+  // −11.9) — the townhouse hall is huge, the frame ~12m down. The opening's
+  // 0.649 aspect is NARROWER than the painting's 0.685, so even gilt reveal on
+  // all four sides is impossible without distorting the scan (never do that).
+  // Instead height fills the opening so the canvas slightly over-covers the
+  // gilt lip uniformly (no white gaps); centered on both axes. Plane 0.5m front.
+  "wildenstein-1934": {
+    position: [-0.045, 1.088, -11.4],
+    rotation: [0, 0, 0], // faces +Z toward the spawn
+    height: 1.47,
+  },
 };
 
 /**

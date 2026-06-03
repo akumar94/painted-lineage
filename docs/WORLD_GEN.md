@@ -34,10 +34,18 @@ measure frame px-height, solve) — do NOT trust oblique views: SparkControls cl
 for a clean −Z camera; only translate during calibration. **Load-gate** the plane on
 `splat.initialized` so it doesn't float in blur before the room streams in.
 
-**The placard (works great, same trick):** small composited plaque overlaid below the
-painting — render the venue's title in code (PIL) so it's crisp (image models garble
-text). This is the renaming motif (per-world title) and the load-bearing labels
+**The placard (BUILT — same trick as the painting).** Small composited plaque overlaid
+below the painting — the venue's title rendered in code so it's crisp (image models
+garble text). This is the renaming motif (per-world title) and the load-bearing labels
 (Wildenstein "THE CUP OF COFFEE", Bordeaux "LE CORSAGE VERT", Met-74 = missing).
+- `scripts/make_placard.py` (PIL/Palatino, the project serif) → `public/placards/<id>.png`.
+  Museum wall-label card: ivory ground, gilt keyline, title prominent + artist/dates
+  beneath. Data-driven `PLACARDS` dict already holds all 3 label worlds; `blank:True`
+  renders Met-74's empty card. **`wildenstein-1934.png` is rendered.**
+- `app/lib/worldplacard.ts` (`WORLD_PLACARD`, keyed by id) mirrors `worldpainting.ts`:
+  flat transparent plane, load-gated on `splat.initialized`, wired into `WorldViewer`.
+  `WORLD_PLACARD` is empty — fill the per-world placement during calibration (template
+  in-file), sitting the card just below + in front of the frame.
 
 **Carve+overlay a frame ourselves: DON'T** (tried, abandoned). SplatEdit BOX
 `opacity:0` does delete splats, but carving the frame reveals behind-wall garbage, a
@@ -149,7 +157,24 @@ superimposed at runtime (`WORLD_PAINTING` plane). **No painting reference fed to
 Gemini.** Color Gemini prompt below.
 > A grand Beaux-Arts museum painting gallery — a contemporary color photograph in vivid, natural color. NOT black-and-white, not sepia, not a vintage or antique photograph; no photographic border, no vignette, no watermark — the image fills the frame edge to edge. A cavernous, formal exhibition hall: a high coffered ceiling with a large glass skylight overhead flooding the hall with soft, even daylight. Tall pale plaster walls hung salon-style with rows of gilt-framed paintings. A wide, polished stone floor. The view looks straight down the room at eye level, with a long enfilade of tall arched doorways receding through several further galleries into the distance — strong, deep one-point perspective. The hall is empty and silent, monumental and dignified. On the far end wall ahead, centered at eye level, a single prominent EMPTY framed canvas — a blank, primed off-white canvas in a simple gilt frame, hung flat against the wall (not freestanding, not on a stand or easel), slightly larger than the surrounding paintings, with a small engraved placard beneath it. The canvas is blank — no picture or image on it. Warm, natural color, soft daylight, sharp deep focus, fine photographic detail. No people, no modern objects, no electric fixtures, no signage. Wide landscape format.
 
-### 3. `wildenstein-1934` — color; transition; placard "THE CUP OF COFFEE"
+### 3. `wildenstein-1934` — ✅ DONE (visual); color; transition; placard "THE CUP OF COFFEE"
+**Status:** Gemini→Marble (re-roll for depth — central pier + flanking doorways, dark
+walnut). Splat dropped, `ready:true`. Massive townhouse hall — frame ~9.5m down −Z.
+Calibrated: `WORLD_PAINTING` [−0.045,1.088,−11.4] h1.47 · `WORLD_PLACARD`
+[−0.045,0.18,−11.35] h0.13 · `WORLD_SPAWN` [0,1.6,−3]. **Audio still TODO** (batch).
+**Aspect-mismatch lesson:** the splat opening is 0.649 (1.0×1.55m) but the scan is
+0.685 — even gilt reveal on all 4 sides is IMPOSSIBLE without distorting the artwork
+(never do that). Fix = size the plane to **fill/slightly over-cover** the opening (no
+white gaps; canvas edge rides the gilt lip uniformly) and center on both axes, rather
+than fit-to-width (which leaves a white band top/bottom). Bias toward over-cover.
+Source still: `Splats/Refs/wildenstein_clean.png`. Original Gemini prompt below.
+**Two calibration lessons (re-fixed this session):** (1) the frame was ~12m down,
+not ~9.5 — a spawn-only depth guess put the plane 2.4m in FRONT of the frame, so it
+looked oversized/overflowing. **Triangulate depth from two straight-on −Z views
+(measure opening px-height at two camera z's, solve) — don't eyeball depth from one
+view.** (2) Placard restyled from a stark ivory CARD to an **engraved brass nameplate**
+(`make_placard.py` rewritten, now 660×220 ~3:1, `PLACARD_ASPECT` updated) so it blends
+with the walnut/gilt instead of fighting the splat's own baked brass plate.
 > Color photograph of a refined 1930s Manhattan private-gallery room in a limestone townhouse. Paneled walls, parquet floor, a doorway at the far end opening to the next room (eye-level, clear recession through the passage). On the end wall, spotlit, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright, beneath a large, prominent engraved wall placard. Hushed, elegant. No people, no modern objects. One coherent walkable space.
 
 ### 4. `stockholm-1939` — color; last show before the silence
@@ -230,6 +255,24 @@ empty frame**; (2) **before splatting**, confirm the still has deep perspective 
 a portrait frame; (3) strip the ✦ watermark; (4) splat in Marble; (5) drop
 `public/worlds/wildenstein-1934.spz`, flip `ready:true`; (6) **first check the
 splat's frame aspect is portrait** — re-roll if not; (7) calibrate `WORLD_PAINTING`
-+ `WORLD_SPAWN` + `WORLD_AUDIO`; (8) build the `WORLD_PLACARD` plane (PIL-rendered
-"THE CUP OF COFFEE", overlaid below the frame) — new but easy, template for the
-rest. The new session auto-loads project memory; this doc has everything else.
++ `WORLD_SPAWN` + `WORLD_PLACARD` + `WORLD_AUDIO`.
+
+**Placard system is BUILT** — `scripts/make_placard.py`, `app/lib/worldplacard.ts`, wired
+into `WorldViewer`; `public/placards/wildenstein-1934.png` ("THE CUP OF COFFEE") rendered.
+
+**Worlds #1 #2 #3 are visually DONE.** #1 #2 also have audio; #3's audio is TODO.
+
+**STRATEGY (settled w/ user 2026-06-03): splat + calibrate ALL remaining worlds first,
+THEN do audio as one arc-aware batch** (the sonic arc full→thinning→void→return→fullest
+is only tunable by A/B-ing adjacent rooms; audio is downstream of splats anyway since
+positions need real splat scale; and it batches the crawl/ffmpeg/by-ear-tune toolchain).
+Pipeline the Marble jobs (calibrate landed ones while others generate). Do the audio batch
+across 2–3 sittings by arc segment, not one marathon.
+
+**Resume next: world #4 `stockholm-1939`** (visual). Same loop: Gemini image (§4, TALL
+PORTRAIT empty frame) → confirm depth+portrait frame → strip ✦ → Marble 1.1 → drop spz +
+`ready:true` → frame-aspect check → calibrate `WORLD_PAINTING`/`WORLD_SPAWN` (no placard
+for #4). **Calibration recipe that worked for #3:** deep-link `#world=<id>`, add a live
+test plane via `window.__pl` {camera,scene,THREE}, drive `camera.position` directly (set
+spawn first; SparkControls only clobbers rotation, not position, so translate-only works),
+nudge the plane to fit, then write values to config + reload via real code path to verify.

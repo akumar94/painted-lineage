@@ -41,7 +41,7 @@ export const WORLDS: Record<string, WorldAsset> = {
   "the-silence": { spz: "/worlds/the-silence.spz", ready: false },
 
   // ── 2 transition rooms (placard must be legible) ───────────
-  "wildenstein-1934": { spz: "/worlds/wildenstein-1934.spz", ready: false },
+  "wildenstein-1934": { spz: "/worlds/wildenstein-1934.spz", ready: true },
   "bordeaux-1981": { spz: "/worlds/bordeaux-1981.spz", ready: false },
 };
 
@@ -68,6 +68,9 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // Start halfway down the hall toward the painting (pier at z≈-17.5), looking
   // down the enfilade at the Green Blouse.
   "carnegie-1924": { position: [0, 1.6, -8.5] },
+  // A few meters in from the origin — keeps the grand symmetric hall while
+  // giving the canvas presence (the frame is ~9.5m further down −Z).
+  "wildenstein-1934": { position: [0, 1.6, -3] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {

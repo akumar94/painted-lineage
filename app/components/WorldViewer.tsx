@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { initWorldAudio } from "../lib/worldaudio";
 import { initWorldPainting } from "../lib/worldpainting";
+import { initWorldPlacard } from "../lib/worldplacard";
 import { worldSpawn } from "../lib/worlds";
 
 export default function WorldViewer({
@@ -71,6 +72,10 @@ export default function WorldViewer({
       // Held hidden until the splat is ready so it doesn't float in blur first.
       const cleanupPainting = initWorldPainting(scene, worldId, splatReady);
 
+      // The wall placard — the renaming label, composited just below the
+      // painting (no-op until calibrated). Same load-gating as the painting.
+      const cleanupPlacard = initWorldPlacard(scene, worldId, splatReady);
+
       // Dev calibration handle — only when entered via the #world= deep-link.
       // Exposes camera/scene/THREE so painting/spawn placement can be measured
       // and previewed live from the console. Never set in the normal flow.
@@ -101,6 +106,7 @@ export default function WorldViewer({
         disposed = true;
         cleanupAudio();
         cleanupPainting();
+        cleanupPlacard();
         window.removeEventListener("resize", handleResize);
         renderer.setAnimationLoop(null);
         renderer.dispose();
