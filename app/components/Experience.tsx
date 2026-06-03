@@ -82,6 +82,7 @@ export default function Experience() {
           <WorldViewer
             spzUrl={worldUrl}
             audioId={activeWorld.id}
+            worldId={activeWorld.id}
             onExit={exitWorld}
           />
           <WorldChrome context={activeWorld} onExit={exitWorld} />

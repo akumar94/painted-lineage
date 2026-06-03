@@ -3,14 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { initWorldAudio } from "../lib/worldaudio";
+import { initWorldPainting } from "../lib/worldpainting";
 
 export default function WorldViewer({
   spzUrl,
   audioId,
+  worldId,
   onExit,
 }: {
   spzUrl: string;
   audioId?: string;
+  worldId?: string;
   onExit?: () => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,6 +59,9 @@ export default function WorldViewer({
       // Spatial audio (HRTF) for this world — bed + intermittent gestures.
       const cleanupAudio = initWorldAudio(scene, camera, audioId);
 
+      // The real painting, composited onto the wall (no-op until calibrated).
+      const cleanupPainting = initWorldPainting(scene, worldId);
+
       renderer.setAnimationLoop(() => {
         if (disposed) return;
         controls.update(camera);
@@ -74,6 +80,7 @@ export default function WorldViewer({
       return () => {
         disposed = true;
         cleanupAudio();
+        cleanupPainting();
         window.removeEventListener("resize", handleResize);
         renderer.setAnimationLoop(null);
         renderer.dispose();
@@ -89,7 +96,7 @@ export default function WorldViewer({
       disposed = true;
       cleanupPromise.then((cleanup) => cleanup?.());
     };
-  }, [spzUrl, audioId]);
+  }, [spzUrl, audioId, worldId]);
 
   return (
     <div ref={containerRef} className="h-full w-full relative">
