@@ -66,10 +66,11 @@ renamed by the rooms that showed it, and the globe keeps every name.
 Two rendering modes share one Three.js application. The globe is a map and the
 worlds are places, and the two are made of different materials. The globe is
 ordinary geometry: a textured Earth, gold borders, the pins and the path
-generated from a single data model of the thirty-one exhibitions. Editing a
-coordinate in that model moves a pin on the globe. The worlds are Gaussian-splat
-environments streamed one at a time through Spark, reached only by clicking a
-pin that opens.
+generated from a single data model of the thirty-one exhibitions. That model,
+`app/lib/contexts.ts`, is the single source of truth for the whole work, the
+globe and the walk both; editing a coordinate in it moves a pin on the globe.
+The worlds are Gaussian-splat environments streamed one at a time through Spark,
+reached only by clicking a pin that opens.
 
 Painted Worlds is the architectural base: the application shell, the splat
 viewer, and the Marble world-generation client come from it. Painted Time is
@@ -89,9 +90,4 @@ npm run dev   # http://localhost:3000
 World generation through the Marble API is optional and configured with a
 `WORLDLABS_API_KEY` in `.env.local`.
 
-### Asset credits
-
-- Earth texture: Solar System Scope, CC BY 4.0.
-- Country borders: Natural Earth, public domain.
-- Painting: Wikimedia Commons open-access scan of Bonnard's *The Green Blouse*,
-  public domain.
+Asset attributions live in [CREDITS.md](CREDITS.md).
