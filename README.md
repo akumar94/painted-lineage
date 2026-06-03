@@ -12,8 +12,9 @@ it is chronological, and those are the two things it gets right. What it cannot
 carry is everything that made the history physical. It flattens geography, so a
 crate shipped across the Atlantic and a painting moved between two rooms read as
 the same kind of line. And it renders absence as blank space, so the single most
-consequential fact in this painting's life, the thirty-five years it was never
-exhibited at all, appears as nothing more than a gap between two dates.
+consequential fact in this painting's life, the thirty-five years it spent
+outside the exhibition record entirely, appears as nothing more than a gap
+between two dates.
 
 Painted Lineage treats the list as a lossy compression and the spatial work as
 the decompression. Provenance is chronological, but it was also traveled, and it
@@ -22,9 +23,10 @@ geography lives in where the pins sit, and weight lives in how the path moves
 between them and where it refuses to move at all.
 
 The painting traveled to thirty-one exhibitions across twelve countries between
-1924 and 2025. Between 1939 and 1974 it traveled nowhere. It passed through the
-Bernheim de Villers collection and was sold to the Metropolitan through the
-dealer Sam Salz in 1963, and for thirty-five years it was not shown. On the
+1924 and 2025. Between 1939 and 1974 it appeared in none of them. It passed
+quietly through the Bernheim de Villers collection and was sold to the
+Metropolitan through the dealer Sam Salz in 1963, but for thirty-five years it
+was never publicly shown. On the
 globe this is the one stretch where the path stops moving: every other era hops
 between cities every few years, and the silence is the segment where the line
 holds at a single point in Paris and goes still. The stillness is rendered

@@ -30,7 +30,7 @@ door/window at the far end (this is what makes it walkable) · one coherent spac
 **no people** (crowds are *sound*) · no anachronistic objects · through-line
 painting = *"a framed painting of a woman in a green blouse seated at a small table
 with a coffee cup"* on a wall — EXCEPT the studio (on the easel, unfinished) and
-the void (absent).
+the void (present but unshown — dim, unlabeled, on the private apartment wall).
 
 **Grey → color arc:** B&W for the institutional past (`carnegie-1924`,
 `wildenstein-1934`, `stockholm-1939`); the void its own grey; **color returns at
@@ -60,8 +60,11 @@ unfinished* — every later world hangs it finished.
 ### 4. `stockholm-1939` — B&W; last show before the silence
 > Black-and-white 1939 photograph of a spare Stockholm modern-art gallery, restrained Nordic-functionalist interior. Plain pale walls, only a few framed French paintings, a wood floor, soft northern daylight from tall windows. The room empties toward a single far doorway/threshold at the end, which the view faces and recedes toward (eye-level, strong depth). On a side wall, a framed painting of a woman in a green blouse at a coffee table. Quiet, sparse, emptying. No people, no modern objects. One coherent walkable space.
 
-### 5. `the-silence` — THE VOID; no image; Marble 1.1 **Plus** (5 cubes); never war
-> A vast, dissolving, fog-filled void; the faint, receding suggestion of a shuttered private Paris apartment — closed shutters, a single clock, dust in still air — fading into boundless grey emptiness; silent, elegiac, domestic, withdrawn; endless formless space; no people, no windows to the outside world.
+### 5. `the-silence` — THE VOID; no ref image; Marble 1.1 **Plus** (5 cubes); never war
+The painting is **present but unshown** here — the reframe: in 1939–1974 it wasn't gone,
+it hung on a private apartment wall, lived with, never publicly exhibited. Every public
+world shows it lit + labeled; the void shows the same painting dim + unlabeled.
+> A vast, dissolving, fog-filled grey void; within it the faint, receding suggestion of a shuttered private Paris apartment — closed shutters, a single clock, dust suspended in still air. On one dim interior wall, barely lit and half-lost in the grey, a small framed painting of a woman in a green blouse seated at a small table with a coffee cup — no placard, no label, hung as if simply lived with, not shown. The apartment dissolves into boundless formless emptiness. Silent, elegiac, domestic, withdrawn; no people, no windows to the outside world.
 
 ### 6. `met-impressionist-epoch-1974` — COLOR pivot; the resurrection; missing label
 > Color photograph of a 1970s Metropolitan Museum painting gallery — warm walls, period track lighting, gilt-framed Impressionist paintings, parquet floor, the gallery receding into the next room (eye-level, deep recession). On the main wall, a framed painting of a woman in a green blouse at a coffee table — with a conspicuously BLANK, empty stretch of wall beside it where a label would be (no placard, no text). The first warm color after a grey passage. No people, no modern objects. One coherent walkable space.
