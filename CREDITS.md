@@ -9,3 +9,16 @@ Asset attributions for Painted Lineage.
 - **Country borders:** Natural Earth, public domain (no attribution required).
 - **Splash painting:** Wikimedia Commons open-access scan of Bonnard's *The Green
   Blouse* (*La Blouse verte / La Tasse de café*, 1919–20), public domain.
+
+## World audio
+
+Spatial sounds per world (cleaned/filtered for HRTF point sources). Freesound IDs.
+
+**`carnegie-1924`**
+- Gallery murmur — "s museum" by **cmusounddesign**, [Freesound #89067](https://freesound.org/people/cmusounddesign/sounds/89067/), **CC BY 4.0** (attribution required).
+- Hall ambience bed — "Museum Ambience" by gravity_proof, [Freesound #569166](https://freesound.org/people/gravity_proof/sounds/569166/), CC0 (no attribution required).
+- Footsteps — "Echoing footsteps down hallway" by theshuggie, [Freesound #371014](https://freesound.org/people/theshuggie/sounds/371014/), CC0 (no attribution required).
+
+**`le-cannet-studio`**
+- Garden bed — Wikimedia Commons "Gentle breeze and birds singing", public domain.
+- Brush / turpentine-jar foley — Freesound, CC0 (no attribution required).

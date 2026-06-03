@@ -75,6 +75,48 @@ export const WORLD_AUDIO: Record<string, AudioSource[]> = {
       gain: [0.8, 1.0],
     },
   ],
+
+  // Carnegie 1924 — the first PUBLIC show. "No people" is visual; the public is
+  // sound, and it lives NEXT DOOR: the murmur comes from the galleries beyond the
+  // far arches, never from this room. Positions are provisional — tune by ear once
+  // the new (Gemini→Marble) splat is loaded. Spawn looks down the room (−Z = the
+  // enfilade), painting on the far wall ahead.
+  "carnegie-1924": [
+    // The dead air of this large stone hall — a low reverberant wash, everywhere.
+    {
+      id: "room",
+      url: "/worlds/audio/carnegie/bed.mp3",
+      position: [0, 3, -4],
+      volume: 0.42,
+      refDistance: 7,
+      rolloff: 0.5,
+      mode: "loop",
+    },
+    // Distant gallery murmur — the populated rooms beyond the far arches. Low,
+    // muffled, localized down the enfilade so it reads as "next door," not in-room.
+    {
+      id: "murmur",
+      url: "/worlds/audio/carnegie/murmur.mp3",
+      position: [2.5, 1.6, -9],
+      volume: 0.34,
+      refDistance: 5,
+      rolloff: 1.0,
+      mode: "loop",
+    },
+    // One visitor crossing a far doorway — echoing footfalls on the hard floor.
+    {
+      id: "footsteps",
+      url: "/worlds/audio/carnegie/footsteps.mp3",
+      position: [-4, 0.2, -6],
+      volume: 0.5,
+      refDistance: 2.5,
+      rolloff: 1.8,
+      mode: "intermittent",
+      every: [8, 18],
+      window: [1.5, 3.5],
+      gain: [0.6, 1.0],
+    },
+  ],
 };
 
 const rand = (a: number, b: number) => a + Math.random() * (b - a);
