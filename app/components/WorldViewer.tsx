@@ -52,9 +52,11 @@ export default function WorldViewer({
       // Default moveSpeed (1) crawls at this world scale — quicken the walk.
       controls.fpsMovement.moveSpeed = 3.2;
 
+      let splatReady: Promise<unknown> | undefined;
       try {
         const splat = new SplatMesh({ url: spzUrl });
         scene.add(splat);
+        splatReady = splat.initialized;
         setLoading(false);
       } catch (e) {
         setError("Failed to load 3D world");
@@ -66,7 +68,8 @@ export default function WorldViewer({
       const cleanupAudio = initWorldAudio(scene, camera, audioId);
 
       // The real painting, composited onto the wall (no-op until calibrated).
-      const cleanupPainting = initWorldPainting(scene, worldId);
+      // Held hidden until the splat is ready so it doesn't float in blur first.
+      const cleanupPainting = initWorldPainting(scene, worldId, splatReady);
 
       // Dev calibration handle — only when entered via the #world= deep-link.
       // Exposes camera/scene/THREE so painting/spawn placement can be measured

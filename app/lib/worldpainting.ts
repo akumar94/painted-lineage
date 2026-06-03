@@ -63,6 +63,7 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
 export function initWorldPainting(
   scene: THREE.Scene,
   worldId: string | undefined,
+  ready?: Promise<unknown>,
 ): () => void {
   const placement = worldId ? WORLD_PAINTING[worldId] : undefined;
   if (!placement) return () => {};
@@ -83,6 +84,16 @@ export function initWorldPainting(
   scene.add(mesh);
 
   let disposed = false;
+
+  // The 100KB scan loads instantly; the 28MB splat streams over seconds. Hold
+  // the painting hidden until the splat is ready so it appears IN the gallery,
+  // not floating in blur before the room exists.
+  if (ready) {
+    mesh.visible = false;
+    ready.then(() => {
+      if (!disposed) mesh.visible = true;
+    });
+  }
   const loader = new THREE.TextureLoader();
   loader.load(
     url,
