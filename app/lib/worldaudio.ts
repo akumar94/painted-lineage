@@ -79,36 +79,36 @@ export const WORLD_AUDIO: Record<string, AudioSource[]> = {
   // Carnegie 1924 — the first PUBLIC show. "No people" is visual; the public is
   // sound, and it lives NEXT DOOR: the murmur comes from the galleries beyond the
   // far arches, never from this room. Positioned at the real splat scale — the
-  // v2 grand hall: painting/wall at z≈-16.4 with arched doorways flanking it into
-  // further galleries beyond. Spawn at the entrance end (z≈-5). The murmur lives
-  // through those far arches; never in this room.
+  // hall runs ~18m down −Z, the painting/pier at z≈-17, the far arches beyond it.
+  // Spawn is mid-hall (z≈-8.5) looking down the enfilade.
   "carnegie-1924": [
     // The hall's air — a wide, high bed that fills the whole room.
     {
       id: "room",
       url: "/worlds/audio/carnegie/bed.mp3",
-      position: [0, 4, -9],
+      position: [0, 4, -11],
       volume: 0.6,
-      refDistance: 13,
-      rolloff: 0.3,
+      refDistance: 12,
+      rolloff: 0.35,
       mode: "loop",
     },
-    // Distant gallery murmur — the populated galleries BEYOND the far arches,
-    // deep down the room. Louder as you approach the far wall.
+    // Distant gallery murmur — the populated galleries BEYOND the pier, heard
+    // down the enfilade through the far arches. Localized deep ahead so it reads
+    // as "next door," and gets louder as you walk toward the far end.
     {
       id: "murmur",
       url: "/worlds/audio/carnegie/murmur.mp3",
       position: [0, 1.6, -21],
       volume: 0.5,
-      refDistance: 9,
-      rolloff: 0.6,
+      refDistance: 8,
+      rolloff: 0.7,
       mode: "loop",
     },
-    // One visitor crossing the hard floor near the far wall — echoing footfalls.
+    // One visitor crossing the hard floor near the pier — echoing footfalls.
     {
       id: "footsteps",
       url: "/worlds/audio/carnegie/footsteps.mp3",
-      position: [3.5, 0.1, -13],
+      position: [3.5, 0.1, -14],
       volume: 0.55,
       refDistance: 4,
       rolloff: 1.4,

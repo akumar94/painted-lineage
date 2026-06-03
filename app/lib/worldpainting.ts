@@ -50,14 +50,9 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
   // central pier sits at z≈-17.75; the plane rides ~0.55m in front so the
   // splat's white-canvas gaussians don't occlude it. Opening ≈1.6m tall.
   "carnegie-1924": {
-    // v2 splat: Marble squared the frame to fit its hallucinated landscape
-    // painting, so the portrait scan is matted onto a square linen composite
-    // (the-green-blouse-matted.jpg) that fills the gold opening edge to edge.
-    position: [0, 1.49, -16.0],
+    position: [0, 1.47, -17.2],
     rotation: [0, 0, 0], // faces +Z, down the hall toward the spawn
-    height: 1.62,
-    url: "/the-green-blouse-matted.jpg",
-    aspect: 1.0, // square matted composite
+    height: 1.82, // fills the gold opening with an even thin gold reveal around
   },
 };
 
