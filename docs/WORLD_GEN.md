@@ -23,10 +23,12 @@ is fully built (splat + 3 spatial sounds).** 10 worlds + the void remain.
 text→Marble gave Carnegie a cramped "cottage-cheese" vault; world #1 (the good one)
 used a reference image. So **Gemini paints the still image first** — you control
 scale, light, and deep perspective, and approve the cheap artifact before spending a
-splat — then upload *that image* to Marble (image→world). Feed Gemini the gallery
-description **plus `public/the-green-blouse.jpg`** as a reference so the real painting
-hangs on the wall (Gemini's reference-preserving edit, NOT a text description — that's
-how you avoid another photoreal fake).
+splat — then upload *that image* to Marble (image→world). Gemini paints the room with
+an **EMPTY framed canvas** on the wall (no painting reference fed in) — the real scan
+is superimposed at runtime by the `WORLD_PAINTING` plane. Baking the painting via a
+Gemini reference was tried and rejected: it turned the picture into a giant
+freestanding centerpiece, and Marble re-Gaussian-izes baked pixels soft anyway. Empty
+frame keeps the room honest and the painting crisp.
 
 **Don't feed real install photos raw** (they drag in other art/visitors). **Marble
 takes no negative prompt** via our API client — exclusions fold into each positive
@@ -82,12 +84,13 @@ unfinished* — every later world hangs it finished.
 > Interior of Pierre Bonnard's home around 1920 — a small, intimate, sunlit room with a tiled floor of worn patterned cement tiles. Eye-level. Foreground: a round pedestal table draped in an embroidered white cutwork cloth, and a smaller white-draped side table. Thick old walls with deep window reveals. At left, a French door and a tall many-paned window stand open behind long sheer cream linen curtains, onto a luminous green garden — lawn, a fruit tree, a rose arbor and a path beyond the threshold, a clipped hedge, a faint hint of distant hills. Strong warm backlight floods in; the room interior sits in soft shade. At left, an unframed canvas on a wooden easel — wet and unfinished, the beginnings of a woman in a green blouse seated at a coffee table, loosely blocked in — with a palette and brushes on a stool beside it. On the right wall, a different framed Bonnard interior (a nude or a garden still life), warm-toned. Warm patterned wallpaper in faded ochre, rose and gold. Intimate, lived-in, Intimist. No people, no modern objects. One deep, coherent, walkable space — the eye drawn outward through the open door to the garden.
 
 ### 2. `carnegie-1924` — color; first public show — 🔄 regenerating (Gemini→Marble)
-**Status:** the first text→Marble splat was scrapped — cramped "cottage-cheese" vault,
-and the rich painting descriptor made Marble zoom into the canvas. Regenerating via
-**Gemini→Marble** in **full color** (the void is now the only desaturated world — see
-the arc above). Gemini image prompt below; **attach `public/the-green-blouse.jpg`** as
-the reference so the real painting hangs on the wall.
-> A grand American museum painting gallery, photographed in full color — the main exhibition hall of an early-20th-century Beaux-Arts art institute. A cavernous, formal interior: a high coffered ceiling with a large glass skylight overhead flooding the hall with soft, even daylight. Tall pale plaster walls hung salon-style with many gilt-framed paintings in neat rows. A wide, polished stone floor. The view looks straight down the room at eye level, with a long enfilade of tall arched doorways receding through several further galleries into the distance — strong, deep one-point perspective. The hall is empty and silent, monumental and dignified. On the main wall ahead, centered at eye level, hang the painting from the provided reference image: a tall portrait-format canvas in a simple gilt frame, with a small engraved placard beneath it — reproduce the reference painting faithfully. Warm natural color, soft daylight, sharp deep focus, fine photographic detail. No people, no modern objects, no electric fixtures, no signage. Wide landscape format.
+**Status:** first text→Marble splat scrapped (cottage-cheese vault). Gemini's first
+color try gave *excellent* architecture (deep recession, skylit vault, salon hang) but
+came back sepia with a vintage photo border, and the painting as a giant freestanding
+centerpiece. Fix = **empty frame, full color, hung flat on the far wall**, real scan
+superimposed at runtime (`WORLD_PAINTING` plane). **No painting reference fed to
+Gemini.** Color Gemini prompt below.
+> A grand Beaux-Arts museum painting gallery — a contemporary color photograph in vivid, natural color. NOT black-and-white, not sepia, not a vintage or antique photograph; no photographic border, no vignette, no watermark — the image fills the frame edge to edge. A cavernous, formal exhibition hall: a high coffered ceiling with a large glass skylight overhead flooding the hall with soft, even daylight. Tall pale plaster walls hung salon-style with rows of gilt-framed paintings. A wide, polished stone floor. The view looks straight down the room at eye level, with a long enfilade of tall arched doorways receding through several further galleries into the distance — strong, deep one-point perspective. The hall is empty and silent, monumental and dignified. On the far end wall ahead, centered at eye level, a single prominent EMPTY framed canvas — a blank, primed off-white canvas in a simple gilt frame, hung flat against the wall (not freestanding, not on a stand or easel), slightly larger than the surrounding paintings, with a small engraved placard beneath it. The canvas is blank — no picture or image on it. Warm, natural color, soft daylight, sharp deep focus, fine photographic detail. No people, no modern objects, no electric fixtures, no signage. Wide landscape format.
 
 ### 3. `wildenstein-1934` — color; transition; placard "THE CUP OF COFFEE"
 > Color photograph of a refined 1930s Manhattan private-gallery room in a limestone townhouse. Paneled walls, parquet floor, a doorway at the far end opening to the next room (eye-level, clear recession through the passage). On the end wall, spotlit, a single empty framed canvas — a blank primed canvas in a plain gilt frame, beneath a large, prominent engraved wall placard. Hushed, elegant. No people, no modern objects. One coherent walkable space.
