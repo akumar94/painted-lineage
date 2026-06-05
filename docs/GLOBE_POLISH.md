@@ -1,10 +1,32 @@
-# Globe / atlas polish — DO LAST
+# Globe / atlas polish — DONE (items 1–3), item 4 covered
 
-Deferred until the worlds + audio are done. The atlas already works (31 pins,
-date-ordered gold path, green Earth, etched borders, NYC fan-out, cards,
-rotation). This is **legibility polish**, not a fix — and arguably the path being
-slightly hard to fully trace mirrors the theme (provenance is a tangle you piece
-together). Don't touch before the build is complete.
+The atlas works (31 pins, date-ordered gold path, green Earth, etched borders,
+NYC fan-out, cards, rotation). This was **legibility polish**, not a fix — and
+the path being slightly hard to fully trace mirrors the theme (provenance is a
+tangle you piece together).
+
+## Status
+
+- [x] **1. Distance-scaled arcs.** Each leg's altitude now scales with the
+  hop's chord length (`ARC_LIFT_MIN + ARC_LIFT_SPAN * chord/diameter`); the void
+  leg stays low (`VOID_ARC_LIFT`). Long ocean crossings bow high, short hops
+  hug — crossings separate by altitude.
+- [x] **2. Active-leg emphasis.** Whole path holds at `GHOST_OPACITY`; the
+  render loop lights only the legs touching the hovered pin / open card to
+  `ACTIVE_OPACITY` (smoothly lerped). Driven by `pathIndexById` + per-leg
+  handles in `legs[]`.
+- [x] **3. Directionality.** Each leg carries a per-vertex dim→bright gradient
+  (`GOLD_DIM`→`GOLD_BRIGHT`, `STILL_*` for the void) in date order, so the eye
+  follows the chronology.
+- [~] **4. Cluster de-knotting.** Already handled by the NYC fan-out; arcs +
+  active-leg highlight now help further. No further work unless Paris re-knots.
+
+All three live in `app/components/AtlasGlobe.tsx` (path build + tick loop) and
+`greatCircleArc` in `app/lib/globe.ts`.
+
+---
+
+## Original notes (for reference)
 
 ## The problem
 

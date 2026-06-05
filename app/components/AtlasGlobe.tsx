@@ -32,6 +32,23 @@ const GOLD = 0xd4bc8a;
 const BORDER_COLOR = 0x1a1206;
 const BORDER_OPACITY = 0.5;
 
+// ── Path legibility (see docs/GLOBE_POLISH.md) ──────────────────
+// The whole journey stays drawn as a faint ghost; only the legs touching the
+// hovered/selected node brighten — "where it came from, where it goes next."
+const GHOST_OPACITY = 0.16;
+const ACTIVE_OPACITY = 0.92;
+// Each leg carries a dim→bright gradient in date order, so the eye follows
+// the chronology (directionality). Warm gold for travel; cool for the silence.
+const GOLD_DIM = new THREE.Color(0x6e5d38);
+const GOLD_BRIGHT = new THREE.Color(0xf3ddad);
+const STILL_DIM = new THREE.Color(0x39424f);
+const STILL_BRIGHT = new THREE.Color(0x8295ad);
+// Arc altitude scales with hop distance: short hops hug the surface, long
+// ocean crossings bow high, so crossings separate by altitude, not overlap.
+const ARC_LIFT_MIN = 0.03;
+const ARC_LIFT_SPAN = 0.32;
+const VOID_ARC_LIFT = 0.02;
+
 // Pin colors as canvas-fillable strings, keyed by tier (+ void).
 const PIN_COLOR: Record<string, string> = {
   primary: "rgba(232,210,158,1)",
@@ -134,30 +151,62 @@ export default function AtlasGlobe({
       .catch(() => {});
 
     // ── The path: one continuous date-ordered line ────────────
-    // Void-adjacent segments (into / out of the silence) get the "still"
-    // treatment — cool and dim, so the 35-year pause reads as the quiet part.
-    const warmMat = new THREE.LineBasicMaterial({
-      color: GOLD,
-      transparent: true,
-      opacity: 0.5,
-    });
-    const stillMat = new THREE.LineBasicMaterial({
-      color: 0x6c7f9a,
-      transparent: true,
-      opacity: 0.28,
-    });
+    // ONE object, one unbroken life — so it stays a single path. Legibility
+    // comes from three moves (docs/GLOBE_POLISH.md): arcs whose altitude scales
+    // with distance (crossings separate vertically), a dim→bright gradient per
+    // leg (the eye follows time), and active-leg emphasis driven in the render
+    // loop (the whole journey ghosts; the hovered node's in/out legs light up).
+    // Void-adjacent legs read "still" — cool and low, the 35-year pause.
     const pathVec = (c: Context) =>
       latLngToVector3(c.coords[0], c.coords[1], GLOBE_RADIUS * 1.005);
+    const pathIndexById = new Map<string, number>();
+    PATH.forEach((c, i) => pathIndexById.set(c.id, i));
+
+    // Per-leg handle so the render loop can light just the active legs.
+    const legs: {
+      mat: THREE.LineBasicMaterial;
+      geom: THREE.BufferGeometry;
+      a: number; // PATH index of the leg's start node
+      b: number; // PATH index of the leg's end node
+    }[] = [];
+    const maxChord = 2 * GLOBE_RADIUS; // antipodal chord = diameter
+    const tmpColor = new THREE.Color();
     for (let i = 0; i < PATH.length - 1; i++) {
       const a = PATH[i];
       const b = PATH[i + 1];
       const va = pathVec(a);
       const vb = pathVec(b);
-      if (va.distanceTo(vb) < 1e-4) continue; // colocated venues, no arc
+      const chord = va.distanceTo(vb);
+      if (chord < 1e-4) continue; // colocated venues, no arc
       const isStill = a.isVoid || b.isVoid;
-      const pts = greatCircleArc(va, vb, 64, isStill ? 0.02 : 0.07);
+      const lift = isStill
+        ? VOID_ARC_LIFT
+        : ARC_LIFT_MIN + ARC_LIFT_SPAN * (chord / maxChord);
+      const pts = greatCircleArc(va, vb, 72, lift);
       const geom = new THREE.BufferGeometry().setFromPoints(pts);
-      scene.add(new THREE.Line(geom, isStill ? stillMat : warmMat));
+
+      // Dim→bright gradient along the arc encodes the direction of time.
+      const dim = isStill ? STILL_DIM : GOLD_DIM;
+      const bright = isStill ? STILL_BRIGHT : GOLD_BRIGHT;
+      const colors = new Float32Array(pts.length * 3);
+      for (let s = 0; s < pts.length; s++) {
+        tmpColor.copy(dim).lerp(bright, s / (pts.length - 1));
+        colors[s * 3] = tmpColor.r;
+        colors[s * 3 + 1] = tmpColor.g;
+        colors[s * 3 + 2] = tmpColor.b;
+      }
+      geom.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+      const mat = new THREE.LineBasicMaterial({
+        vertexColors: true,
+        transparent: true,
+        opacity: GHOST_OPACITY,
+        depthWrite: false,
+      });
+      const line = new THREE.Line(geom, mat);
+      line.renderOrder = 1;
+      scene.add(line);
+      legs.push({ mat, geom, a: i, b: i + 1 });
     }
 
     // ── Pins ───────────────────────────────────────────────────
@@ -295,6 +344,19 @@ export default function AtlasGlobe({
         const target = i === hoveredIndex ? baseScale[i] * 1.55 : baseScale[i];
         s.scale.setScalar(s.scale.x + (target - s.scale.x) * 0.25);
       });
+      // Active-leg emphasis: light only the legs touching the focused node
+      // (hovered pin, else the open card). Everything else holds at ghost.
+      const activeCtx =
+        hoveredIndex >= 0 ? placed[hoveredIndex].context : selectedRef.current;
+      const activeIdx = activeCtx
+        ? pathIndexById.get(activeCtx.id) ?? -1
+        : -1;
+      legs.forEach((leg) => {
+        const lit =
+          activeIdx >= 0 && (leg.a === activeIdx || leg.b === activeIdx);
+        const target = lit ? ACTIVE_OPACITY : GHOST_OPACITY;
+        leg.mat.opacity += (target - leg.mat.opacity) * 0.18;
+      });
       renderer.render(scene, camera);
     };
     tick();
@@ -317,6 +379,10 @@ export default function AtlasGlobe({
         borders.geometry.dispose();
         (borders.material as THREE.Material).dispose();
       }
+      legs.forEach((leg) => {
+        leg.geom.dispose();
+        leg.mat.dispose();
+      });
       renderer.domElement.removeEventListener("pointermove", onMove);
       renderer.domElement.removeEventListener("pointerdown", onDown);
       renderer.domElement.removeEventListener("pointerup", onUp);
