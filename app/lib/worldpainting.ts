@@ -55,16 +55,22 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     height: 1.82, // fills the gold opening with an even thin gold reveal around
   },
   // Wildenstein's gold portrait frame: triangulated (two straight-on −Z views)
-  // to a ~1.0×1.55m opening (aspect 0.649) centered at world (−0.045, ~1.09,
+  // to a ~1.0×1.55m opening (aspect 0.649) centered at world (−0.052, ~1.11,
   // −11.9) — the townhouse hall is huge, the frame ~12m down. The opening's
   // 0.649 aspect is NARROWER than the painting's 0.685, so even gilt reveal on
   // all four sides is impossible without distorting the scan (never do that).
   // Instead height fills the opening so the canvas slightly over-covers the
-  // gilt lip uniformly (no white gaps); centered on both axes. Plane 0.5m front.
+  // gilt lip uniformly (no black-liner gap); centered on both axes. Plane 0.5m
+  // front. Re-calibrated 2026-06-05 via the crisp-magenta method (swap the plane
+  // to a solid color for hard edges, nest it in the opening): the old
+  // [−0.045,1.088] h1.47 sat right+down (black liner showed L/T) and over-tall
+  // (rode past the gilt onto the walnut top/bottom). Now centered on the opening
+  // and sized so the canvas rides the gilt lip with an even reveal per pair
+  // (L/R ~10/13px, T/B ~28px in the calibration shot), no liner gap on any edge.
   "wildenstein-1934": {
-    position: [-0.045, 1.088, -11.4],
+    position: [-0.052, 1.11, -11.4],
     rotation: [0, 0, 0], // faces +Z toward the spawn
-    height: 1.47,
+    height: 1.34,
   },
   // Stockholm's tall gold portrait frame on the axial end wall. Depth
   // triangulated from two straight-on −Z views (opening ≈277px tall at z=−3,
