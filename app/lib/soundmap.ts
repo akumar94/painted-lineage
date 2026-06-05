@@ -47,6 +47,11 @@ export const SOUND_MAP: Record<string, WorldSound[]> = {
     { label: "French voices", note: "the mother tongue back since 1939, tender" },
     { label: "Passing footsteps", note: "brief, light" },
   ],
+  "canberra-1986": [
+    { label: "Touring-crowd murmur", note: "the Met's masters on tour — visitors at the far edge of the world" },
+    { label: "Brutalist hall acoustics", note: "the ANG's concrete-and-skylight resonance, cool and modern (1986)" },
+    { label: "Furthest-south hush", note: "the Southern Hemisphere — the longest the painting ever travelled from home" },
+  ],
   "yokohama-1989": [
     { label: "Japanese gallery voices", note: "a different register of hush" },
     { label: "Museum acoustics", note: "crowd behavior differs audibly" },
@@ -55,10 +60,6 @@ export const SOUND_MAP: Record<string, WorldSound[]> = {
   "paris-mam-2006": [
     { label: "Retrospective density", note: "French voices, celebratory — the fullest room" },
     { label: "Homecoming bustle", note: "the most alive the painting ever sounds" },
-  ],
-  "stockholm-nationalmuseum-2025": [
-    { label: "Cold open acoustics", note: "spacious, quiet Scandinavian gallery tone" },
-    { label: "Echo of 1939", note: "the loop closes where it went dark — warm now" },
   ],
   "lillehammer-2025": [
     { label: "Northern gallery quiet", note: "contemporary, spacious, settled" },

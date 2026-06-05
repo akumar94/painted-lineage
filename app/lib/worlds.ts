@@ -29,12 +29,9 @@ export const WORLDS: Record<string, WorldAsset> = {
     spz: "/worlds/met-impressionist-epoch-1974.spz",
     ready: false,
   },
+  "canberra-1986": { spz: "/worlds/canberra-1986.spz", ready: false },
   "yokohama-1989": { spz: "/worlds/yokohama-1989.spz", ready: false },
   "paris-mam-2006": { spz: "/worlds/paris-mam-2006.spz", ready: false },
-  "stockholm-nationalmuseum-2025": {
-    spz: "/worlds/stockholm-nationalmuseum-2025.spz",
-    ready: false,
-  },
   "lillehammer-2025": { spz: "/worlds/lillehammer-2025.spz", ready: false },
 
   // ── the void (Lane 2: API, no source image) ────────────────

@@ -208,8 +208,15 @@ world shows it lit + labeled; the void shows the same painting dim + unlabeled.
 ### 9. `paris-mam-2006` — color; full homecoming, the fullest room
 > Color photograph of a grand Paris modern-art museum gallery — high ceilings, warm walls densely hung with many Bonnard paintings, golden light, an enfilade of rooms receding through wide openings (eye-level, deep recession). Among the works on the main wall, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright. Full, rich, celebratory, alive — the densest, warmest room. No people, no modern clutter. One coherent walkable space.
 
-### 10. `stockholm-nationalmuseum-2025` — color, cool; the loop closes
-> Color photograph of a contemporary Nordic national art museum gallery — pale spacious walls, elegant restrained architecture, cool even daylight, a wood or pale-stone floor receding toward an arched opening to the next gallery (eye-level, clear depth). On the main wall, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright. Calm, contemporary, spacious, cool — an echo of an older Stockholm room, but warm now. No people, no clutter. One coherent walkable space.
+### 10. `canberra-1986` — color; on tour from the Met, the furthest south (4th continent)
+**Swapped in for `stockholm-nationalmuseum-2025` (2026-06-05):** Stockholm-2025 was demoted
+to an atlas card pin (the 1939↔2025 loop rhyme lives on the globe + its card; as a walkable
+room it nearly duplicated Lillehammer's cool-Nordic box). Canberra is REAL provenance —
+Australian National Gallery, "20th Century Masters from the Met," Mar 1986 — and adds a 4th
+walkable continent + the missing "the Met sends it out into the world" beat. Chronologically
+mid-journey (1986, between bordeaux-81 and yokohama-89), not at the tail. Prompt bakes in the
+Stockholm lessons (axial end-wall frame, emphatic portrait):
+> Color photograph of a mid-1980s Australian National Gallery exhibition room — board-formed concrete walls (the gallery's brutalist architecture), diffused daylight from above through a skylight or clerestory, a warm timber or pale-stone floor receding toward an opening to the next gallery (eye-level, strong one-point recession). Centered on the far end wall, square to the camera, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame, emphatically taller than wide (about 5:7, a narrow upright rectangle), the frame upright. Cool, spacious, modern, hushed — an international touring show. No people, no modern clutter. One coherent walkable space, the empty portrait frame the clear focal point at the end.
 
 ### 11. `lillehammer-2025` — color; the present, final pin
 > Color photograph of a contemporary Norwegian art museum interior — light wood and pale concrete, soft northern daylight, a spacious still gallery, the floor receding toward a quiet far opening (eye-level, gentle depth). On the main wall, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright. Quiet, settled, contemporary, final. No people, no clutter. One coherent walkable space.
@@ -222,7 +229,7 @@ world shows it lit + labeled; the void shows the same painting dim + unlabeled.
 |---|---|---|
 | yokohama-1989 | https://upload.wikimedia.org/wikipedia/commons/7/73/Yokohama_Museum_interior.jpg | CC BY-SA 3.0 — Takuro1202 |
 | paris-mam-2006 | https://upload.wikimedia.org/wikipedia/commons/0/03/Jean_Metzinger%2C_L%27Oiseau_Bleu_%28left%29%2C_Andr%C3%A9_Lhote%2C_two_works_%28center%29%2C_Albert_Gleizes%2C_Baigneuse_%28right%29%2C_Mus%C3%A9e_d%27Art_Moderne_de_la_Ville_de_Paris.jpg | CC BY 3.0 — Coldcreation |
-| stockholm-2025 | https://upload.wikimedia.org/wikipedia/commons/c/c1/One_of_the_galleries_at_the_Nationalmuseum%2C_Stockholm%2C_Sweden.jpg | CC BY-SA 4.0 — O.S.M. Amin |
+| canberra-1986 | _TBD — source a CC image of an Australian National Gallery interior (board-formed concrete + skylit galleries); else generate per the §10 prompt_ | — |
 | lillehammer-2025 | https://upload.wikimedia.org/wikipedia/commons/a/ac/LillehammerArtmuseum6554.JPG | CC BY-SA 4.0 — Yaakov |
 
 Carnegie/Wildenstein/Stockholm-39/Met-74/Bordeaux: no clean open interior — generate per prompts. Met-74 has real B&W install plates in the free MetPublications PDF (`Impressionism_A_Centenary_Exhibition.pdf`) if authenticity wanted.
@@ -291,8 +298,8 @@ prompt, **no source image**, Marble 1.1 **Plus** (5 dynamic cubes), terminal nod
 Expand). Painting is PRESENT but unshown — composite the scan **darkened + unlabeled**
 (dim, "hung as if lived with, not shown"). NEVER war/theft (see void-constraint memory).
 After #5, continue down the walk order (#6 met-1974, #7 bordeaux-1981 w/ placard "LE
-CORSAGE VERT", #8 yokohama, #9 paris-mam, #10 stockholm-2025, #11 lillehammer), THEN the
-audio batch. **Calibration recipe (worked #3 #4):** deep-link `#world=<id>`, add a live
+CORSAGE VERT", #8 yokohama, #9 paris-mam, #10 canberra-1986 — swapped in for stockholm-2025,
+see §10, #11 lillehammer), THEN the audio batch. **Calibration recipe (worked #3 #4):** deep-link `#world=<id>`, add a live
 magenta test plane via `window.__pl` {camera,scene,THREE} (keep it `transparent:true`
 even at opacity 1 — an opaque plane renders before the Spark splat pass and gets occluded;
 `depthTest:false`, `renderOrder:999`), drive `camera.position` directly (set spawn first;
