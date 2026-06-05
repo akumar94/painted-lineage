@@ -68,9 +68,15 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // Start halfway down the hall toward the painting (pier at z≈-17.5), looking
   // down the enfilade at the Green Blouse.
   "carnegie-1924": { position: [0, 1.6, -8.5] },
-  // A few meters in from the origin — keeps the grand symmetric hall while
-  // giving the canvas presence (the frame is ~9.5m further down −Z).
-  "wildenstein-1934": { position: [0, 1.6, -3] },
+  // Tightened to a hero shot (2026-06-05): the wide z=-3 establishing view read
+  // off-center because the splat's hall is inherently lopsided (recessing passage
+  // left, window-lit doorway hard against the pier right) — the pier itself was
+  // already centered to ~4px, so no x/yaw nudge fixed it at wide distance. Pulling
+  // in to z=-6.3 makes the gold frame dominant and crops both flanks to balanced
+  // slivers; x matches the painting (-0.05) for pixel-perfect horizontal centering;
+  // eye dropped to 1.45 to lift the low-hung canvas (frame center y≈1.3) toward
+  // the middle of the shot. Painting projects dead-center horizontally.
+  "wildenstein-1934": { position: [-0.05, 1.45, -6.3] },
   // Near the room's entrance, looking down the deep hall (frame ≈10.2m down −Z):
   // an establishing view of the spare, emptying gallery — windows + small works
   // left, doorway + bench right, the Green Blouse glowing alone at the far end.
