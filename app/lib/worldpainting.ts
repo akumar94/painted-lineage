@@ -66,6 +66,18 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     rotation: [0, 0, 0], // faces +Z toward the spawn
     height: 1.47,
   },
+  // Stockholm's tall gold portrait frame on the axial end wall. Depth
+  // triangulated from two straight-on −Z views (opening ≈277px tall at z=−3,
+  // ≈477px at z=−6 → frame plane z≈−10.16; the room is deep). Opening ≈1.31×2.02m
+  // (aspect ≈0.649, NARROWER than the 0.685 scan) so — per the Wildenstein rule —
+  // height (2.05) over-covers the opening: the canvas rides the gilt lip on all
+  // sides with no white gaps, centered on both axes. Verified seated at z=−3.5
+  // (spawn) and z=−6.5 (close); parallax nulled. Frame center slightly +x/+y.
+  "stockholm-1939": {
+    position: [0.15, 1.8, -10.16],
+    rotation: [0, 0, 0], // faces +Z toward the spawn
+    height: 2.05,
+  },
 };
 
 /**

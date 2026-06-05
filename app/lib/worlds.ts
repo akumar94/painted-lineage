@@ -24,7 +24,7 @@ export const WORLDS: Record<string, WorldAsset> = {
   // ── 8 primary walk worlds ──────────────────────────────────
   "le-cannet-studio": { spz: "/worlds/le-cannet-studio.spz", ready: true },
   "carnegie-1924": { spz: "/worlds/carnegie-1924.spz", ready: true },
-  "stockholm-1939": { spz: "/worlds/stockholm-1939.spz", ready: false },
+  "stockholm-1939": { spz: "/worlds/stockholm-1939.spz", ready: true },
   "met-impressionist-epoch-1974": {
     spz: "/worlds/met-impressionist-epoch-1974.spz",
     ready: false,
@@ -71,6 +71,11 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // A few meters in from the origin — keeps the grand symmetric hall while
   // giving the canvas presence (the frame is ~9.5m further down −Z).
   "wildenstein-1934": { position: [0, 1.6, -3] },
+  // Near the room's entrance, looking down the deep hall (frame ≈10.2m down −Z):
+  // an establishing view of the spare, emptying gallery — windows + small works
+  // left, doorway + bench right, the Green Blouse glowing alone at the far end.
+  // The "last show before the silence" reads best from back here.
+  "stockholm-1939": { position: [0, 1.6, -0.5] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {

@@ -178,7 +178,17 @@ with the walnut/gilt instead of fighting the splat's own baked brass plate.
 > Color photograph of a refined 1930s Manhattan private-gallery room in a limestone townhouse. Paneled walls, parquet floor, a doorway at the far end opening to the next room (eye-level, clear recession through the passage). On the end wall, spotlit, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright, beneath a large, prominent engraved wall placard. Hushed, elegant. No people, no modern objects. One coherent walkable space.
 
 ### 4. `stockholm-1939` — color; last show before the silence
-> Color photograph of a spare 1939 Stockholm modern-art gallery, restrained Nordic-functionalist interior. Plain pale walls, only a few framed French paintings, a wood floor, soft northern daylight from tall windows. The room empties toward a single far doorway/threshold at the end, which the view faces and recedes toward (eye-level, strong depth). On a side wall, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright. Quiet, sparse, emptying. No people, no modern objects. One coherent walkable space.
+**Re-roll lesson (2026-06-05):** the original prompt (below, struck) put the empty
+frame on a *side* wall with the recession aimed at a far doorway. The still came back
+with the hero frame oblique on the left wall (breaks the face-down-the-room composite
+pattern) and the opening too square (~0.84 vs our 0.685 scan). Decision w/ user:
+**switch to the proven axial end-wall pattern** (Carnegie/Wildenstein) — empty frame
+centered on the wall we walk straight toward, square to camera, room tunnels via
+one-point recession. Pushed the portrait spec harder ("emphatically taller than wide,
+narrow upright rectangle") since 5:7 came back as 0.84. Use this prompt:
+> Color photograph of a spare 1939 Stockholm modern-art gallery, restrained Nordic-functionalist interior — plain pale walls, a plank wood floor, soft northern daylight from tall windows along the left wall. The view looks straight down the length of the room, the side walls receding symmetrically toward a single end wall (eye-level, strong one-point perspective, deep recession). Centered on that far end wall, square to the camera, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame, emphatically taller than wide (about 5:7, a narrow upright rectangle), the frame upright. A few small French paintings hang sparsely on the side walls. Quiet, sparse, emptying, hushed. No people, no modern objects. One coherent walkable space, the empty portrait frame the clear focal point at the end.
+
+~~Original (rejected): Color photograph of a spare 1939 Stockholm modern-art gallery, restrained Nordic-functionalist interior. Plain pale walls, only a few framed French paintings, a wood floor, soft northern daylight from tall windows. The room empties toward a single far doorway/threshold at the end, which the view faces and recedes toward (eye-level, strong depth). On a side wall, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright. Quiet, sparse, emptying. No people, no modern objects. One coherent walkable space.~~
 
 ### 5. `the-silence` — THE VOID; no ref image; Marble 1.1 **Plus** (5 cubes); never war
 The painting is **present but unshown** here — the reframe: in 1939–1974 it wasn't gone,
@@ -260,7 +270,7 @@ splat's frame aspect is portrait** — re-roll if not; (7) calibrate `WORLD_PAIN
 **Placard system is BUILT** — `scripts/make_placard.py`, `app/lib/worldplacard.ts`, wired
 into `WorldViewer`; `public/placards/wildenstein-1934.png` ("THE CUP OF COFFEE") rendered.
 
-**Worlds #1 #2 #3 are visually DONE.** #1 #2 also have audio; #3's audio is TODO.
+**Worlds #1 #2 #3 #4 are visually DONE.** #1 #2 also have audio; #3 #4 audio is TODO.
 
 **STRATEGY (settled w/ user 2026-06-03): splat + calibrate ALL remaining worlds first,
 THEN do audio as one arc-aware batch** (the sonic arc full→thinning→void→return→fullest
@@ -269,10 +279,25 @@ positions need real splat scale; and it batches the crawl/ffmpeg/by-ear-tune too
 Pipeline the Marble jobs (calibrate landed ones while others generate). Do the audio batch
 across 2–3 sittings by arc segment, not one marathon.
 
-**Resume next: world #4 `stockholm-1939`** (visual). Same loop: Gemini image (§4, TALL
-PORTRAIT empty frame) → confirm depth+portrait frame → strip ✦ → Marble 1.1 → drop spz +
-`ready:true` → frame-aspect check → calibrate `WORLD_PAINTING`/`WORLD_SPAWN` (no placard
-for #4). **Calibration recipe that worked for #3:** deep-link `#world=<id>`, add a live
-test plane via `window.__pl` {camera,scene,THREE}, drive `camera.position` directly (set
-spawn first; SparkControls only clobbers rotation, not position, so translate-only works),
-nudge the plane to fit, then write values to config + reload via real code path to verify.
+**World #4 `stockholm-1939` — DONE (visual; audio TODO).** Re-rolled once (first still
+had an oblique side-wall frame + 0.84 opening → switched to axial end-wall pattern, §4).
+Calibrated: `WORLD_PAINTING` [0.15,1.8,−10.16] h2.05 (deep room — frame ~10.2m down −Z;
+opening ≈1.31×2.02m, aspect 0.649, over-covered with 0.685 scan) · `WORLD_SPAWN`
+[0,1.6,−0.5] (near the entrance — establishing view down the emptying hall) · no
+placard. Source `Splats/Refs/stockholm-1939_clean.png`.
+
+**Resume next: world #5 `the-silence` — THE VOID** (visual). DIFFERENT pipeline: §5
+prompt, **no source image**, Marble 1.1 **Plus** (5 dynamic cubes), terminal node (can't
+Expand). Painting is PRESENT but unshown — composite the scan **darkened + unlabeled**
+(dim, "hung as if lived with, not shown"). NEVER war/theft (see void-constraint memory).
+After #5, continue down the walk order (#6 met-1974, #7 bordeaux-1981 w/ placard "LE
+CORSAGE VERT", #8 yokohama, #9 paris-mam, #10 stockholm-2025, #11 lillehammer), THEN the
+audio batch. **Calibration recipe (worked #3 #4):** deep-link `#world=<id>`, add a live
+magenta test plane via `window.__pl` {camera,scene,THREE} (keep it `transparent:true`
+even at opacity 1 — an opaque plane renders before the Spark splat pass and gets occluded;
+`depthTest:false`, `renderOrder:999`), drive `camera.position` directly (set spawn first;
+SparkControls only clobbers rotation, not position, so translate-only works). **Triangulate
+depth from two straight-on −Z views via the opening's pixel height** (height is immune to
+slight frame yaw): `Zf = (h1·z1 − h2·z2)/(h1 − h2)`. Confirm the plane stays locked to the
+opening at both distances (parallax null), swap in `/the-green-blouse.jpg` to judge the real
+composite, write values to config, reload via real code path to verify.
