@@ -158,7 +158,15 @@ export function initWorldPainting(
   if (ready) {
     mesh.visible = false;
     ready.then(() => {
-      if (!disposed) mesh.visible = true;
+      // `ready` (splat.initialized) resolves when the splat DATA is uploaded — a
+      // frame or two BEFORE its gaussians first paint. Revealing here pops the
+      // painting in just AHEAD of the room (visible in the void). Wait two frames
+      // so the splat has rendered at least once before the painting appears.
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          if (!disposed) mesh.visible = true;
+        }),
+      );
     });
   }
   const loader = new THREE.TextureLoader();

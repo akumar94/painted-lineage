@@ -46,7 +46,11 @@ export default function WorldViewer({
       if (spawn.yaw) camera.rotation.y = spawn.yaw;
       const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(width, height);
-      renderer.setPixelRatio(window.devicePixelRatio);
+      // Splats are fragment-heavy (every gaussian blends per pixel), so cost
+      // scales with pixel count. On Retina/4K an uncapped devicePixelRatio (2–3)
+      // renders 4–9× the pixels and tanks fps; cap at 1.5 — the gaussians are
+      // already soft, so the visual cost is negligible. (AtlasGlobe caps at 2.)
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
       container!.appendChild(renderer.domElement);
 
       const controls = new SparkControls({ canvas: renderer.domElement });
@@ -54,8 +58,9 @@ export default function WorldViewer({
       controls.fpsMovement.moveSpeed = 3.2;
 
       let splatReady: Promise<unknown> | undefined;
+      let splat: InstanceType<typeof SplatMesh> | undefined;
       try {
-        const splat = new SplatMesh({ url: spzUrl });
+        splat = new SplatMesh({ url: spzUrl });
         scene.add(splat);
         splatReady = splat.initialized;
         setLoading(false);
@@ -141,7 +146,17 @@ export default function WorldViewer({
         cleanupPlacard();
         window.removeEventListener("resize", handleResize);
         renderer.setAnimationLoop(null);
+        // Free the splat's GPU buffers (gaussian data-textures = the bulk of the
+        // VRAM). renderer.dispose() does NOT traverse the scene, so without this
+        // every world we leave leaks its splat — VRAM climbs across navigations
+        // and frames progressively drop. (The sort worker lives on the shared
+        // SparkRenderer singleton, so it's not a per-world leak.)
+        if (splat) {
+          scene.remove(splat);
+          splat.dispose?.();
+        }
         renderer.dispose();
+        renderer.forceContextLoss?.();
         if (container && renderer.domElement.parentNode === container) {
           container.removeChild(renderer.domElement);
         }

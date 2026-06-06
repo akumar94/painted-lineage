@@ -83,7 +83,13 @@ export function initWorldPlacard(
   if (ready) {
     mesh.visible = false;
     ready.then(() => {
-      if (!disposed) mesh.visible = true;
+      // Same as the painting: `ready` resolves a frame or two before the splat
+      // paints, so wait two frames to avoid the card popping in ahead of the wall.
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          if (!disposed) mesh.visible = true;
+        }),
+      );
     });
   }
   const loader = new THREE.TextureLoader();
