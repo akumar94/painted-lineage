@@ -92,11 +92,17 @@ export function worldSpawn(id: string | undefined): WorldSpawn {
 
 /**
  * The chromatic arc (docs/WORLD_GEN.md). The void is the ONLY desaturated space:
- * color DRAINS as you enter `the-silence`. Everywhere else is full color —
- * `met-impressionist-epoch-1974` FLOODS color back on entry, the resurrection
- * landing at the void's exit. Applied as an animated CSS filter on the canvas so
- * it grades the whole scene (splat AND the composited painting) with no coupling
- * to the Spark pipeline.
+ * color DRAINS as you enter `the-silence`, and every other room is full color
+ * from the first frame — so "the return of color" is delivered *structurally*
+ * (one grey room in a world of color), not as an effect. Applied as an animated
+ * CSS filter on the canvas so it grades the whole scene (splat AND the
+ * composited painting) with no coupling to the Spark pipeline.
+ *
+ * NB: a "flood" direction (extreme→full on enter) was considered for met-1974's
+ * resurrection but cut — you reach met-1974 from the color atlas, not straight
+ * from the void, so it would make met-1974 briefly read as a *second* desaturated
+ * room, diluting the void's singularity. The direction union keeps "flood" so the
+ * mechanism is available if we ever tie a color-return to the void's EXIT fade.
  */
 export interface WorldGrade {
   /** Desaturated extreme: CSS saturation multiplier (1 = full color, 0 = grey). */
@@ -106,24 +112,18 @@ export interface WorldGrade {
   /** Seconds to ease between full color and the extreme. */
   seconds: number;
   /** "drain" eases full→extreme on enter (the void); "flood" eases extreme→full
-   *  on enter (the resurrection). */
+   *  on enter (currently unused — see note above). */
   direction: "drain" | "flood";
 }
 
 export const WORLD_GRADE: Record<string, WorldGrade> = {
-  // The silence: color bleeds out as the apartment settles around you.
+  // The silence: color bleeds out as the apartment settles around you. The ONLY
+  // graded world — every other room renders full color.
   "the-silence": {
     saturation: 0.12,
     brightness: 0.78,
     seconds: 3.0,
     direction: "drain",
-  },
-  // The resurrection: you step out of the grey and color rushes back.
-  "met-impressionist-epoch-1974": {
-    saturation: 0.12,
-    brightness: 0.78,
-    seconds: 2.2,
-    direction: "flood",
   },
 };
 

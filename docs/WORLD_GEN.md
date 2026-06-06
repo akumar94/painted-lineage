@@ -323,13 +323,21 @@ parallax-nulled; opening aspect ≈0.64 so height over-covers per the W/S rule) 
 dissolving right) · **no placard** (unlabeled, by design). The Green Blouse is PRESENT
 but unshown — the `WORLD_GRADE` drain desaturates+dims the plane along with the room,
 so the plain scan reads "hung as if lived with, not shown" with no separate dark asset.
-NEVER war/theft (honored — pure quiet withdrawal). Color-flood handoff to met-1974
-still tunable once #6 exists.
+NEVER war/theft (honored — pure quiet withdrawal).
 
-**Resume next: world #6 `met-impressionist-epoch-1974`** — the resurrection (color
-floods back out of the void; conspicuously MISSING label). §6 prompt, image→Marble
-1.1, TALL PORTRAIT frame. `WORLD_GRADE["met-..."]` flood is already wired — tune it
-against the real splat next to the void.
+**DECISION (2026-06-06): the color FLOOD at met-1974 was CUT.** The void's drain
+stays; met-1974 (and every other room) renders full color from frame one. Rationale:
+you reach met-1974 from the color atlas, not straight from the void, so a flood would
+make met-1974 briefly read as a *second* desaturated room — diluting the void's
+singularity ("the void is the ONLY desaturated space"). The resurrection is delivered
+structurally (one grey room in a world of color) + the conspicuously MISSING label,
+not by an animated effect. `WORLD_GRADE` now has only `the-silence`. (If we ever want
+a literal color-return, the right home is the void's EXIT fade, not met-1974's entry.)
+
+**Resume next: world #6 `met-impressionist-epoch-1974`** — the resurrection
+(conspicuously MISSING label; the painting back in public light). §6 prompt,
+image→Marble 1.1, TALL PORTRAIT frame. It's a normal full-color world now — no grade
+entry. Resurrection reads through subject + the blank wall where the label should be.
 After #5, continue down the walk order (#6 met-1974, #7 bordeaux-1981 w/ placard "LE
 CORSAGE VERT", #8 yokohama, #9 paris-mam, #10 canberra-1986 — swapped in for stockholm-2025,
 see §10, #11 lillehammer), THEN the audio batch. **Calibration recipe (worked #3 #4):** deep-link `#world=<id>`, add a live
