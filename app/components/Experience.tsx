@@ -44,6 +44,15 @@ export default function Experience() {
     window.setTimeout(() => setActiveWorld(null), 700);
   }, []);
 
+  // Warm the globe's heavy assets (the 4.4MB Earth texture + the borders
+  // geojson) while the splash is up, so clicking "Enter" reveals the Earth
+  // immediately instead of a ~1s gray mount-and-load. AtlasGlobe is lazy-mounted
+  // on first entry, so without this its fetch+decode only starts at click time.
+  useEffect(() => {
+    new Image().src = "/textures/earth.jpg";
+    fetch("/geo/countries.geojson").catch(() => {});
+  }, []);
+
   // Dev deep-link: #world=<context-id> jumps straight into a world, skipping
   // the splash + globe-pin click. No hash = normal flow (production untouched).
   // Used for per-world painting/audio calibration.
