@@ -196,7 +196,49 @@ it hung on a private apartment wall, lived with, never publicly exhibited. Every
 world shows it lit + labeled; the void shows the same painting dim + unlabeled.
 > A vast, dissolving, fog-filled grey void; within it the faint, receding suggestion of a shuttered private Paris apartment — closed shutters, a single clock, dust suspended in still air. On one dim interior wall, barely lit and half-lost in the grey, a small empty framed canvas — a blank canvas in a plain frame — no placard, no label, hung as if simply lived with, not shown (the real scan, darkened, is composited in). The apartment dissolves into boundless formless emptiness. Silent, elegiac, domestic, withdrawn; no people, no windows to the outside world.
 
-### 6. `met-impressionist-epoch-1974` — the resurrection (color floods back out of the void); missing label
+### 6. `met-impressionist-epoch-1974` — the resurrection; missing label
+**Status: DONE (visual; audio TODO in the spine batch).** Gemini→Marble, full color, no
+grade. Took ~7 rolls to land the frame: Gemini reads "tall portrait gilt frame" as either
+a skinny pier-mirror (~0.4) or square (~0.85) and oscillates — the winning anchor was
+**"5:7 like an upright sheet of paper"** in a SHORT prompt (long prompts bury the frame
+spec; a fresh Gemini chat obeys better). Source opening measured **0.69** (dead-on the
+0.685 scan).
+
+**TWO BIG LESSONS HERE:**
+1. **Marble can WIDEN a perfect source frame.** Our 0.69 source came back as a **≈0.82**
+   opening in the splat (cream canvas ≈1.27×1.55m). **WHY (diagnosed):** the gold frame
+   sits on a **gold/ochre wall in a uniformly warm room → low edge contrast**, so Marble
+   couldn't trace the gilt boundary and reconstructed a generic wider rectangle.
+   Stockholm/void/Wildenstein kept their ~0.65 source aspect because their gilt was against
+   **pale/grey walls** (crisp edges). **→ FORWARD RULE for §7+: make the frame contrast with
+   its wall** (pale frame, or frame on a darker/cooler wall) so Marble preserves the aspect.
+   The post-splat aspect gate is non-negotiable; the seat is decided against the SPLAT's
+   opening, not the source's.
+2. **Seating a 0.685 scan in the warped opening looked BAD** (white side-gaps, or over-cover
+   burying the gilt, and at x=0 it OVERHUNG the right gilt onto the wall — the opening sits
+   ~0.03m LEFT of the pier axis). **FIX = a per-world CROPPED + recentered scan.**
+   `public/the-green-blouse-met74.jpg` = the Met scan cropped **54px off the TOP only**
+   (sky/curtain — the expendable region; preserves figures, table, AND the bottom-left
+   signature) → aspect **0.749**, matching the splat opening so it fills snugly (even thin
+   gilt reveal, no distortion, no side overhang). Wired via the `url` + `aspect` overrides in
+   `WORLD_PAINTING`, recentered to **x=−0.03**. (Cropping the SIDES/bottom was rejected —
+   kills the signature, per the standing rule. **Measure the bare opening from a clean
+   straight-on close view — probe-fits at oblique/near distances over-read the aspect (got
+   0.82) vs the true ~0.75.**)
+
+Calibrated: depth triangulated from two straight-on −Z views (opening ≈109px @ cam z=0,
+≈254px @ z=−4.5 → frame plane z≈−7.9), parallax-nulled. `WORLD_PAINTING` **[−0.03,1.32,−7.4]
+h1.489, url=`/the-green-blouse-met74.jpg`, aspect=0.749** (plane floated 0.5m proud of the
+−7.9 frame so the opaque material isn't washed out — verified: 0.25m float WASHES OUT to the
+bare cream canvas, 0.4m+ is crisp, 0.5m is the safe margin) · `WORLD_SPAWN` **[0,1.6,−1]**
+(axial hero — painting centered on the pier, hung walls receding both sides) · **NO
+`WORLD_GRADE`** (full color) · **NO placard** (the bare wall beside the frame IS the
+conspicuously missing label). Hero view clean; up close the cropped scan fills the opening
+evenly with the signature visible (the gilt is inherently thin here — Marble's cream canvas
+is large; not fixable without a re-splat, and no worse than any world up close given the
+0.5m float). Source `Splats/Refs/met-impressionist-epoch-1974_clean.png` (✦ stripped via a
+baseboard-parallel shift patch); backup roll on hand if ever re-splatting. Original Gemini
+prompt below (superseded by the short "sheet of paper" prompt used to land it).
 > Color photograph of a 1970s Metropolitan Museum painting gallery — warm walls, period track lighting, gilt-framed Impressionist paintings, parquet floor, the gallery receding into the next room (eye-level, deep recession). On the main wall, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright — with a conspicuously BLANK, empty stretch of wall beside it where a label would be (no placard, no text). Color floods back here — the room you step into straight out of the void's grey; the resurrection. No people, no modern objects. One coherent walkable space.
 
 ### 7. `bordeaux-1981` — color; transition; placard "LE CORSAGE VERT"
@@ -277,8 +319,8 @@ splat's frame aspect is portrait** — re-roll if not; (7) calibrate `WORLD_PAIN
 **Placard system is BUILT** — `scripts/make_placard.py`, `app/lib/worldplacard.ts`, wired
 into `WorldViewer`; `public/placards/wildenstein-1934.png` ("THE CUP OF COFFEE") rendered.
 
-**Worlds #1 #2 #3 #4 #5 are visually DONE.** #1 #2 also have audio; #3 #4 #5 audio is
-TODO (the void's audio waits for the spine batch — see DECISIONS below).
+**Worlds #1 #2 #3 #4 #5 #6 are visually DONE.** #1 #2 also have audio; #3 #4 #5 #6 audio
+is TODO (the void's + met-74's audio is the spine batch — see DECISIONS below).
 
 **STRATEGY (settled w/ user 2026-06-03): splat + calibrate ALL remaining worlds first,
 THEN do audio as one arc-aware batch** (the sonic arc full→thinning→void→return→fullest
@@ -334,13 +376,17 @@ structurally (one grey room in a world of color) + the conspicuously MISSING lab
 not by an animated effect. `WORLD_GRADE` now has only `the-silence`. (If we ever want
 a literal color-return, the right home is the void's EXIT fade, not met-1974's entry.)
 
-**Resume next: world #6 `met-impressionist-epoch-1974`** — the resurrection
-(conspicuously MISSING label; the painting back in public light). §6 prompt,
-image→Marble 1.1, TALL PORTRAIT frame. It's a normal full-color world now — no grade
-entry. Resurrection reads through subject + the blank wall where the label should be.
-After #5, continue down the walk order (#6 met-1974, #7 bordeaux-1981 w/ placard "LE
-CORSAGE VERT", #8 yokohama, #9 paris-mam, #10 canberra-1986 — swapped in for stockholm-2025,
-see §10, #11 lillehammer), THEN the audio batch. **Calibration recipe (worked #3 #4):** deep-link `#world=<id>`, add a live
+**Resume next: world #7 `bordeaux-1981`** — color transition room w/ placard
+"LE CORSAGE VERT". §7 prompt, image→Marble 1.1, TALL PORTRAIT frame; render the placard
+via `make_placard.py` (the brass-nameplate style) and calibrate `WORLD_PLACARD` like
+Wildenstein. **Credit budget (w/ user 2026-06-05): ~7,440 after met-74, 1,500/splat → 5
+back-half worlds (bordeaux, canberra, yokohama, paris-mam, lillehammer) = 7,500, ~60 short,
+user covers with a ~$5 top-up. ZERO re-splat buffer — every splat must be one-and-done
+(judicious source image: deep recession + portrait frame verified BEFORE splatting; the
+post-splat aspect gate is the only hard re-splat trigger). No worlds demoted to cards.**
+After #7, continue the walk order (#8 yokohama, #9 paris-mam, #10 canberra-1986 — swapped in
+for stockholm-2025, see §10, #11 lillehammer), THEN the audio batch (void + met-74 first as
+the spine). **Calibration recipe (worked #3 #4 #5 #6):** deep-link `#world=<id>`, add a live
 magenta test plane via `window.__pl` {camera,scene,THREE} (keep it `transparent:true`
 even at opacity 1 — an opaque plane renders before the Spark splat pass and gets occluded;
 `depthTest:false`, `renderOrder:999`), drive `camera.position` directly (set spawn first;

@@ -97,6 +97,30 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     rotation: [0, 0, 0], // faces +Z toward the spawn
     height: 1.66,
   },
+  // Met-74: the resurrection. Frontal gilt frame on the central pier; depth
+  // triangulated from two straight-on −Z views (opening ≈109px @ cam z=0, ≈254px
+  // @ z=−4.5 → frame plane z≈−7.9), parallax-nulled. WHY THIS WORLD NEEDS A CROP:
+  // Marble WIDENED + WARPED the frame's opening to ≈0.75 (cream canvas), much wider
+  // than the 0.685 scan AND off-center (~0.03m LEFT of the pier axis) — because the
+  // gold frame sits on a gold/ochre wall (low contrast: Marble couldn't trace the
+  // gilt edges, so it reconstructed a generic, off-center opening; Stockholm/void
+  // kept their aspect because their frames were against PALE walls). Seating the full
+  // 0.685 scan meant white side-gaps or heavy over-cover; seating it at x=0 overhung
+  // the RIGHT gilt onto the wall. FIX (per-world): a cropped scan
+  // `/the-green-blouse-met74.jpg` = the Met scan with 54px off the TOP only
+  // (sky/curtain — the expendable region; figures, table, AND bottom-left signature
+  // all preserved) → aspect 0.749 matching the opening, recentered to x=−0.03 → fills
+  // snugly with an even thin gilt reveal, no distortion, no side overhang. Plane
+  // floated 0.5m proud (z=−7.4) so the opaque material isn't washed out (verified:
+  // 0.25m float washes out to bare cream canvas, 0.4m+ crisp, 0.5m safe). Full color,
+  // NO grade, NO placard (the bare wall beside the frame is the missing label).
+  "met-impressionist-epoch-1974": {
+    position: [-0.03, 1.32, -7.4],
+    rotation: [0, 0, 0], // faces +Z toward the spawn
+    height: 1.489,
+    url: "/the-green-blouse-met74.jpg",
+    aspect: 0.749,
+  },
 };
 
 /**

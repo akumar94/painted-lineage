@@ -27,7 +27,7 @@ export const WORLDS: Record<string, WorldAsset> = {
   "stockholm-1939": { spz: "/worlds/stockholm-1939.spz", ready: true },
   "met-impressionist-epoch-1974": {
     spz: "/worlds/met-impressionist-epoch-1974.spz",
-    ready: false,
+    ready: true,
   },
   "canberra-1986": { spz: "/worlds/canberra-1986.spz", ready: false },
   "yokohama-1989": { spz: "/worlds/yokohama-1989.spz", ready: false },
@@ -84,6 +84,12 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // dissolve into fog on the right — arrival into 35 years of stillness, the
   // painting present but lived-with, not shown.
   "the-silence": { position: [0, 1.6, 0.6] },
+  // Met-74: arrive at the room origin looking straight down the axial hall — the
+  // Green Blouse centered on the pier (frame ~7.9m down −Z), both side walls of
+  // densely hung Impressionists receding symmetrically. A held hero shot: the
+  // painting back in public light, the resurrection. Not nose-to-canvas; the full
+  // living gallery reads on arrival.
+  "met-impressionist-epoch-1974": { position: [0, 1.6, -1] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {
