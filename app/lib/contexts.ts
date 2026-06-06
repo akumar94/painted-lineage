@@ -500,7 +500,6 @@ export const CONTEXTS: Context[] = [
     worldId: null,
     titleAtVenue: "Den gröna blusen (La Blouse verte)",
     catalogueNote: "no. 35.",
-    note: "Nordic loop closes. The path returns to Stockholm — 86 years after it went dark there.",
   },
   {
     id: "lillehammer-2025",
