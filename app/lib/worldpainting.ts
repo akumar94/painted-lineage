@@ -84,6 +84,19 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     rotation: [0, 0, 0], // faces +Z toward the spawn
     height: 2.05,
   },
+  // The void's frontal portrait frame, deep down a long apartment enfilade.
+  // Triangulated from two straight-on −Z views (opening ≈220px at z=0, ≈345px at
+  // z=−2.5 → frame plane z≈−6.9; the room is deep) and parallax-nulled at both
+  // distances. Opening aspect ≈0.64 (narrower than the 0.685 scan) so — per the
+  // Wildenstein/Stockholm rule — height (1.58) over-covers: the canvas rides the
+  // gilt lip with an even reveal, no liner gap. NOT lit, NOT labeled (no placard
+  // entry) — "hung as if lived with, not shown." The void grade desaturates +
+  // dims the plane along with the room, so the scan needs no separate dark asset.
+  "the-silence": {
+    position: [-0.55, 1.38, -6.9],
+    rotation: [0, 0, 0], // faces +Z toward the spawn
+    height: 1.66,
+  },
 };
 
 /**

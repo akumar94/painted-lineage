@@ -34,8 +34,8 @@ export const WORLDS: Record<string, WorldAsset> = {
   "paris-mam-2006": { spz: "/worlds/paris-mam-2006.spz", ready: false },
   "lillehammer-2025": { spz: "/worlds/lillehammer-2025.spz", ready: false },
 
-  // ── the void (Lane 2: API, no source image) ────────────────
-  "the-silence": { spz: "/worlds/the-silence.spz", ready: false },
+  // ── the void (image→world from thesilence_clean.png ref) ────
+  "the-silence": { spz: "/worlds/the-silence.spz", ready: true },
 
   // ── 2 transition rooms (placard must be legible) ───────────
   "wildenstein-1934": { spz: "/worlds/wildenstein-1934.spz", ready: true },
@@ -79,8 +79,54 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // left, doorway + bench right, the Green Blouse glowing alone at the far end.
   // The "last show before the silence" reads best from back here.
   "stockholm-1939": { position: [0, 1.6, -0.5] },
+  // The void: stand back in the private apartment, looking down −Z. The Green
+  // Blouse hangs quietly on the left wall (dim, unlabeled), the clock + console
+  // dissolve into fog on the right — arrival into 35 years of stillness, the
+  // painting present but lived-with, not shown.
+  "the-silence": { position: [0, 1.6, 0.6] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {
   return (id && WORLD_SPAWN[id]) || DEFAULT_SPAWN;
+}
+
+/**
+ * The chromatic arc (docs/WORLD_GEN.md). The void is the ONLY desaturated space:
+ * color DRAINS as you enter `the-silence`. Everywhere else is full color —
+ * `met-impressionist-epoch-1974` FLOODS color back on entry, the resurrection
+ * landing at the void's exit. Applied as an animated CSS filter on the canvas so
+ * it grades the whole scene (splat AND the composited painting) with no coupling
+ * to the Spark pipeline.
+ */
+export interface WorldGrade {
+  /** Desaturated extreme: CSS saturation multiplier (1 = full color, 0 = grey). */
+  saturation: number;
+  /** Desaturated extreme: CSS brightness multiplier (1 = unchanged). */
+  brightness: number;
+  /** Seconds to ease between full color and the extreme. */
+  seconds: number;
+  /** "drain" eases full→extreme on enter (the void); "flood" eases extreme→full
+   *  on enter (the resurrection). */
+  direction: "drain" | "flood";
+}
+
+export const WORLD_GRADE: Record<string, WorldGrade> = {
+  // The silence: color bleeds out as the apartment settles around you.
+  "the-silence": {
+    saturation: 0.12,
+    brightness: 0.78,
+    seconds: 3.0,
+    direction: "drain",
+  },
+  // The resurrection: you step out of the grey and color rushes back.
+  "met-impressionist-epoch-1974": {
+    saturation: 0.12,
+    brightness: 0.78,
+    seconds: 2.2,
+    direction: "flood",
+  },
+};
+
+export function worldGrade(id: string | undefined): WorldGrade | undefined {
+  return id ? WORLD_GRADE[id] : undefined;
 }

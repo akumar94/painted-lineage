@@ -277,7 +277,8 @@ splat's frame aspect is portrait** — re-roll if not; (7) calibrate `WORLD_PAIN
 **Placard system is BUILT** — `scripts/make_placard.py`, `app/lib/worldplacard.ts`, wired
 into `WorldViewer`; `public/placards/wildenstein-1934.png` ("THE CUP OF COFFEE") rendered.
 
-**Worlds #1 #2 #3 #4 are visually DONE.** #1 #2 also have audio; #3 #4 audio is TODO.
+**Worlds #1 #2 #3 #4 #5 are visually DONE.** #1 #2 also have audio; #3 #4 #5 audio is
+TODO (the void's audio waits for the spine batch — see DECISIONS below).
 
 **STRATEGY (settled w/ user 2026-06-03): splat + calibrate ALL remaining worlds first,
 THEN do audio as one arc-aware batch** (the sonic arc full→thinning→void→return→fullest
@@ -293,10 +294,42 @@ opening ≈1.31×2.02m, aspect 0.649, over-covered with 0.685 scan) · `WORLD_SP
 [0,1.6,−0.5] (near the entrance — establishing view down the emptying hall) · no
 placard. Source `Splats/Refs/stockholm-1939_clean.png`.
 
-**Resume next: world #5 `the-silence` — THE VOID** (visual). DIFFERENT pipeline: §5
-prompt, **no source image**, Marble 1.1 **Plus** (5 dynamic cubes), terminal node (can't
-Expand). Painting is PRESENT but unshown — composite the scan **darkened + unlabeled**
-(dim, "hung as if lived with, not shown"). NEVER war/theft (see void-constraint memory).
+**DECISIONS (locked w/ user 2026-06-06):** (1) **build the void NOW**, not last —
+it's the one unproven pipeline (1.1 Plus / no-ref / 5-cube), so de-risk it while
+fresh; the 6 image-worlds share the proven recipe and batch after. (2) **Audio
+batch starts after the SPINE is splatted** (void + met-1974) — the drop→return is
+the most adjacency-dependent moment and needs both rooms to A/B. Back-half audio
+follows once those worlds land.
+
+**Code-side void treatment — DONE ahead of the splat (2026-06-06).** The chromatic
+arc is wired and verified against the placeholder: `WORLD_GRADE` in `worlds.ts` +
+an animated CSS filter on the canvas in `WorldViewer` (grades the WHOLE scene —
+splat AND composited painting — with no Spark-pipeline coupling). `the-silence`
+DRAINS to `saturate(0.12) brightness(0.78)` over 3s once the splat is ready;
+`met-impressionist-epoch-1974` FLOODS back to full color over 2.2s (starts
+desaturated, as if just out of the grey). Tune the exact values/curve against the
+REAL void splat when it lands. The darkened painting composite is then just a
+`WORLD_PAINTING["the-silence"]` entry (the global grade already dims+desaturates
+it; no separate darkened asset needed) — no placard entry = unlabeled, as required.
+
+**World #5 `the-silence` — THE VOID — DONE (visual; audio TODO in the spine batch).**
+Pivoted from the no-image text→Marble plan to **image→Marble**: Gemini painted the
+ref from the §5 prompt (a frontal TALL-PORTRAIT empty frame in a shuttered Paris
+apartment dissolving into grey), watermark stripped → `Splats/Refs/thesilence_clean.png`,
+splatted plain **1.1**. Calibrated: `WORLD_PAINTING["the-silence"]` [−0.55,1.38,−6.9]
+h1.66 (deep room — frame ≈6.9m down −Z, triangulated from 220px@z0 / 345px@z−2.5,
+parallax-nulled; opening aspect ≈0.64 so height over-covers per the W/S rule) ·
+`WORLD_SPAWN` [0,1.6,0.6] (stand back, painting quiet on the left wall, clock+console
+dissolving right) · **no placard** (unlabeled, by design). The Green Blouse is PRESENT
+but unshown — the `WORLD_GRADE` drain desaturates+dims the plane along with the room,
+so the plain scan reads "hung as if lived with, not shown" with no separate dark asset.
+NEVER war/theft (honored — pure quiet withdrawal). Color-flood handoff to met-1974
+still tunable once #6 exists.
+
+**Resume next: world #6 `met-impressionist-epoch-1974`** — the resurrection (color
+floods back out of the void; conspicuously MISSING label). §6 prompt, image→Marble
+1.1, TALL PORTRAIT frame. `WORLD_GRADE["met-..."]` flood is already wired — tune it
+against the real splat next to the void.
 After #5, continue down the walk order (#6 met-1974, #7 bordeaux-1981 w/ placard "LE
 CORSAGE VERT", #8 yokohama, #9 paris-mam, #10 canberra-1986 — swapped in for stockholm-2025,
 see §10, #11 lillehammer), THEN the audio batch. **Calibration recipe (worked #3 #4):** deep-link `#world=<id>`, add a live

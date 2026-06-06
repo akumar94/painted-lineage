@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { initWorldAudio } from "../lib/worldaudio";
 import { initWorldPainting } from "../lib/worldpainting";
 import { initWorldPlacard } from "../lib/worldplacard";
-import { worldSpawn } from "../lib/worlds";
+import { worldGrade, worldSpawn } from "../lib/worlds";
 
 export default function WorldViewer({
   spzUrl,
@@ -76,6 +76,24 @@ export default function WorldViewer({
       // painting (no-op until calibrated). Same load-gating as the painting.
       const cleanupPlacard = initWorldPlacard(scene, worldId, splatReady);
 
+      // Chromatic arc: the void drains color in, met-1974 floods it back. An
+      // animated CSS filter on the canvas grades the whole scene — splat AND the
+      // composited painting — with zero coupling to the Spark render pipeline.
+      // The drain begins only once the splat is ready, so color bleeds out of
+      // the actual room (not the loading blur); flood worlds start desaturated
+      // (as if just out of the grey) and rush to full color on the same cue.
+      const grade = worldGrade(worldId);
+      let gradeStart = 0;
+      if (grade) {
+        renderer.domElement.style.filter =
+          grade.direction === "flood"
+            ? `saturate(${grade.saturation}) brightness(${grade.brightness})`
+            : "saturate(1) brightness(1)";
+        splatReady?.then(() => {
+          if (!disposed) gradeStart = performance.now();
+        });
+      }
+
       // Dev calibration handle — only when entered via the #world= deep-link.
       // Exposes camera/scene/THREE so painting/spawn placement can be measured
       // and previewed live from the console. Never set in the normal flow.
@@ -90,6 +108,20 @@ export default function WorldViewer({
       renderer.setAnimationLoop(() => {
         if (disposed) return;
         controls.update(camera);
+        if (grade && gradeStart) {
+          const p = Math.min(
+            1,
+            (performance.now() - gradeStart) / (grade.seconds * 1000),
+          );
+          // easeInOutQuad — the drain/flood settles rather than snapping.
+          const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+          const lerp = (a: number, b: number) => a + (b - a) * e;
+          const [s, b] =
+            grade.direction === "drain"
+              ? [lerp(1, grade.saturation), lerp(1, grade.brightness)]
+              : [lerp(grade.saturation, 1), lerp(grade.brightness, 1)];
+          renderer.domElement.style.filter = `saturate(${s}) brightness(${b})`;
+        }
         renderer.render(scene, camera);
       });
 
