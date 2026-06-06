@@ -78,13 +78,14 @@ export function initWorldPlacard(
 
   let disposed = false;
 
-  // Hold the card hidden until the splat streams in, like the painting — so it
+  // Hold the card hidden until the splat has painted, like the painting — so it
   // appears mounted on the wall, not floating in blur first.
   if (ready) {
     mesh.visible = false;
     ready.then(() => {
-      // Same as the painting: `ready` resolves a frame or two before the splat
-      // paints, so wait two frames to avoid the card popping in ahead of the wall.
+      // Same as the painting: `ready` is displayReady (resolves once the splat has
+      // actually painted); wait two extra frames as margin so the card never pops
+      // in ahead of the wall.
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
           if (!disposed) mesh.visible = true;

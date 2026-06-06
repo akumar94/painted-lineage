@@ -152,16 +152,16 @@ export function initWorldPainting(
 
   let disposed = false;
 
-  // The 100KB scan loads instantly; the 28MB splat streams over seconds. Hold
-  // the painting hidden until the splat is ready so it appears IN the gallery,
-  // not floating in blur before the room exists.
+  // The 100KB scan loads instantly; the splat streams + GPU-uploads + depth-sorts
+  // over seconds. Hold the painting hidden until `ready` so it appears IN the
+  // gallery, not floating in blur before the room exists.
   if (ready) {
     mesh.visible = false;
     ready.then(() => {
-      // `ready` (splat.initialized) resolves when the splat DATA is uploaded — a
-      // frame or two BEFORE its gaussians first paint. Revealing here pops the
-      // painting in just AHEAD of the room (visible in the void). Wait two frames
-      // so the splat has rendered at least once before the painting appears.
+      // `ready` is WorldViewer's displayReady — it resolves only once the splat
+      // has actually PAINTED (its sorted geometry went non-empty), not merely
+      // decoded. Wait two extra frames as a safety margin so the reveal can never
+      // land a frame ahead of the room.
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
           if (!disposed) mesh.visible = true;

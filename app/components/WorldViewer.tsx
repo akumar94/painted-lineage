@@ -30,7 +30,9 @@ export default function WorldViewer({
     let animationId: number | undefined;
 
     async function init() {
-      const { SplatMesh, SparkControls } = await import("@sparkjsdev/spark");
+      const { SplatMesh, SparkControls, SparkRenderer } = await import(
+        "@sparkjsdev/spark"
+      );
 
       if (disposed) return;
 
@@ -57,12 +59,31 @@ export default function WorldViewer({
       // Default moveSpeed (1) crawls at this world scale — quicken the walk.
       controls.fpsMovement.moveSpeed = 3.2;
 
+      // `splat.initialized` resolves on DECODE (the .spz is downloaded + parsed),
+      // but Spark still needs a GPU upload + the first async depth-sort before any
+      // gaussian actually paints — ~1–2s more on a cold load. Gating the painting /
+      // placard / grade on `initialized` pops the instant-loading .jpg into empty
+      // blur a beat before the room arrives. So we gate on `displayReady` instead:
+      // it resolves only once the splat has truly RENDERED (the default viewpoint's
+      // sorted geometry has a non-zero instance count — see the animation loop).
+      let resolveDisplay: (() => void) | null = null;
+      const displayReady = new Promise<void>((r) => {
+        resolveDisplay = r;
+      });
+      let probeStartedAt = 0;
+      let spark: InstanceType<typeof SparkRenderer> | undefined;
+
       let splatReady: Promise<unknown> | undefined;
       let splat: InstanceType<typeof SplatMesh> | undefined;
       try {
         splat = new SplatMesh({ url: spzUrl });
         scene.add(splat);
         splatReady = splat.initialized;
+        // Start the first-paint probe only once decode is done (before that the
+        // sorted geometry is necessarily empty); this also starts the fallback clock.
+        splatReady.then(() => {
+          if (!disposed) probeStartedAt = performance.now();
+        });
         setLoading(false);
       } catch (e) {
         setError("Failed to load 3D world");
@@ -74,12 +95,13 @@ export default function WorldViewer({
       const cleanupAudio = initWorldAudio(scene, camera, audioId);
 
       // The real painting, composited onto the wall (no-op until calibrated).
-      // Held hidden until the splat is ready so it doesn't float in blur first.
-      const cleanupPainting = initWorldPainting(scene, worldId, splatReady);
+      // Held hidden until the splat has PAINTED (displayReady, not mere decode) so
+      // it doesn't float in blur ahead of the room.
+      const cleanupPainting = initWorldPainting(scene, worldId, displayReady);
 
       // The wall placard — the renaming label, composited just below the
       // painting (no-op until calibrated). Same load-gating as the painting.
-      const cleanupPlacard = initWorldPlacard(scene, worldId, splatReady);
+      const cleanupPlacard = initWorldPlacard(scene, worldId, displayReady);
 
       // Chromatic arc: the void drains color in, met-1974 floods it back. An
       // animated CSS filter on the canvas grades the whole scene — splat AND the
@@ -94,7 +116,7 @@ export default function WorldViewer({
           grade.direction === "flood"
             ? `saturate(${grade.saturation}) brightness(${grade.brightness})`
             : "saturate(1) brightness(1)";
-        splatReady?.then(() => {
+        displayReady.then(() => {
           if (!disposed) gradeStart = performance.now();
         });
       }
@@ -113,6 +135,32 @@ export default function WorldViewer({
       renderer.setAnimationLoop(() => {
         if (disposed) return;
         controls.update(camera);
+
+        // Resolve displayReady on the first frame the splat has actually painted.
+        // Spark auto-injects a SparkRenderer into the scene on first render; its
+        // default viewpoint's sorted geometry gains a non-zero instanceCount only
+        // when the first depth-sort completes (i.e. the room is on screen). A
+        // generous fallback resolves anyway, so a future Spark internal rename can
+        // never strand the painting hidden forever.
+        if (resolveDisplay && probeStartedAt) {
+          if (!spark) {
+            scene.traverse((o) => {
+              if (o instanceof SparkRenderer)
+                spark = o as InstanceType<typeof SparkRenderer>;
+            });
+          }
+          const display = (
+            spark as unknown as {
+              viewpoint?: { display?: { geometry?: { instanceCount?: number } } };
+            }
+          )?.viewpoint?.display;
+          const painted = (display?.geometry?.instanceCount ?? 0) > 0;
+          if (painted || performance.now() - probeStartedAt > 10000) {
+            resolveDisplay();
+            resolveDisplay = null;
+          }
+        }
+
         if (grade && gradeStart) {
           const p = Math.min(
             1,
