@@ -39,9 +39,9 @@ export const WORLDS: Record<string, WorldAsset> = {
 
   // ── 2 transition rooms (placard must be legible) ───────────
   "wildenstein-1934": { spz: "/worlds/wildenstein-1934.spz", ready: true },
-  // v2 re-splat (flat/shallow frame to kill the shadowbox float; v1 kept as backup
-  // at /worlds/bordeaux-1981.spz). Flip back if v2 doesn't win.
-  "bordeaux-1981": { spz: "/worlds/bordeaux-1981v2.spz", ready: true },
+  // Flat-frame re-splat (replaced the v1 shadowbox-frame splat that floated; see
+  // worldpainting.ts). Canonical filename now that v1 is retired.
+  "bordeaux-1981": { spz: "/worlds/bordeaux-1981.spz", ready: true },
 };
 
 /** The streamable source for a context's world, or null if not generated yet. */
