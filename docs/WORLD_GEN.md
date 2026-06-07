@@ -1,8 +1,28 @@
 # Painted Lineage — World & Sound build sheet
 
 The single source for generating the 11 enterable worlds and scoring them.
-Front end is **done**; this is the asset phase. **Worlds #1 (`le-cannet-studio`)
-and #2 (`carnegie-1924`) are fully built.** 9 worlds + the void remain.
+Front end is **done**; this is the asset phase.
+
+## Master status (updated 2026-06-06)
+
+| # | World | Year | Place | Visual | Audio |
+|---|-------|------|-------|--------|-------|
+| 1 | `le-cannet-studio` | 1919 | Le Cannet, France 🇫🇷 | ✅ | ✅ |
+| 2 | `carnegie-1924` | 1924 | Pittsburgh, USA 🇺🇸 | ✅ | ✅ |
+| 3 | `wildenstein-1934` | 1934 | New York, USA 🇺🇸 | ✅ | ✅ 🔒 |
+| 4 | `stockholm-1939` | 1939 | Stockholm, Sweden 🇸🇪 | ✅ | ✅ 🔒 |
+| 5 | `the-silence` 🕯️ | 1939–74 | Paris (private) 🇫🇷 | ✅ | ✅ 🔒 |
+| 6 | `met-impressionist-epoch-1974` | 1974 | New York, USA 🇺🇸 | ✅ | ✅ 🔒 |
+| 7 | `bordeaux-1981` | 1981 | Bordeaux, France 🇫🇷 | ⬜ splat TODO | ⬜ |
+| 8 | `canberra-1986` | 1986 | Canberra, Australia 🇦🇺 | ⬜ splat TODO | ⬜ |
+| 9 | `yokohama-1989` | 1989 | Yokohama, Japan 🇯🇵 | ⬜ splat TODO | ⬜ |
+| 10 | `paris-mam-2006` | 2006 | Paris, France 🇫🇷 | ⬜ splat TODO | ⬜ |
+| 11 | `lillehammer-2025` | 2025 | Lillehammer, Norway 🇳🇴 | ⬜ splat TODO | ⬜ |
+
+**The resurrection spine (worlds 1–6) is visual + audio COMPLETE.** Worlds 3–6 audio
+was built + locked in the 2026-06-06 spine batch; 1–2 audio is inherited (carnegie
+flagged for an optional de-mud/loop-seam polish to match the spine-batch technique).
+The back half (7–11) awaits splatting, then audio. The void (5) is near-silence by design.
 
 ## Hard-won learnings (build these into every world)
 
@@ -301,6 +321,52 @@ Design intent per world: `app/lib/soundmap.ts`. 2–3 sounds, non-intrusive. Cra
 dry brush = Freesound "normal paint strokes"; wet jar = Freesound 657552 (CC0,
 Tom_Kaszuba). Positions: garden bed to the window direction (low/wide), brush +
 jar a tight bubble at the easel. Tune positions/levels by ear — preview is visual-only.
+
+**Spine batch sources (void + met-1974) — DONE 2026-06-06, all CC0 (no attribution
+required; logged for traceability):**
+VOID — **user-APPROVED "absolute perfection" 2026-06-06**:
+- void/clock = Freesound 125968 (Ryding, real **grandfather clock**) — user rejected the crunchy
+  790486 tick; wanted pendulum/metronome + haunting. Final: `afftdn,asetrate=40572` (pitch-down
+  ~8% deeper/slower), `aphaser,aecho=…90|180…,lowpass=6500,volume=16dB,apulsator=hz=0.06` →
+  **STEREO** slow L→R pan, `spatial:false` (THREE.Audio non-positional; disembodied heartbeat).
+- void/creak = Freesound 502504 (Rudmer_Rotteveel). `highpass=120,afftdn,lowpass=9000` mono; every 20–30s.
+- void/paris = Freesound 325506 (ListenTonyBoy). HAUNTCORE: `asetrate=36162` (pitch-down ~18%),
+  `lowpass=1100,chorus,aecho=…300|450…` → muffled detuned drone, sub-threshold.
+- void/accordion = Freesound 834382 (ali.g, real solo street accordion). User add: the uniquely-Parisian
+  timeless (1939≡1974) far drift. `lowpass=2000` muffle + courtyard reverb, threshold (vol 0.12). Church
+  bells (Freesound 413157) were the runner-up — sourced/ready as a swap if music feels wrong in the void.
+- **SEAMLESS-LOOP FIX (clock + paris stuttered at the loop seam — reverb tail cut):** wrap-around
+  crossfade — `[0]atrim=0:D[h];[0]atrim=D[b];[b][h]acrossfade=d=D:c1=tri:c2=tri` (D≈0.7 clock / 2.5 drone).
+  Blends the tail back into the head so the file loops with no click. Reusable for any looping bed.
+
+MET-1974 — crowd + hvac user-APPROVED ("L/R panning pure beauty"):
+- met/crowd = Freesound 844809 (Funkelfang). Had a **screaming baby** (high-freq spikes at 5-10/35-40/50-55s);
+  cut the baby-free 20–34s window, `lowpass=4500`+reverb, `loudnorm=I=-20.5:TP=-2` (~2.5dB quieter). mean −20.4.
+- met/squeak = Freesound 187343 (baidonovan). Softened single squeak, VERY sporadic (every 16–34s).
+  **PRESSURE-TEST PENDING:** if even the rare squeak reads "gym," cut entirely.
+- met/children = Freesound 188210 (SpliceSound). Pushed to "next gallery" (`lowpass=4000`+reverb).
+- met/hvac = Freesound 843295 (NickTayloe). Hard `lowpass=350` → felt background hum (user: "perfection"); vol 0.24.
+- met/nyc = Freesound 715664 (TRP) — **actual Manhattan hotel-window recording** w/ distant horns.
+  Uniquely-NY exterior leak (Met fronts 5th Ave/Central Park): `lowpass=3500` muffle, threshold.
+
+FRONT-HALF (wildenstein + stockholm) — DONE 2026-06-06, all CC0 except YT (PD-by-age):
+- wild/radiator = Freesound 265013 (sethlind, genuine NYC steam hiss). User: candidate "WAY too loud" →
+  faint steady **loop** (not intermittent knocks), dealer's-townhouse BG. `afftdn,lowpass=6000,volume=-3dB`.
+- wild/murmur = Freesound 475650 (o_ciz, voices-through-a-wall) — **user-APPROVED**. `lowpass=2500` muffled, faint.
+- wild/street = **YouTube vPfJBwipL3Q** (1930 NYC cityscape, the 0:10–0:15 "gold"; cut 0:08–0:23). PD-by-age;
+  light denoise to KEEP period grit, `lowpass=3200`. Grabbed via `yt-dlp --download-sections` (file ts = video ts).
+- wild/horn = **YouTube zyD3HbpvTNs** (1930s Harlem, the car horn at 0:29–0:31). Intermittent, rare.
+- wild/horse = Freesound 176571 (Housed1J, dry cobblestone clip-clop, walk-only opening). Faint occasional cart.
+- stockholm/wind = Freesound 585641 (greysound). **Pressure-tested**: March Stockholm is light-moderate, so
+  TAMED the whistle (`lowpass=2800`) to a low cold pressure — not a gale.
+- stockholm/footsteps = Freesound 536290 (letsmakemuffins). User: "perfection" but hissy → heavy `afftdn=nr=28`, kept echo.
+- stockholm/bell = Freesound 824588 (TicAshfield, distant toll). `lowpass=5000`+reverb, faint.
+- stockholm/tram = Freesound 430062 (BeeProductive, isolated curve wheel-squeal) — period-Stockholm exterior,
+  rare/faint. (Replaced the DECLINED news-vendor idea, which broke the no-war constraint.)
+- **void↔met contrast (spine) verified**: void means −37..−47 dB vs met crowd −20 dB.
+- ffmpeg gotcha (zsh): unquoted `$VARS` don't word-split — inline ffmpeg flags, don't stash in a var.
+- **STILL UN-AUDITIONED (front-half + met tweaks)** — levels/positions from-spec; tune by ear. Watch:
+  wildenstein has 3 faint beds (radiator+street+murmur) + 2 rare (horn+horse) — may need thinning if muddy.
 
 ## Resume in a new chat
 
