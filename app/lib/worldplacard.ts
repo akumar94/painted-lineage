@@ -48,6 +48,15 @@ export const WORLD_PLACARD: Record<string, PlacardPlacement> = {
     rotation: [0, 0, 0],
     height: 0.13,
   },
+  // "LE CORSAGE VERT" — the painting's French name at Bordeaux, 1981. Brass nameplate
+  // below the dark frame, centered on the frame axis (x=−0.13), coplanar with the v2
+  // painting at the depth-re-fit frame plane (z=−25.4, see worldpainting.ts). Sits at
+  // y0.55, clear below the frame with a small gap.
+  "bordeaux-1981": {
+    position: [-0.16, 0.55, -25.4], // x matches the painting (−0.16) so the plate stays centered under it
+    rotation: [0, 0, 0],
+    height: 0.14,
+  },
 };
 
 /**

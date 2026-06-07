@@ -289,7 +289,28 @@ export default function AtlasGlobe({
     const pickIndex = (): number => {
       raycaster.setFromCamera(pointer, camera);
       const hits = raycaster.intersectObjects(sprites, false);
-      return hits.length ? (hits[0].object.userData.index as number) : -1;
+      if (!hits.length) return -1;
+      // Sprites raycast THROUGH the opaque globe, so far-hemisphere pins are
+      // also hits. Keep only VISIBLE (near-side) pins: a pin is on the camera's
+      // side of the globe centre iff its position dots positive with the camera
+      // position (both measured from the origin the globe is centred on). This
+      // both stops smallest-wins from surfacing a pin hidden behind the earth
+      // and stops back-face pins registering when hovering empty globe.
+      const camPos = raycaster.ray.origin;
+      const near = hits.filter((h) => h.object.position.dot(camPos) > 0);
+      if (!near.length) return -1;
+      // Smallest-wins: where the cursor's ray pokes through more than one
+      // near-side sprite (e.g. small Bordeaux tucked under the oversized void
+      // disc), pick the smallest marker so the tiny pin stays clickable. The
+      // big markers keep their large exposed area, so they're still easy to
+      // grab everywhere a small pin isn't overlapping. Compare baseScale, not
+      // the live (hover-animated) scale, so the choice doesn't flap mid-hover.
+      let best = near[0].object.userData.index as number;
+      for (const h of near) {
+        const i = h.object.userData.index as number;
+        if (baseScale[i] < baseScale[best]) best = i;
+      }
+      return best;
     };
 
     const onMove = (e: PointerEvent) => {

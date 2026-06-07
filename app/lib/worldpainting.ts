@@ -121,6 +121,28 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     url: "/the-green-blouse-met74.jpg",
     aspect: 0.749,
   },
+  // Bordeaux v2 (flat-frame re-splat). v1 reconstructed the dark frame as a deep
+  // shadowbox → the flat painting plane floated/parallax-separated at oblique angles
+  // (unfixable: depth-bias just traded forward-float for always-on-top; carving rejected).
+  // Re-splatted from a still prompted for a SLIM, FLAT, FLUSH frame. v2's frame is flat/
+  // shallow, so the painting seats FLUSH (no proud float) and stays crisp head-on with NO
+  // wash-out — the float v1/met-74 needed is gone. Depth triangulated with the magenta
+  // probe (frame plane ≈ z−24.3; the v2 nave is deeper, parallax-nulled at z−10/−17).
+  // Opening ≈0.69 portrait (aspect held again via dark-on-pale contrast), centered at
+  // (−0.13, 1.30). DEPTH RE-FIT (2026-06-06): the head-on parallax-null under-read the
+  // frame depth by ~1m — first put the plane at z−24.3, which floated/separated at steep
+  // close OBLIQUE walk-ups (painting sat ~1m proud of the real frame). Re-fit with an
+  // OBLIQUE camera (lateral parallax is far more depth-sensitive than head-on): true frame
+  // plane ≈ z−25.4. LESSON: verify frame depth from an OBLIQUE view, not just head-on.
+  // Seated flush there, crisp (no wash-out), registered in the frame at oblique — only the
+  // natural thin frame-border edge shows at an angle (correct), no detached float. height
+  // 1.130 = uniform over-cover sized to the deeper (larger) opening, no distortion. No
+  // float, no aspect/url override. (v1 backup: [-0.06,1.02,-22.1] h1.03 @ bordeaux-1981.spz.)
+  "bordeaux-1981": {
+    position: [-0.16, 1.30, -25.4], // x nudged −0.13→−0.16 to center in the frame (left/bottom-left border was showing)
+    rotation: [0, 0, 0], // faces +Z toward the spawn
+    height: 1.130,
+  },
 };
 
 /**

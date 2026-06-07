@@ -39,7 +39,9 @@ export const WORLDS: Record<string, WorldAsset> = {
 
   // ── 2 transition rooms (placard must be legible) ───────────
   "wildenstein-1934": { spz: "/worlds/wildenstein-1934.spz", ready: true },
-  "bordeaux-1981": { spz: "/worlds/bordeaux-1981.spz", ready: false },
+  // v2 re-splat (flat/shallow frame to kill the shadowbox float; v1 kept as backup
+  // at /worlds/bordeaux-1981.spz). Flip back if v2 doesn't win.
+  "bordeaux-1981": { spz: "/worlds/bordeaux-1981v2.spz", ready: true },
 };
 
 /** The streamable source for a context's world, or null if not generated yet. */
@@ -90,6 +92,14 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // painting back in public light, the resurrection. Not nose-to-canvas; the full
   // living gallery reads on arrival.
   "met-impressionist-epoch-1974": { position: [0, 1.6, -1] },
+  // Bordeaux v2: looking straight down the long barrel-vaulted nave toward the
+  // dark-framed Green Blouse at the far end (frame ~24.3m down −Z — v2's nave is
+  // deeper than v1's), the 18th-c stone staircase off to the right. A "passing-
+  // through" hero — the deep one-point recession does the work, the painting the
+  // focal point at the end. Centered on the nave axis (x=0). z=−11.5 keeps the same
+  // ~13.9m painting distance / framing the user liked on v1's −8.5, now measured to the
+  // depth-re-fit frame plane (z−25.4), so the arrival reads the same despite the deep v2 room.
+  "bordeaux-1981": { position: [0, 1.6, -11.5] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {

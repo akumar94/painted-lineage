@@ -524,11 +524,17 @@ export const PATH = [...CONTEXTS].sort((a, b) => a.year - b.year);
 /** The enterable subset — what streams a world. Primary + transition. */
 export const ENTERABLE = CONTEXTS.filter((c) => c.enterable);
 
-/** NYC pins share a coordinate cluster and need fan-out on the globe. */
+/**
+ * NYC pins share a coordinate cluster and need fan-out on the globe.
+ * The FIRST entry is the cluster ANCHOR — it stays at its true coordinate; the
+ * rest spiderfy in a ring around it (see placePins). Anchor = met-1974, the
+ * primary hero pin, so it sits exactly on NYC (it was being fanned ~480km north
+ * into Canada when every member got offset).
+ */
 export const COLOCATION_CLUSTERS: Record<string, string[]> = {
   "new-york": [
-    "wildenstein-1934",
     "met-impressionist-epoch-1974",
+    "wildenstein-1934",
     "nyu-grey-1978",
     "met-selection-two-1985",
     "met-painters-in-paris-2000",

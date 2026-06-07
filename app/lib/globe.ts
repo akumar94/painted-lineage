@@ -84,7 +84,11 @@ export interface PlacedPin {
 }
 
 const PIN_LIFT = 1.012; // markers float just above the surface
-const FAN_RADIUS = 0.16; // tangential spread for clustered pins (world units)
+// Tangential spread of the satellite pins around a cluster anchor (world units).
+// Tightened from 0.16 — at 0.16 a member could sit ~480km off (the Met landed in
+// Canada); ~0.09 keeps the NYC satellites within NY state. Smallest-wins picking
+// (AtlasGlobe) keeps them individually clickable even at this tighter spacing.
+const FAN_RADIUS = 0.09;
 
 export function placePins(contexts: Context[]): PlacedPin[] {
   // Build id → cluster-member-index lookup for fan-out.
@@ -104,9 +108,17 @@ export function placePins(contexts: Context[]): PlacedPin[] {
       return { context, position: anchor, anchor, fanned: false };
     }
 
-    // Spiderfy: spread members evenly around a small circle on the tangent
-    // plane at the shared surface point. Honest because the leader line still
-    // points home to the true coordinate.
+    // The cluster's FIRST member is the ANCHOR — it stays at its true coordinate
+    // so the most important pin is geographically correct (met-1974 on NYC, not
+    // fanned into Canada). The remaining members spiderfy in a ring around it.
+    // (Reused for the Paris cluster at world 9: anchor the void, fan paris-mam.)
+    if (cluster.index === 0) {
+      return { context, position: anchor, anchor, fanned: false };
+    }
+
+    // Spiderfy: spread the N−1 satellites evenly around a small circle on the
+    // tangent plane. Honest because each leader line still points home to its
+    // true coordinate.
     const normal = surface.clone().normalize();
     const tangent = new THREE.Vector3(0, 1, 0)
       .cross(normal)
@@ -114,7 +126,8 @@ export function placePins(contexts: Context[]): PlacedPin[] {
     if (tangent.lengthSq() < 1e-6) tangent.set(1, 0, 0); // pole guard
     const bitangent = normal.clone().cross(tangent).normalize();
 
-    const angle = (cluster.index / cluster.total) * Math.PI * 2;
+    const sats = cluster.total - 1; // anchor excluded
+    const angle = ((cluster.index - 1) / sats) * Math.PI * 2;
     const offset = tangent
       .clone()
       .multiplyScalar(Math.cos(angle) * FAN_RADIUS)

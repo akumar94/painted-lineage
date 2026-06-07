@@ -13,7 +13,7 @@ Front end is **done**; this is the asset phase.
 | 4 | `stockholm-1939` | 1939 | Stockholm, Sweden 🇸🇪 | ✅ | ✅ 🔒 |
 | 5 | `the-silence` 🕯️ | 1939–74 | Paris (private) 🇫🇷 | ✅ | ✅ 🔒 |
 | 6 | `met-impressionist-epoch-1974` | 1974 | New York, USA 🇺🇸 | ✅ | ✅ 🔒 |
-| 7 | `bordeaux-1981` | 1981 | Bordeaux, France 🇫🇷 | ⬜ splat TODO | ⬜ |
+| 7 | `bordeaux-1981` | 1981 | Bordeaux, France 🇫🇷 | ✅ | ⬜ |
 | 8 | `canberra-1986` | 1986 | Canberra, Australia 🇦🇺 | ⬜ splat TODO | ⬜ |
 | 9 | `yokohama-1989` | 1989 | Yokohama, Japan 🇯🇵 | ⬜ splat TODO | ⬜ |
 | 10 | `paris-mam-2006` | 2006 | Paris, France 🇫🇷 | ⬜ splat TODO | ⬜ |
@@ -43,6 +43,22 @@ whitespace / a crop that kills the signature / a flat wall-patch). So:
 - **The instant a splat lands, sanity-check the frame's aspect BEFORE any calibration.**
   A wrong-aspect frame cannot be fixed in post — re-roll the image. This one check
   would have saved the entire Carnegie-v2 detour.
+
+**FRAME DEPTH — prompt for a FLAT, FLUSH frame (proven on bordeaux v2, 2026-06-06).**
+A SECOND frame trap, separate from aspect: if Marble reconstructs the frame as a deep
+*shadowbox* (chunky molding + recessed canvas), the flat painting-overlay plane
+**parallax-separates from the recessed canvas at oblique angles** → it reads as
+"floating in front of the wall," and worse, the proud float we add for wash-out makes
+it float even more. This CANNOT be fixed in post: depth-bias (polygonOffset) only trades
+forward-float for always-on-top float; carving is rejected; no overlay placement beats a
+deep box. The fix is upstream — **prompt for a SLIM, FLAT, SHALLOW frame mounted FLUSH to
+the wall** ("a thin flat border, almost no depth, like a print mounted flat to the wall —
+NOT a deep/chunky/recessed shadowbox, no visible inner sides"). bordeaux v1 came back a
+shadowbox (float unfixable, ~0.5m proud needed); the v2 re-splat with flat-frame language
+let the overlay seat **FLUSH with NO float and NO wash-out** + only a thin edge sliver at
+oblique. **FORWARD RULE: every frame prompt from here gets the flat/flush spec** (applies
+to canberra, yokohama, paris-mam, lillehammer). Bonus: a flat frame makes the painting
+overlay seat flush (no proud float), so calibration is simpler and there's no floating.
 
 **The painting overlay (works great):** overlay the real `/the-green-blouse.jpg` as a
 flat plane (`WORLD_PAINTING`, keyed by id) covering Marble's junk canvas. Plane rides
@@ -270,6 +286,19 @@ prompt below (superseded by the short "sheet of paper" prompt used to land it).
 ### 9. `paris-mam-2006` — color; full homecoming, the fullest room
 > Color photograph of a grand Paris modern-art museum gallery — high ceilings, warm walls densely hung with many Bonnard paintings, golden light, an enfilade of rooms receding through wide openings (eye-level, deep recession). Among the works on the main wall, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright. Full, rich, celebratory, alive — the densest, warmest room. No people, no modern clutter. One coherent walkable space.
 
+**⚠️ GLOBE FAN-OUT TODO (do when splatting #9):** `paris-mam-2006` [48.864, 2.297] is
+**exact-colocated** with the void `the-silence` [48.857, 2.352] — same dot on the globe.
+It's NOT in `COLOCATION_CLUSTERS` (`app/lib/contexts.ts`), so its pin is currently stacked
+dead-center *under* the oversized void marker and is effectively unclickable. The
+smallest-wins picker (added for Bordeaux-near-void) does NOT rescue this — a pin fully
+buried at the void's center has no exposed area. **Fix = add a `"paris"` fan-out cluster**,
+exactly like the NYC case, BUT with one wrinkle: the void must stay **anchored at center**
+(it's the deliberately-biggest, most-important marker) and only `paris-mam` should fan out
+around it — the current `placePins` algorithm (`app/lib/globe.ts`) offsets *every* cluster
+member equally, so it needs a small tweak to exempt the void (or anchor the largest member).
+Bordeaux is ~500km away (genuinely distinct coord) and must NOT be fanned — it's handled by
+smallest-wins, not fan-out.
+
 ### 10. `canberra-1986` — color; on tour from the Met, the furthest south (4th continent)
 **Swapped in for `stockholm-nationalmuseum-2025` (2026-06-05):** Stockholm-2025 was demoted
 to an atlas card pin (the 1939↔2025 loop rhyme lives on the globe + its card; as a walkable
@@ -461,3 +490,15 @@ depth from two straight-on −Z views via the opening's pixel height** (height i
 slight frame yaw): `Zf = (h1·z1 − h2·z2)/(h1 − h2)`. Confirm the plane stays locked to the
 opening at both distances (parallax null), swap in `/the-green-blouse.jpg` to judge the real
 composite, write values to config, reload via real code path to verify.
+
+**CRITICAL — VERIFY DEPTH FROM AN OBLIQUE VIEW, not just head-on (bordeaux v2, 2026-06-06).**
+The head-on two-view triangulation above is NOT depth-sensitive enough on its own: on
+bordeaux v2 it under-read the frame depth by ~1m (fit z−24.3, true plane z−25.4), and the
+error is INVISIBLE head-on but shows as the painting floating/separating from the frame at
+oblique close walk-ups. **Lateral (oblique) parallax is far more sensitive to depth error.**
+So after the head-on fit, ALWAYS do an oblique pass: translate the camera sideways (x-offset,
+rotation stays 0 — SparkControls clobbers rotation) so the frame is seen at a steep angle,
+then sweep the plane's z until the painting REGISTERS with the splat frame (minimum lateral
+separation; only the natural thin frame-border edge should show, no detached float). That
+oblique-registration z is the real frame plane. NB: when you push the plane deeper to the true
+plane, the (farther) opening is larger, so scale the canvas UP uniformly to re-fill it.
