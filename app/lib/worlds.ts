@@ -105,13 +105,13 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // an arched passage receding on each side, warm timber floor running to it. A held hero
   // shot (unlike Wildenstein's lopsided hall): the international touring show, the Met's
   // painting arriving on the 4th continent. x=0.315 aligns the camera with the frame's
-  // x-center so the painting projects dead-center. z pulled in 2.916→1.8 (2026-06-08):
-  // the back-of-room spawn put the whole 1.92M-gaussian cloud (incl. the deep side
-  // galleries seen through both arches) on screen — heavy overdraw on a fill-rate-bound
-  // splat. 1.8 keeps BOTH arches (the symmetric hero holds — any closer drops the left
-  // one) while the painting reads bigger and less deep cloud is on screen. (FPS
-  // unverified here — the headless preview RAF-throttles; tune against a real machine.)
-  "canberra-1986": { position: [0.315, 1.6, 1.8] },
+  // x-center so the painting projects dead-center. KEPT at the back of the room (z2.916,
+  // the full symmetric two-arch hero — the dark-framed Green Blouse dead-center on the
+  // pier, an arched passage receding each side): like Yokohama's skyline spawn, the
+  // overdraw of putting the deep side galleries on screen is handled by the SparkRenderer
+  // fragment-cull knobs in WorldViewer (maxStdDev √5 + minPixelRadius 0.5), not by pulling
+  // the camera in — so the hero composition is preserved AND it stays fast.
+  "canberra-1986": { position: [0.315, 1.6, 2.916] },
   // Yokohama: stand at the room origin looking straight down −Z — the full establishing
   // hero of the vast skylit Minato Mirai hall: deep one-point recession down the pale
   // travertine, clerestory glazing converging overhead, symmetric side galleries of
