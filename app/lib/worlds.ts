@@ -30,7 +30,7 @@ export const WORLDS: Record<string, WorldAsset> = {
     ready: true,
   },
   "canberra-1986": { spz: "/worlds/canberra-1986.spz", ready: true },
-  "yokohama-1989": { spz: "/worlds/yokohama-1989.spz", ready: false },
+  "yokohama-1989": { spz: "/worlds/yokohama-1989.spz", ready: true },
   "paris-mam-2006": { spz: "/worlds/paris-mam-2006.spz", ready: false },
   "lillehammer-2025": { spz: "/worlds/lillehammer-2025.spz", ready: false },
 
@@ -107,6 +107,14 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // painting arriving on the 4th continent. x=0.315 aligns the camera with the frame's
   // x-center so the painting projects dead-center.
   "canberra-1986": { position: [0.315, 1.6, 2.916] },
+  // Yokohama: stand at the room origin looking straight down −Z — the full establishing
+  // hero of the vast skylit Minato Mirai hall: deep one-point recession down the pale
+  // travertine, clerestory glazing converging overhead, symmetric side galleries of
+  // small works flanking, the Green Blouse glowing dead-center on the end wall (frame
+  // ~13m down −Z). The spaciousness IS the subject (like met-74/stockholm establishing
+  // shots), so a wide axial arrival, not nose-to-canvas. x=−0.018 aligns the camera
+  // with the frame's x so the painting projects dead-center.
+  "yokohama-1989": { position: [-0.018, 1.6, 0] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {

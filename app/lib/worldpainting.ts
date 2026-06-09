@@ -162,6 +162,29 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     rotation: [0, 0, 0], // sliver at the top + upper-right (opening is a hair larger/up-right there)
     height: 1.48, // was 1.43; bumped to over-cover onto the dark molding lip (invisible — frame is dark)
   },
+  // Yokohama-1989: slim FLAT dark frame on the pale end wall of the deep skylit
+  // Minato Mirai hall (Marble gave the prompted flat end-wall composition, not a
+  // pier — a tall blank bay flanked by symmetric side galleries). The dark-on-pale
+  // contrast preserved the source aspect: splat opening ≈0.71, close enough to the
+  // 0.685 scan that — like Canberra — NO crop/aspect override is needed; the scan
+  // fills with an even dark reveal. DEPTH — the lesson bit, and the most extreme yet:
+  // head-on two-view triangulation (140px@z0 / 258px@z−6) AND the head-on parallax-
+  // null both read the frame plane at ≈z−11, but the OBLIQUE view showed the painting
+  // floating LEFT of the frame — head-on UNDER-READ the depth by ~2m (vs Bordeaux's
+  // ~1m, Canberra's ~0.4m). Re-fit from oblique registration (swept z until the canvas
+  // registered with the splat frame from BOTH left and right oblique, min lateral
+  // separation): true frame plane z≈−13. Frame is FLAT so the canvas seats FLUSH with
+  // NO proud float and NO wash-out (verified razor-crisp at 4m close head-on, signature
+  // legible — the real opaque depthTest material, same flush behavior as bordeaux v2 /
+  // canberra). height over-covers onto the dark frame lip (invisible) to close faint
+  // bare-canvas slivers; height 1.564 + y lowered to 1.176 biases the over-cover
+  // downward to also close a sliver under the bottom edge. Centered −0.018 on the frame
+  // x. No placard (Yokohama isn't a label world).
+  "yokohama-1989": {
+    position: [-0.018, 1.176, -13],
+    rotation: [0, 0, 0], // faces +Z toward the spawn
+    height: 1.564,
+  },
 };
 
 /**
