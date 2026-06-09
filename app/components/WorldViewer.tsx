@@ -71,7 +71,26 @@ export default function WorldViewer({
         resolveDisplay = r;
       });
       let probeStartedAt = 0;
-      let spark: InstanceType<typeof SparkRenderer> | undefined;
+      // Explicit SparkRenderer (instead of Spark's auto-injected default) so we can
+      // tune OVERDRAW. Gaussian splatting is fill-rate bound — cost scales with how
+      // many gaussians blend per pixel — and the deep, fully-glazed worlds (yokohama,
+      // canberra) put the whole 1.92M-gaussian cloud on screen at their wide
+      // establishing spawns, stacked many-deep. These two knobs cut fragment work
+      // WITHOUT lowering render resolution, so the wide skyline hero stays crisp (and
+      // the painting is a separate textured plane, untouched):
+      //   maxStdDev √5  — render less of each gaussian's faint tail. Spark documents
+      //                   √5..√8 as the usable range and an explicit perf lever;
+      //                   default √8, √5 trims ~⅜ of each splat's fragment area.
+      //   minPixelRadius 0.5 — discard sub-pixel gaussians (the far end of a deep
+      //                   hall is a haze of these — lots of fragments, no real detail).
+      // Both are conservative/near-invisible; raise minPixelRadius toward 1.0 if a
+      // world still drags on real hardware.
+      const spark = new SparkRenderer({
+        renderer,
+        maxStdDev: Math.sqrt(5),
+        minPixelRadius: 0.5,
+      });
+      scene.add(spark);
 
       let splatReady: Promise<unknown> | undefined;
       let splat: InstanceType<typeof SplatMesh> | undefined;
@@ -137,18 +156,12 @@ export default function WorldViewer({
         controls.update(camera);
 
         // Resolve displayReady on the first frame the splat has actually painted.
-        // Spark auto-injects a SparkRenderer into the scene on first render; its
-        // default viewpoint's sorted geometry gains a non-zero instanceCount only
-        // when the first depth-sort completes (i.e. the room is on screen). A
+        // Our SparkRenderer's default viewpoint's sorted geometry gains a non-zero
+        // instanceCount only when the first depth-sort completes (i.e. the room is
+        // on screen). A
         // generous fallback resolves anyway, so a future Spark internal rename can
         // never strand the painting hidden forever.
         if (resolveDisplay && probeStartedAt) {
-          if (!spark) {
-            scene.traverse((o) => {
-              if (o instanceof SparkRenderer)
-                spark = o as InstanceType<typeof SparkRenderer>;
-            });
-          }
           const display = (
             spark as unknown as {
               viewpoint?: { display?: { geometry?: { instanceCount?: number } } };
@@ -203,6 +216,7 @@ export default function WorldViewer({
           scene.remove(splat);
           splat.dispose?.();
         }
+        scene.remove(spark);
         renderer.dispose();
         renderer.forceContextLoss?.();
         if (container && renderer.domElement.parentNode === container) {

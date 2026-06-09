@@ -118,14 +118,12 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // small works flanking, the Green Blouse glowing dead-center on the end wall (frame
   // ~13m down −Z). The spaciousness IS the subject (like met-74/stockholm establishing
   // shots), so a wide axial arrival, not nose-to-canvas. x=−0.018 aligns the camera
-  // with the frame's x so the painting projects dead-center. z pulled in 0→−4
-  // (2026-06-08): the room-origin spawn buried the painting at the end of the deep
-  // hall AND put the entire glazed hall on screen (gaussian splats are fill-rate
-  // bound — overdraw scales with how much of the cloud is on screen). −4 is the
-  // midpoint toward a close view: the painting reads as a clear presence, the skylit
-  // hall still reads grand, and less of the deep cloud is on screen. (FPS unverified
-  // here — the headless preview RAF-throttles; tune against a real machine.)
-  "yokohama-1989": { position: [-0.018, 1.6, -4] },
+  // with the frame's x so the painting projects dead-center. KEPT at the room origin
+  // (the full skylit-hall skyline hero — too good to lose): the overdraw cost of
+  // putting the whole deep hall on screen is addressed in WorldViewer instead, via
+  // the SparkRenderer fragment-cull knobs (maxStdDev √5 + minPixelRadius 0.5), which
+  // cut fill-rate WITHOUT lowering resolution — so this wide view stays crisp AND fast.
+  "yokohama-1989": { position: [-0.018, 1.6, 0] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {
