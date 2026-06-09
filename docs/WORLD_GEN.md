@@ -16,7 +16,7 @@ Front end is **done**; this is the asset phase.
 | 7 | `bordeaux-1981` | 1981 | Bordeaux, France 🇫🇷 | ✅ | ⬜ |
 | 8 | `canberra-1986` | 1986 | Canberra, Australia 🇦🇺 | ✅ | ⬜ |
 | 9 | `yokohama-1989` | 1989 | Yokohama, Japan 🇯🇵 | ✅ | ⬜ |
-| 10 | `paris-mam-2006` | 2006 | Paris, France 🇫🇷 | ⬜ splat TODO | ⬜ |
+| 10 | `paris-mam-2006` | 2006 | Paris, France 🇫🇷 | ✅ | ⬜ |
 | 11 | `lillehammer-2025` | 2025 | Lillehammer, Norway 🇳🇴 | ⬜ splat TODO | ⬜ |
 
 **The resurrection spine (worlds 1–6) is visual + audio COMPLETE.** Worlds 3–6 audio
@@ -291,18 +291,10 @@ prompt below (superseded by the short "sheet of paper" prompt used to land it).
 ### 9. `paris-mam-2006` — color; full homecoming, the fullest room
 > Color photograph of a grand Paris modern-art museum gallery — high ceilings, warm walls densely hung with many Bonnard paintings, golden light, an enfilade of rooms receding through wide openings (eye-level, deep recession). Among the works on the main wall, a single empty framed canvas — a blank primed canvas in a TALL PORTRAIT-format gilt frame (distinctly taller than wide, about 5:7), the frame upright. Full, rich, celebratory, alive — the densest, warmest room. No people, no modern clutter. One coherent walkable space.
 
-**⚠️ GLOBE FAN-OUT TODO (do when splatting #9):** `paris-mam-2006` [48.864, 2.297] is
-**exact-colocated** with the void `the-silence` [48.857, 2.352] — same dot on the globe.
-It's NOT in `COLOCATION_CLUSTERS` (`app/lib/contexts.ts`), so its pin is currently stacked
-dead-center *under* the oversized void marker and is effectively unclickable. The
-smallest-wins picker (added for Bordeaux-near-void) does NOT rescue this — a pin fully
-buried at the void's center has no exposed area. **Fix = add a `"paris"` fan-out cluster**,
-exactly like the NYC case, BUT with one wrinkle: the void must stay **anchored at center**
-(it's the deliberately-biggest, most-important marker) and only `paris-mam` should fan out
-around it — the current `placePins` algorithm (`app/lib/globe.ts`) offsets *every* cluster
-member equally, so it needs a small tweak to exempt the void (or anchor the largest member).
-Bordeaux is ~500km away (genuinely distinct coord) and must NOT be fanned — it's handled by
-smallest-wins, not fan-out.
+**✅ DONE (visual; audio TODO in the back-half batch). One-and-done splat — NO re-roll, NO re-splat (2026-06-08).** Used the upgraded "homecoming crowd" prompt (slim FLAT dark frame on a PALE pier, dense warm SIDE-wall hang, deep enfilade) — **THE PARIS EXPERIMENT: splatting PEOPLE**, the deliberate break from the nine hushed/empty rooms. Art-directed around Marble's single-still→3D people failure (frontal faces melt, crowds blob): figures kept small, midground/far, strictly backs-turned, foreground clear. Two free rolls to pass the figure gate (first roll's foreground figures were too big/near-frontal). **Outcome — the gamble paid off the best possible way:** the splat dissolved the whole crowd EXCEPT **one clean turned-away survivor** strolling off down the left enfilade — the "lone witness" to the homecoming, more poignant than the crowd, zero blob risk. Room held beautifully (the dense side-wall hang resolved into *legible* paintings, not mush). Kept it (it's baked into the spz anyway). ✦ stripped via PIL feathered-diamond floor patch → `Splats/Refs/paris-mam-2006_clean.png`.
+**Calibration — the SHADOWBOX trap (new lesson):** dark-on-pale preserved the aspect (splat opening ≈0.66–0.68, ~the 0.685 scan) so **NO crop/url override**. But the frame did NOT reconstruct flat — Marble gave it a shallow **shadowbox** (the 2D "slightly proud bevel" watch was real). Head-on seated fine at z≈−5.2, but the OBLIQUE view exposed the painting floating **detached, proud** of the opening (the Bordeaux-v1 trap). With ZERO re-splat buffer we couldn't re-splat to a flat frame — so seated at the splat's **CANVAS plane z≈−5.4**, the deepest point still visible (≤−5.5 is occluded by the pale-canvas gaussians): there it **registers in the opening from BOTH obliques** (only a thin soft frame-edge — recessed-painting read, no detached float) AND stays crisp head-on. Calibrated: `WORLD_PAINTING` **[0, 1.32, −5.4] h1.08** (default url+aspect; height over-covers the dark lip + y lowered to close a bottom bare-canvas sliver) · `WORLD_SPAWN` **[0, 1.6, 0]** (wide axial homecoming hero — full warm enfilade, the lone witness off to the left) · **NO placard, NO grade** (Paris isn't a label world). Cold-reload via the real path verified: clean wide hero + close-up crisp + registered at both obliques.
+> **Preview gotcha (re-confirmed, bit hard):** first `preview_screenshot` after ANY camera/probe change is STALE — take a SECOND shot. Probe with the **real opaque painting material** (MeshBasicMaterial, depthTest default true), not a depthTest:false magenta plane — the opaque material tells the truth about seating/occlusion. To find a shadowbox's seat, sweep z and watch *proud-visible → registered → occluded*; pick the deepest still-registered z.
+**✅ GLOBE FAN-OUT DONE:** `paris-mam-2006` [48.864, 2.297] sits ~0.05° from the void `the-silence` [48.857, 2.352] — sub-pixel on the globe, so its pin was stacked dead-center *under* the oversized void marker. **Fixed:** added a `"paris": ["the-silence", "paris-mam-2006"]` entry to `COLOCATION_CLUSTERS` (`app/lib/contexts.ts`). `placePins` already anchors cluster member 0 at its true coord (the void stays put, full size) and fans only the satellites — so paris-mam fans out to its own pin with a leader line home; both are now equally clickable (verified: two distinct, independently-hoverable pins). Bordeaux is ~500km away (distinct coord) and is NOT fanned — handled by smallest-wins.
 
 ### 10. `canberra-1986` — color; on tour from the Met, the furthest south (4th continent)
 **Swapped in for `stockholm-nationalmuseum-2025` (2026-06-05):** Stockholm-2025 was demoted
@@ -482,9 +474,15 @@ structurally (one grey room in a world of color) + the conspicuously MISSING lab
 not by an animated effect. `WORLD_GRADE` now has only `the-silence`. (If we ever want
 a literal color-return, the right home is the void's EXIT fade, not met-1974's entry.)
 
-**Resume next: world #7 `bordeaux-1981`** — color transition room w/ placard
-"LE CORSAGE VERT". §7 prompt, image→Marble 1.1, TALL PORTRAIT frame; render the placard
-via `make_placard.py` (the brass-nameplate style) and calibrate `WORLD_PLACARD` like
+**Resume next: world #11 `lillehammer-2025`** — the LAST splat (worlds 1–10 visual done as of
+2026-06-08). Color; the present, final pin; NO placard, NO grade. §11 prompt (rewrite it with
+the proven formula: slim FLAT dark frame on a PALE wall + ≈5:8 portrait + dark-on-pale + deep
+recession + sparse subordinate side works — like Canberra/Paris), image→Marble 1.1, one-and-done.
+Atlas: distinct Norway coord, NO colocation cluster needed. Then all 11 visual done → the audio
+batch to the five back-half worlds (bordeaux/canberra/yokohama/paris/lillehammer) against the
+void↔met-74 spine. _Earlier resume note (now historical):_ world #7 `bordeaux-1981` — color
+transition room w/ placard "LE CORSAGE VERT". §7 prompt, image→Marble 1.1, TALL PORTRAIT frame;
+render the placard via `make_placard.py` (the brass-nameplate style) and calibrate `WORLD_PLACARD` like
 Wildenstein. **Credit budget (w/ user 2026-06-05): ~7,440 after met-74, 1,500/splat → 5
 back-half worlds (bordeaux, canberra, yokohama, paris-mam, lillehammer) = 7,500, ~60 short,
 user covers with a ~$5 top-up. ZERO re-splat buffer — every splat must be one-and-done
