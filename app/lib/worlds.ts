@@ -32,7 +32,7 @@ export const WORLDS: Record<string, WorldAsset> = {
   "canberra-1986": { spz: "/worlds/canberra-1986.spz", ready: true },
   "yokohama-1989": { spz: "/worlds/yokohama-1989.spz", ready: true },
   "paris-mam-2006": { spz: "/worlds/paris-mam-2006.spz", ready: true },
-  "lillehammer-2025": { spz: "/worlds/lillehammer-2025.spz", ready: false },
+  "lillehammer-2025": { spz: "/worlds/lillehammer-2025.spz", ready: true },
 
   // ── the void (image→world from thesilence_clean.png ref) ────
   "the-silence": { spz: "/worlds/the-silence.spz", ready: true },
@@ -134,6 +134,16 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // camera with the frame's x so the painting projects dead-center (the splat room itself
   // leans slightly right, inherent — the painting still reads centered on screen).
   "paris-mam-2006": { position: [0, 1.6, 0] },
+  // Lillehammer-2025 (the final world): a calm, settled "at rest" arrival rather than
+  // a grand wide hero. Stand ~5.4m back from the painting (frame at z≈−8.9), looking
+  // straight down −Z: the Green Blouse glows dead-center on the pale end wall, the
+  // EXIT-sign corridor + sparse small works recede far-left, the bright glass-railed
+  // landing opens right, warm wood beams overhead and blond floor running in. Pulled
+  // closer than the wide establishing spawns (z−3.5, not the room origin) so the
+  // painting is the clear, intimate focal point — the journey coming to rest — while
+  // both flanking openings still give the room its Nordic character. x=−0.03 matches
+  // the frame x so the painting projects dead-center.
+  "lillehammer-2025": { position: [-0.03, 1.6, -3.5] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {

@@ -206,6 +206,27 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     rotation: [0, 0, 0], // faces +Z toward the spawn
     height: 1.08,
   },
+  // Lillehammer-2025 (the final world): slim FLAT near-black frame on the pale end
+  // wall of the calm contemporary Nordic gallery. Dark-on-pale preserved the source
+  // aspect — the splat opening measures ≈0.62 (a hair NARROWER/taller than the 0.685
+  // scan) so, like Canberra/Yokohama, NO crop/url override; height over-covers onto
+  // the dark frame lip (invisible) to fill. DEPTH was the usual fight, with the
+  // Lillehammer-specific twist that the reconstructed canvas is shallower at the TOP:
+  // head-on triangulation (96px@z0 / 134px@z−3) first read z≈−10.6, but the probe was
+  // OCCLUDED there (head-on OVER-read this time). Swept z for the deepest still-visible
+  // plane: at z−9 the painting TOP z-fought the coplanar wall splat (washed out) while
+  // the bottom stayed crisp; at z−8.5 it was crisp head-on but the OBLIQUE view showed
+  // it floating proud, detached from the dark frame (the flat-frame seat still has a
+  // hair of reconstructed depth). Re-fit from BOTH obliques: true seat z≈−8.9 — the
+  // deepest plane that stays fully crisp (no top wash) AND registers in the frame from
+  // left + right oblique (only the natural thin frame edge shows, no detached float).
+  // height 1.36 over-covers the taller opening onto the dark lip; centered x=−0.03 on
+  // the frame, y=1.43. Full color, NO grade, NO placard (Lillehammer isn't a label world).
+  "lillehammer-2025": {
+    position: [-0.03, 1.43, -8.9],
+    rotation: [0, 0, 0], // faces +Z toward the spawn
+    height: 1.36,
+  },
 };
 
 /**
