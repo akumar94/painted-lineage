@@ -143,6 +143,25 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     rotation: [0, 0, 0], // faces +Z toward the spawn
     height: 1.130,
   },
+  // Canberra: dark near-black FLAT frame on the pale board-formed concrete pier (a
+  // freestanding center wall, symmetric arched passages either side — the Carnegie/
+  // Met-74 center-pier composition, but symmetric so it holds as a head-on hero).
+  // The dark-on-pale contrast let Marble preserve the source aspect: the splat opening
+  // measures ≈0.68, essentially the 0.685 scan — so NO crop/aspect override needed
+  // (unlike met-74), the scan fills with an even thin dark reveal. Depth: head-on
+  // triangulation (200px@z2.916 / 317px@z0.6) first gave z≈−3.36, but per the Bordeaux
+  // rule that UNDER-READ — the OBLIQUE view showed the plane separated ~0.4m laterally
+  // off the real opening. Re-fit from oblique registration: true frame plane z≈−3.77
+  // (rescaled height for the deeper/larger opening). Verified registered at far + close
+  // + steep oblique. Frame is FLAT (only a slim molding shows at oblique, not a shadowbox)
+  // so the painting seats FLUSH at the frame plane with NO proud float and NO wash-out
+  // (emulated the real opaque depthTest material at z−3.77: crisp, no gaussian bleed —
+  // same flush behavior as bordeaux v2). No placard (Canberra isn't a label world).
+  "canberra-1986": {
+    position: [0.02, 1.31, -3.77], // nudged +x/+y from (0,1.29) to close a faint bare-canvas
+    rotation: [0, 0, 0], // sliver at the top + upper-right (opening is a hair larger/up-right there)
+    height: 1.48, // was 1.43; bumped to over-cover onto the dark molding lip (invisible — frame is dark)
+  },
 };
 
 /**

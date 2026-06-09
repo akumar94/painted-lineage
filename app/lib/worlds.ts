@@ -29,7 +29,7 @@ export const WORLDS: Record<string, WorldAsset> = {
     spz: "/worlds/met-impressionist-epoch-1974.spz",
     ready: true,
   },
-  "canberra-1986": { spz: "/worlds/canberra-1986.spz", ready: false },
+  "canberra-1986": { spz: "/worlds/canberra-1986.spz", ready: true },
   "yokohama-1989": { spz: "/worlds/yokohama-1989.spz", ready: false },
   "paris-mam-2006": { spz: "/worlds/paris-mam-2006.spz", ready: false },
   "lillehammer-2025": { spz: "/worlds/lillehammer-2025.spz", ready: false },
@@ -100,6 +100,13 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // ~13.9m painting distance / framing the user liked on v1's −8.5, now measured to the
   // depth-re-fit frame plane (z−25.4), so the arrival reads the same despite the deep v2 room.
   "bordeaux-1981": { position: [0, 1.6, -11.5] },
+  // Canberra: stand back ~6.7m down the room from the painting (pier frame at z≈−3.77),
+  // looking straight down −Z. The pier is symmetric — dark-framed Green Blouse dead-center,
+  // an arched passage receding on each side, warm timber floor running to it. A held hero
+  // shot (unlike Wildenstein's lopsided hall): the international touring show, the Met's
+  // painting arriving on the 4th continent. x=0.315 aligns the camera with the frame's
+  // x-center so the painting projects dead-center.
+  "canberra-1986": { position: [0.315, 1.6, 2.916] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {
