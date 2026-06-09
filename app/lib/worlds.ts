@@ -31,7 +31,7 @@ export const WORLDS: Record<string, WorldAsset> = {
   },
   "canberra-1986": { spz: "/worlds/canberra-1986.spz", ready: true },
   "yokohama-1989": { spz: "/worlds/yokohama-1989.spz", ready: true },
-  "paris-mam-2006": { spz: "/worlds/paris-mam-2006.spz", ready: false },
+  "paris-mam-2006": { spz: "/worlds/paris-mam-2006.spz", ready: true },
   "lillehammer-2025": { spz: "/worlds/lillehammer-2025.spz", ready: false },
 
   // ── the void (image→world from thesilence_clean.png ref) ────
@@ -124,6 +124,16 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // the SparkRenderer fragment-cull knobs (maxStdDev √5 + minPixelRadius 0.5), which
   // cut fill-rate WITHOUT lowering resolution — so this wide view stays crisp AND fast.
   "yokohama-1989": { position: [-0.018, 1.6, 0] },
+  // Paris-mam-2006: stand at the room origin looking straight down −Z — the full warm
+  // establishing hero of the homecoming. The Green Blouse glows dead-center on the pale
+  // central pier (frame ~5.4m down −Z), symmetric enfilades of densely-hung Bonnards
+  // receding through wide openings on each side, the lone surviving visitor strolling off
+  // down the left gallery, parquet running to the pier under the skylight. The dense warm
+  // FULLNESS is the subject (the densest, warmest room of the journey), so a wide axial
+  // arrival, not nose-to-canvas — like met-74/yokohama establishing shots. x=0 aligns the
+  // camera with the frame's x so the painting projects dead-center (the splat room itself
+  // leans slightly right, inherent — the painting still reads centered on screen).
+  "paris-mam-2006": { position: [0, 1.6, 0] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {

@@ -539,4 +539,10 @@ export const COLOCATION_CLUSTERS: Record<string, string[]> = {
     "met-selection-two-1985",
     "met-painters-in-paris-2000",
   ],
+  // Paris: the void (the-silence, central Paris) and the 2006 MAM homecoming sit
+  // ~0.05° apart — sub-pixel at globe scale, so paris-mam lands dead-center under
+  // the void's oversized disc. Anchor the void at its true coord + full size; fan
+  // paris-mam out to its own pin (leader line home) so BOTH stay equally clickable
+  // rather than paris becoming a tiny central target inside the void ring.
+  paris: ["the-silence", "paris-mam-2006"],
 };

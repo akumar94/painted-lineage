@@ -185,6 +185,27 @@ export const WORLD_PAINTING: Record<string, PaintingPlacement> = {
     rotation: [0, 0, 0], // faces +Z toward the spawn
     height: 1.564,
   },
+  // Paris-mam-2006 (the homecoming): slim dark frame on the pale central pier of the
+  // warm enfilade gallery. Dark-on-pale preserved the source aspect (splat opening ≈0.66–0.68,
+  // close to the 0.685 scan) so — like Canberra/Yokohama — NO crop/url override; the scan
+  // fills with an even dark reveal. DEPTH was the fight: this frame did NOT reconstruct flat —
+  // Marble gave it real DEPTH (a shallow shadowbox; the 2D gate-3 "slightly proud bevel" watch
+  // was real). Head-on the painting seated cleanly at z≈−5.2, but per the Bordeaux/Yokohama rule
+  // the OBLIQUE view exposed it: at z−5.2/−5.3 the canvas floated DETACHED, proud of the dark
+  // opening (the frame visible as a separate rectangle behind it). With ZERO re-splat buffer we
+  // can't re-splat to a flat frame (the Bordeaux-v1 fix) — so seated at the splat's CANVAS plane
+  // z≈−5.4, the deepest point that stays visible (anything ≤−5.5 is occluded by the pale canvas
+  // gaussians). There the painting REGISTERS in the dark opening from BOTH left and right oblique
+  // (only a thin soft frame-edge shows — the natural recessed-painting read, no detached float)
+  // AND stays crisp head-on (figures/fruit/signature all legible — it's at, not behind, the
+  // surface). height 1.08 over-covers onto the dark lip (invisible) to close a bare-canvas sliver
+  // under the bottom edge; y lowered to 1.32 biases the over-cover downward. Centered x=0. Full
+  // color, NO grade, NO placard (Paris isn't a label world — only Wildenstein/Bordeaux/Met-74 are).
+  "paris-mam-2006": {
+    position: [0, 1.32, -5.4],
+    rotation: [0, 0, 0], // faces +Z toward the spawn
+    height: 1.08,
+  },
 };
 
 /**
