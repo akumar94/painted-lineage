@@ -105,16 +105,27 @@ export const WORLD_SPAWN: Record<string, WorldSpawn> = {
   // an arched passage receding on each side, warm timber floor running to it. A held hero
   // shot (unlike Wildenstein's lopsided hall): the international touring show, the Met's
   // painting arriving on the 4th continent. x=0.315 aligns the camera with the frame's
-  // x-center so the painting projects dead-center.
-  "canberra-1986": { position: [0.315, 1.6, 2.916] },
+  // x-center so the painting projects dead-center. z pulled in 2.916→1.8 (2026-06-08):
+  // the back-of-room spawn put the whole 1.92M-gaussian cloud (incl. the deep side
+  // galleries seen through both arches) on screen — heavy overdraw on a fill-rate-bound
+  // splat. 1.8 keeps BOTH arches (the symmetric hero holds — any closer drops the left
+  // one) while the painting reads bigger and less deep cloud is on screen. (FPS
+  // unverified here — the headless preview RAF-throttles; tune against a real machine.)
+  "canberra-1986": { position: [0.315, 1.6, 1.8] },
   // Yokohama: stand at the room origin looking straight down −Z — the full establishing
   // hero of the vast skylit Minato Mirai hall: deep one-point recession down the pale
   // travertine, clerestory glazing converging overhead, symmetric side galleries of
   // small works flanking, the Green Blouse glowing dead-center on the end wall (frame
   // ~13m down −Z). The spaciousness IS the subject (like met-74/stockholm establishing
   // shots), so a wide axial arrival, not nose-to-canvas. x=−0.018 aligns the camera
-  // with the frame's x so the painting projects dead-center.
-  "yokohama-1989": { position: [-0.018, 1.6, 0] },
+  // with the frame's x so the painting projects dead-center. z pulled in 0→−4
+  // (2026-06-08): the room-origin spawn buried the painting at the end of the deep
+  // hall AND put the entire glazed hall on screen (gaussian splats are fill-rate
+  // bound — overdraw scales with how much of the cloud is on screen). −4 is the
+  // midpoint toward a close view: the painting reads as a clear presence, the skylit
+  // hall still reads grand, and less of the deep cloud is on screen. (FPS unverified
+  // here — the headless preview RAF-throttles; tune against a real machine.)
+  "yokohama-1989": { position: [-0.018, 1.6, -4] },
 };
 
 export function worldSpawn(id: string | undefined): WorldSpawn {

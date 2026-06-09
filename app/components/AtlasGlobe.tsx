@@ -61,8 +61,14 @@ type Hover = { context: Context; x: number; y: number } | null;
 
 export default function AtlasGlobe({
   onEnterWorld,
+  paused = false,
 }: {
   onEnterWorld: (context: Context) => void;
+  /** True while a world is open over the atlas: the globe is fully occluded, so
+   *  we freeze its render loop to hand the GPU to the (fill-rate-bound) splat.
+   *  The globe stays MOUNTED (re-creating it + its 4.4MB Earth texture on every
+   *  return would be far worse) — we just skip the per-frame work. */
+  paused?: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<Context | null>(null);
@@ -71,6 +77,8 @@ export default function AtlasGlobe({
   // Latest values surfaced to the long-lived render loop without re-running it.
   const onEnterRef = useRef(onEnterWorld);
   onEnterRef.current = onEnterWorld;
+  const pausedRef = useRef(paused);
+  pausedRef.current = paused;
   const selectedRef = useRef<Context | null>(null);
   useEffect(() => {
     selectedRef.current = selected;
@@ -358,6 +366,11 @@ export default function AtlasGlobe({
     let raf = 0;
     const tick = () => {
       raf = requestAnimationFrame(tick);
+      // Occluded by an open world — skip all per-frame work (controls, sprite/
+      // leg lerps, and the GPU render pass). Keeps the RAF alive so returning to
+      // the atlas resumes instantly. This is the universal fps win for the
+      // fill-rate-bound worlds: no second full scene rendered behind the splat.
+      if (pausedRef.current) return;
       // Pause the spin while reading a pin or a card.
       controls.autoRotate = hoveredIndex < 0 && !selectedRef.current;
       controls.update();

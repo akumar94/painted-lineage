@@ -95,7 +95,7 @@ export default function Experience() {
         <div
           className={`layer atlas-layer ${phase === "splash" ? "is-hidden" : "is-visible"}`}
         >
-          <AtlasGlobe onEnterWorld={enterWorld} />
+          <AtlasGlobe onEnterWorld={enterWorld} paused={phase === "world"} />
         </div>
       )}
 
