@@ -385,6 +385,289 @@ export const WORLD_AUDIO: Record<string, AudioSource[]> = {
       mode: "loop",
     },
   ],
+
+  // ── BACK HALF (post-resurrection arc) ────────────────────────────────────
+  // Tuned as a SET against the void↔met-74 spine: met-74 stays the single loudest
+  // room; paris-mam is the only thing that RIVALS it (densest/warmest); lillehammer
+  // settles to a LIVING hush (alive, not the void's death). Total-mass order:
+  // void(trough) ≪ lillehammer(living-quiet) < bordeaux < canberra < yokohama <
+  // paris-mam(≈met) ; met-74 = peak.
+
+  // BORDEAUX 1981 — the first FRENCH room since the void; the mother tongue returns.
+  // DELIBERATELY NOT stockholm's twin: stockholm = echoing-footsteps + church-bell, so
+  // bordeaux drops both (no third footstep clone, no second bell world) and instead leans
+  // its warmth on the returning French voices. Deep 18th-c barrel-vault nave: spawn z−11.5
+  // looking down −Z to the frame at z−25.4 (~14m of stone ahead). The interior soundmark is
+  // the cool stone vault tone; the exterior stamp is pétanque in a square (provincial-French,
+  // warm — NOT bells, NOT a tram which is anachronistic for 1981 Bordeaux).
+  "bordeaux-1981": [
+    // THE soundmark — the cool, faintly reverberant air of a big 18th-c stone nave. A wide
+    // high bed with a long natural tail, deep in the vault. Distinct from stockholm's wind
+    // and carnegie's wood-hall air: this is STONE — cooler, with a longer decay.
+    {
+      id: "stone",
+      url: "/worlds/audio/bordeaux/stone.mp3?v=3", // hard-lowpassed off the white-noise hiss → a warm low vault presence
+      position: [0, 3.2, -16],
+      volume: 0.38,
+      refDistance: 11,
+      rolloff: 0.34,
+      mode: "loop",
+    },
+    // Provincial French voices, low and warm — the mother tongue back since 1939 (tender). Source
+    // SWAPPED off the Paris-restaurant clip (cutlery clatter + a babbling baby read wrong for a
+    // museum) to a Paris café-night ambiance; brought CLOSER + offset LEFT so the French is
+    // audible and pans L/R. Warmer than stockholm's silence, still below paris-mam's homecoming.
+    {
+      id: "murmur",
+      url: "/worlds/audio/bordeaux/murmur.mp3?v=3", // re-cut: denoise-FIRST kills the intro/loop hiss; starts on a voice-dense section
+      position: [-3, 1.6, -16],
+      volume: 0.3,
+      refDistance: 8,
+      rolloff: 0.7,
+      mode: "intermittent", // bursts on the bus w/ petanque → they fire at different times (no overlap); stone is the constant vault bed
+      every: [7, 14],
+      window: [4, 7],
+      gain: [0.7, 1.0],
+    },
+    // The one exterior stamp — pétanque in a nearby square: the soft metallic clack of boules
+    // (+ faint daytime chatter) drifting in at threshold from off to the side. Provincial,
+    // sunlit, unmistakably French. Rare, faint; window = full clip so a clack-and-settle never
+    // cuts mid. (Fallback if clean clacks can't be sourced: a low square-ambience loop instead.)
+    {
+      id: "petanque",
+      url: "/worlds/audio/bordeaux/petanque.mp3?v=2", // re-cut to ONE clean clack (tail hiss killed); each firing = a single clack, not a flurry
+      position: [5, 0.8, -19], // RIGHT — L/R spread vs the left murmur
+      volume: 0.14,
+      refDistance: 6,
+      rolloff: 1.3,
+      mode: "intermittent",
+      every: [24, 44], // rarer than the voices (every [7,14]) — the voices are the ~3× more frequent layer, by design
+      window: [2, 3],
+      gain: [0.6, 1.0],
+    },
+  ],
+
+  // CANBERRA 1986 — the furthest-south, coolest-modern room: the ANG's brutalist concrete
+  // hall. Symmetric two-arch pier — spawn z+2.9 looking −Z to the pier at z−3.77, arches
+  // opening off either side to the parkland. Interior soundmark = a COOL climate hum (timbre
+  // distinct from met's warm '70s hum); place-stamp = the omnipresent Canberra-parkland magpie
+  // carol (NOT kookaburra — that's bushland dawn, not the constant).
+  "canberra-1986": [
+    // THE soundmark — re-cut to a FAINT, CLEAN quiet hum (brighter/fainter, wildenstein-radiator
+    // register); the old version was a muddy low drone that fought the murmur. Barely noticed.
+    {
+      id: "hvac",
+      url: "/worlds/audio/canberra/hvac.mp3?v=3", // cache-bust to the warm de-mudded cut + up for room FULLNESS (low-band body; mid chatter stays clear)
+      position: [0, 3.5, -3],
+      volume: 0.2,
+      refDistance: 14,
+      rolloff: 0.26,
+      mode: "loop",
+    },
+    // The Met-masters-on-tour crowd, faint English in Aussie accents. Back to a LOW CONTINUOUS bed:
+    // the intermittent version cut in/out weirdly over the hum and left long lags. A steady quiet
+    // murmur fills the gaps and the magpie rides clearly over it — it's a BIRD vs low human voices,
+    // so no mud (the earlier no-overlap worry was two voice-like sources, which no longer applies).
+    {
+      id: "murmur",
+      url: "/worlds/audio/canberra/murmur.mp3?v=2",
+      position: [1.5, 1.6, -4],
+      volume: 0.15, // down to polite museum level + so it no longer drowns the magpie
+      refDistance: 9,
+      rolloff: 0.7,
+      mode: "loop",
+    },
+    // The place-stamp — an Australian magpie's carolling warble. Re-cut MUFFLED and pushed
+    // OUTSIDE: far out the LEFT arch, quieter, faster rolloff so it reads as parkland BEYOND the
+    // room (it was sitting in-gallery before). Intermittent — on the bus with murmur (no overlap).
+    {
+      id: "magpie",
+      url: "/worlds/audio/canberra/magpie.mp3?v=2",
+      position: [-9, 3.0, 2],
+      volume: 0.24, // up — now clearly rides ABOVE the lowered murmur (was being drowned)
+      refDistance: 5,
+      rolloff: 2.2,
+      mode: "intermittent",
+      every: [8, 16], // a touch more frequent — the murmur is now a continuous bed, so gaps don't read as "lag"
+      window: [2.5, 5],
+      gain: [0.5, 0.9],
+    },
+  ],
+
+  // YOKOHAMA 1989 — gleaming brand-new Minato Mirai waterfront. Deep skylit hall: spawn z0
+  // looking −Z down ~13m to the frame at z−13, symmetric side galleries. Interior soundmark =
+  // the soft institutional CHIME/announcement tone (very Japanese public-space) over clean
+  // late-80s HVAC; place-stamp = a distant, occasional ship's HORN carrying across the bay
+  // (a real active port — NOT a gritty foghorn; 1989 Minato Mirai was gleaming, not a dock).
+  "yokohama-1989": [
+    // A faint, clean room hum — the continuous low FLOOR so the hall reads as a GALLERY, not an empty
+    // airport concourse (a chime over silence was the airport tell). Felt, not heard. Reuses the clean
+    // canberra hum (the original yokohama hvac was muddy; this is the de-mudded version, kept very low).
+    {
+      id: "hum",
+      url: "/worlds/audio/yokohama/hum.mp3",
+      position: [0, 4.0, -7],
+      volume: 0.1,
+      refDistance: 14,
+      rolloff: 0.26,
+      mode: "loop",
+    },
+    // THE soundmark — a soft two-tone institutional chime/announcement tone, the unmistakable
+    // texture of a Japanese public space. Intentionally reads as INSIDE the hall — it's the
+    // building's own PA. Gentle, rare, from a side gallery. window = full chime so it never cuts.
+    {
+      id: "chime",
+      url: "/worlds/audio/yokohama/chime.mp3?v=2", // re-cut w/ light reverb to sit it BACK in the BG
+      position: [3, 2.2, -8],
+      volume: 0.32, // nudged up to punch over the walla floor
+      refDistance: 6,
+      rolloff: 1.1,
+      mode: "intermittent",
+      every: [74, 86], // ~every 80s (slight jitter so it's not metronomic) — a rare "ah, Japan" punctuation
+      window: [3.5, 3.5],
+      gain: [0.7, 1.0],
+    },
+    // Next-door murmur — ElevenLabs-generated polite museum walla (calm, indistinct, no shouting by
+    // design — replaced the user-sourced crowd that ran hot). Measured dead-even + gap-free (ideal loop).
+    // Muffled to next-room + a LOW CONTINUOUS loop (paris-style fullness); chime + full horn ride over it.
+    {
+      id: "murmur",
+      url: "/worlds/audio/yokohama/murmur.mp3?v=6",
+      position: [4.5, 1.6, -10],
+      volume: 0.15, // pulled back down — at 0.22 the full walla bed masked the chime + horn; it's a floor, not the lead
+      refDistance: 8,
+      rolloff: 0.7,
+      mode: "loop",
+    },
+    // The exterior stamp — a distant ship's horn across the bay. LOUDER + far more frequent so it
+    // actually registers (was sub-threshold/too rare to ever hear). Still NOT a foggy foghorn;
+    // window = full clip so the horn's long decay plays whole.
+    {
+      id: "ship",
+      url: "/worlds/audio/yokohama/ship.mp3?v=3", // REVERTED to the full natural horn (lead-in swell + decay) — the one-shot lost the "real horn" feel
+      position: [0, 2.5, -15],
+      volume: 0.45, // cranked per review — punches clearly over the walla floor
+      refDistance: 8,
+      rolloff: 1.0,
+      mode: "intermittent",
+      every: [26, 52],
+      window: [4, 7],
+      gain: [0.7, 1.0],
+    },
+  ],
+
+  // PARIS-MAM 2006 — THE HOMECOMING. Visually empty, sonically the FULLEST/WARMEST room of the
+  // whole journey: a celebratory French retrospective buzz that RIVALS met-74 (densest, warmest)
+  // without out-massing it — met stays the single loudest room. Spawn z0, pier at z−5.4. No
+  // exterior stamp and no cold layer (no HVAC) on purpose — pure warm crowd is what makes it
+  // rival met. A/B these levels DIRECTLY against met-74 (the warmth ceiling).
+  "paris-mam-2006": [
+    // The dense, warm buzz — REPLACED: was a restaurant (cutlery/baby, contextually wrong), now a
+    // warm MUSEUM cocktail/opening crowd. Offset center-LEFT (pans L/R). Just under met's crowd so
+    // met edges it on raw loudness, but with no cold layers it reads as the warmest, fullest room.
+    {
+      id: "crowd",
+      url: "/worlds/audio/paris-mam/crowd.mp3?v=2",
+      position: [-1, 1.8, -3.5],
+      volume: 0.66,
+      refDistance: 12,
+      rolloff: 0.3,
+      mode: "loop",
+    },
+    // A second layer — gallery-preview chatter (same restaurant clip swapped out). Offset RIGHT &
+    // deeper (next room) so it pans L/R against the crowd as you walk.
+    {
+      id: "voices",
+      url: "/worlds/audio/paris-mam/voices.mp3?v=2",
+      position: [3, 1.5, -7],
+      volume: 0.44,
+      refDistance: 7,
+      rolloff: 0.6,
+      mode: "loop",
+    },
+    // The movement of a packed opening — soft shuffles/steps and the press of a crowd on the
+    // gallery floor (NOT echoing solo footsteps — this is the warm churn of many). Offset LEFT
+    // (vs right voices) for the L/R field. Frequent, gentle.
+    {
+      id: "movement",
+      url: "/worlds/audio/paris-mam/movement.mp3?v=2", // footsteps re-cut −5dB + lower vol (user: only nit)
+      position: [-2.5, 0.3, -4],
+      volume: 0.2,
+      refDistance: 4,
+      rolloff: 1.2,
+      mode: "intermittent",
+      every: [9, 20],
+      window: [1.5, 3],
+      gain: [0.6, 1.0],
+    },
+  ],
+
+  // LILLEHAMMER 2025 — THE FINAL REST: a LIVING quiet, NOT the void's death. Snow-muffled
+  // stillness, soft Norwegian, the gentle breath of a modern Nordic gallery. Sparest of the
+  // five (closest to silence) but unmistakably WARM/ALIVE — the journey coming to rest, not
+  // the silence-of-death. Spawn z−3.5, frame at z−8.9. Total mass just above the void; A/B the
+  // void DIRECTLY to keep this on the LIVING side of the line. Full color, no placard, no grade.
+  "lillehammer-2025": [
+    // THE soundmark — the soft, warm tone of a sealed contemporary gallery: gentle modern-HVAC
+    // breath + a faint living room-tone. Low and present (alive), never the void's dead air.
+    {
+      id: "room",
+      url: "/worlds/audio/lillehammer/room.mp3",
+      position: [0, 3.0, -5],
+      volume: 0.12, // down — the HVAC was "screaming"; it's now the FLOOR, below the café + whispers
+      refDistance: 12,
+      rolloff: 0.3,
+      mode: "loop",
+    },
+    // The "alive" signal — REPLACES the murmur (the piece already leans hard on murmurs): a lone
+    // SWEDISH blackbird singing through the window. Warm, melodic, unmistakably ALIVE (not the
+    // void's death) and Nordic-true. Intermittent, off to the RIGHT (outside), for the L/R field.
+    {
+      id: "bird",
+      url: "/worlds/audio/lillehammer/bird.mp3",
+      position: [5, 2.5, -7],
+      volume: 0.18,
+      refDistance: 6,
+      rolloff: 1.2,
+      mode: "intermittent",
+      every: [12, 24], // a touch more frequent — stays the star now that the café shares the bus
+      window: [3, 6],
+      gain: [0.5, 0.9],
+    },
+    // THE BOOKEND — a visitor SKETCHING the Green Blouse: the soft scratch of pencil on paper, a
+    // couple of metres off to the left. The piece opened on Bonnard's BRUSH at le-cannet; it closes
+    // on a new hand drawing the same painting — the lineage of making continues. Kept near-silent +
+    // intimate (a sketch barely sounds); intermittent, on the bus with the bird so the two alternate
+    // rather than overlap — the whole point of lillehammer is a sparse, LIVING quiet.
+    {
+      id: "sketch",
+      url: "/worlds/audio/lillehammer/sketch.mp3?v=2", // re-cut −5dB + lower vol/refDist → quieter than le-cannet's brush (was WAY too loud)
+      position: [-1.5, 1.0, -2.5],
+      volume: 0.22, // nudged ~2.5dB down in the final mix (per review) — sat a touch loud
+      refDistance: 1.2,
+      rolloff: 2.4,
+      mode: "intermittent",
+      every: [9, 18],
+      window: [3, 6],
+      gain: [0.5, 0.9],
+    },
+    // The museum café in the next room — a soft, warm burble (espresso hiss, cups, low chatter) at
+    // a distance. Added per review: lillehammer's meaning is SETTLED + alive, NOT low-headcount — a
+    // gentle café keeps it a peaceful living room, not an empty one. Kept low/distant so the room
+    // stays unhurried (well below paris-mam). Center-back, a warm bed under the sparse foreground.
+    {
+      id: "cafe",
+      url: "/worlds/audio/lillehammer/cafe.mp3?v=5", // trimmed the "Bye!" off the tail; harder slam-taming; INTERMITTENT (~40% duty)
+      position: [0, 1.3, -9],
+      volume: 0.17,
+      refDistance: 8,
+      rolloff: 0.5,
+      mode: "intermittent",
+      every: [18, 28],
+      window: [7, 11],
+      gain: [0.8, 1.0],
+    },
+  ],
 };
 
 const rand = (a: number, b: number) => a + Math.random() * (b - a);

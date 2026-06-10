@@ -48,8 +48,9 @@ export const SOUND_MAP: Record<string, WorldSound[]> = {
     { label: "Low '70s HVAC hum", note: "institutional, almost-felt low bed — sound returns before the label" },
   ],
   "bordeaux-1981": [
-    { label: "French voices", note: "the mother tongue back since 1939, tender" },
-    { label: "Passing footsteps", note: "brief, light" },
+    { label: "Cool stone barrel-vault tone", note: "the interior soundmark — deep, faintly reverberant air of the 18th-c stone nave, long natural tail. Distinct from stockholm's wind & carnegie's wood-hall air" },
+    { label: "Provincial French voices", note: "the mother tongue back since 1939, tender — warmer/more present than stockholm's silence (the audible thaw after the void), still well below paris-mam" },
+    { label: "Pétanque in a nearby square", note: "the one exterior stamp, at threshold — soft clack of boules + low daytime chatter from an outside square; provincial-French, warm. NOT church bells (stockholm already owns the bell) and NOT a tram (anachronistic — Bordeaux had none in 1981)" },
   ],
   "canberra-1986": [
     { label: "Touring-crowd murmur", note: "the Met's masters on tour — visitors at the far edge of the world" },
