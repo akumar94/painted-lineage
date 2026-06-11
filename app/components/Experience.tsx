@@ -78,6 +78,26 @@ export default function Experience() {
     return () => window.removeEventListener("keydown", onKey);
   }, [phase]);
 
+  // Demo capture: hide the cursor for clean cursorless recording. Press "h" to
+  // toggle at any time (splash/atlas/world); or load with ?nocursor to start
+  // hidden. The mouse still works — drag to look / rotate, this only hides the
+  // pointer glyph. "h" isn't a movement key, so it won't nudge the camera.
+  useEffect(() => {
+    if (window.location.search.includes("nocursor")) {
+      document.body.classList.add("hide-cursor");
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "h" || e.key === "H") {
+        document.body.classList.toggle("hide-cursor");
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.classList.remove("hide-cursor");
+    };
+  }, []);
+
   const worldUrl =
     (activeWorld && worldSrc(activeWorld.id)) || PLACEHOLDER_WORLD;
 

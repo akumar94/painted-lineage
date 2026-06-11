@@ -370,3 +370,11 @@ body {
   content: " — ";
   color: var(--gold-faint);
 }
+
+/* ── Demo capture: hidden cursor (toggle with "h", or load ?nocursor) ──
+   The mouse still works (drag to look / rotate the globe) — the pointer is
+   just invisible, for clean cursorless screen recording. */
+body.hide-cursor,
+body.hide-cursor * {
+  cursor: none !important;
+}
