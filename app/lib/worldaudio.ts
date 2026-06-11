@@ -413,21 +413,18 @@ export const WORLD_AUDIO: Record<string, AudioSource[]> = {
       rolloff: 0.34,
       mode: "loop",
     },
-    // Provincial French voices, low and warm — the mother tongue back since 1939 (tender). Source
-    // SWAPPED off the Paris-restaurant clip (cutlery clatter + a babbling baby read wrong for a
-    // museum) to a Paris café-night ambiance; brought CLOSER + offset LEFT so the French is
-    // audible and pans L/R. Warmer than stockholm's silence, still below paris-mam's homecoming.
+    // Provincial French voices, low and warm — the mother tongue back since 1939 (tender). A Paris
+    // café-night ambiance, offset LEFT (pans L/R), below paris-mam's homecoming. Now a LOW CONTINUOUS
+    // bed (seamless crossfaded loop): the intermittent version hard-cut into the recording on each
+    // burst, clicking on the onset ("weird artifact before the voices") — a steady bed has no onsets.
     {
       id: "murmur",
-      url: "/worlds/audio/bordeaux/murmur.mp3?v=3", // re-cut: denoise-FIRST kills the intro/loop hiss; starts on a voice-dense section
+      url: "/worlds/audio/bordeaux/murmur.mp3?v=4",
       position: [-3, 1.6, -16],
-      volume: 0.3,
+      volume: 0.18,
       refDistance: 8,
       rolloff: 0.7,
-      mode: "intermittent", // bursts on the bus w/ petanque → they fire at different times (no overlap); stone is the constant vault bed
-      every: [7, 14],
-      window: [4, 7],
-      gain: [0.7, 1.0],
+      mode: "loop",
     },
     // The one exterior stamp — pétanque in a nearby square: the soft metallic clack of boules
     // (+ faint daytime chatter) drifting in at threshold from off to the side. Provincial,
@@ -435,13 +432,13 @@ export const WORLD_AUDIO: Record<string, AudioSource[]> = {
     // cuts mid. (Fallback if clean clacks can't be sourced: a low square-ambience loop instead.)
     {
       id: "petanque",
-      url: "/worlds/audio/bordeaux/petanque.mp3?v=2", // re-cut to ONE clean clack (tail hiss killed); each firing = a single clack, not a flurry
+      url: "/worlds/audio/bordeaux/petanque.mp3?v=3", // ElevenLabs-generated boules; cut to ONE clean clack + quiet decay tail (replaced the Freesound clip)
       position: [5, 0.8, -19], // RIGHT — L/R spread vs the left murmur
-      volume: 0.14,
+      volume: 0.115, // down ~1.75dB per review
       refDistance: 6,
       rolloff: 1.3,
       mode: "intermittent",
-      every: [24, 44], // rarer than the voices (every [7,14]) — the voices are the ~3× more frequent layer, by design
+      every: [24, 44], // the rare clack punctuating the continuous French murmur bed (current cadence — tune to taste)
       window: [2, 3],
       gain: [0.6, 1.0],
     },

@@ -28,7 +28,7 @@ _(Back-half batch 2026-06-09 — all CC0, no attribution legally required; IDs k
 **`bordeaux-1981`**
 - Stone-vault room tone — "Solothurn – inside of the St. Ursen Cathedral" by **Erbsland-Music**, [Freesound #625626](https://freesound.org/people/Erbsland-Music/sounds/625626/), CC0.
 - Provincial French murmur — "paris night ambiance Edgar Quinet" by **bruno.auzet**, [Freesound #745894](https://freesound.org/people/bruno.auzet/sounds/745894/), CC0.
-- Pétanque clack — "A petanque game (king of french game of bowl)…" by **felix.blume**, [Freesound #135861](https://freesound.org/people/felix.blume/sounds/135861/), CC0.
+- Pétanque clack — **ElevenLabs** text-to-SFX (generated boules clacks; cut to one clean clack — replaced a Freesound game recording that carried too much of its own chatter).
 
 **`canberra-1986`**
 - Climate-control hum — "Air Conditioner Fan Hum" by **LilMati**, [Freesound #515859](https://freesound.org/people/LilMati/sounds/515859/), CC0.
