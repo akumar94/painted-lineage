@@ -63,6 +63,21 @@ Coffee* in English, *Le Corsage vert* and *La Blouse verte* in French, *Die
 grüne Bluse* in German, the Nordic forms in 2025. The painting kept being
 renamed by the rooms that showed it, and the globe keeps every name.
 
+## Demo
+
+A five-minute film, cut to stand on its own, records a single traversal of the
+work. It opens on the painting and the instruction to follow it, then walks the
+spine of the journey: the studio at Le Cannet, the rooms that first showed it,
+the thirty-five-year silence where the color drains out of the space and the
+sound falls away, and the return to a full room at the Met in 1974, which
+arrives as a single cut out of the grey. It ends back on the globe, the whole
+route drawn at once, and a last line — for a hundred years, strangers have
+paused to look at her; you are only the latest.
+
+The film carries the work's own spatial audio and is best heard on headphones.
+
+[`demo/painted-lineage-5m.mp4`](demo/painted-lineage-5m.mp4)
+
 ## How it is built
 
 Two rendering modes share one Three.js application. The globe is a map and the
