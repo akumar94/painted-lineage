@@ -76,7 +76,12 @@ paused to look at her; you are only the latest.
 
 The film carries the work's own spatial audio and is best heard on headphones.
 
-[`demo/painted-lineage-5m.mp4`](demo/painted-lineage-5m.mp4)
+<!-- Add the film here: open this file on github.com, click Edit (the pencil),
+     and drag "painted lineage 5m FINAL.mp4" onto the empty line below. GitHub
+     uploads it and inserts a https://github.com/user-attachments/assets/… link
+     that renders as an inline, playable video. Then commit. -->
+
+
 
 ## How it is built
 
